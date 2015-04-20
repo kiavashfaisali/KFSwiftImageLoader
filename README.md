@@ -11,7 +11,7 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 ## Features
 * WKInterfaceImage, UIImageView, UIButton, and MKAnnotationView categories for asynchronous web image loading.
 * Memory and disk cache to prevent dowloading images every time a request is made or when the app relaunches.
-* Energy efficiency by sending only one HTTP request for image downloads and ensuring subsequent requests with the same URL string are registered as observers for when the request is finished downloading to directly load the image.
+* Energy efficiency by sending only one HTTP(S) request for image downloads and ensuring subsequent requests with the same URL string are registered as observers for when the request is finished downloading to directly load the image.
 * Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 1.2, NSURLSession, and GCD.
 
 ## KFSwiftImageLoader Requirements
