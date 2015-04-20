@@ -45,7 +45,7 @@ imageView.loadImageFromURLString(urlString)
 ```
 
 Yes, it really is that easy. It just works.
-In the above example, the placeholderImage: and completionHandler: inputs were ignored, so they default to nil.
+In the above example, the inputs "placeholderImage" and "completionHandler" were ignored, so they default to nil.
 We can include them in the following way:
 ```swift
 imageView.loadImageFromURLString(urlString, placeholderImage: UIImage(named: "KiavashFaisali")) {
@@ -56,11 +56,26 @@ imageView.loadImageFromURLString(urlString, placeholderImage: UIImage(named: "Ki
 }
 ```
 
+For flexibility, there are several different methods for loading images.
+Below are the method signatures for all of them:
 ``` swift
 func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
 
+func loadImageFromURL(url: NSURL, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
 
+func loadImageFromRequest(request: NSURLRequest, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
 ```
+
+### UIButton
+```swift
+button.loadImageFromURLString(urlString)
+```
+
+Again, KFSwiftImageLoader makes it very easy to load images.
+In this case, the button uses mostly the same method signature as UIImageView, but it includes two more optional parameters: "isBackgroundImage" and "forState".
+
+"forState" takes a UIControlState value that is required when setting images for buttons.
+"isBackgroundImage" simply indicates whether or not the button should use "setBackgroundImage:forState:" or "setImage:forState:" for image loading.
 
 ## Sample App
 Please download the sample app "SwiftImageLoader" in this repository for a clear idea of how to use KFSwiftImageLoader to load images for iOS and  Watch.
