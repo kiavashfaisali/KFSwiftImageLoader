@@ -2,7 +2,7 @@
 
 KFSwiftImageLoader is an extremely high-performance, lightweight, and energy efficient pure Swift async web image loader with memory and disk caching for iOS and  Watch.
 
-This is the world's first  Watch-optimized async image loader with WKInterfaceImage extensions and automatic cache handling via WKInterfaceDevice.
+This is the world's first  Watch-optimized async image loader with WKInterfaceImage extensions and intelligent automatic cache handling via WKInterfaceDevice.
 
 Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/KFWatchKitAnimations) for a great way to record beautiful 60 FPS animations for  Watch by recording animations from the iOS Simulator.
 
@@ -13,6 +13,7 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 * Memory and disk cache to prevent dowloading images every time a request is made or when the app relaunches.
 * Energy efficiency by sending only one HTTP request for image downloads and ensuring subsequent requests with the same URL are registered as observers for when the request is finished downloading to directly load the image.
 * Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 1.2, NSURLSession, and GCD.
+* WKInterfaceImage loads images by 
 
 ## KFSwiftImageLoader Requirements
 * Xcode 6.3+
@@ -75,7 +76,11 @@ interfaceImage.loadImageFromURLString(urlString, placeholderImageName: "KiavashF
 }
 ```
 
-As you can see, the extension for WKInterfaceImage would load images in almost exactly the same way that the UIImageView extension would. The main difference is the parameter "
+The main difference with the UIImageView extension is the parameter "shouldUseDeviceCache", which defaults to false if it is not explicitly set to true in the method.
+
+"shouldUseDeviceCache" is a Bool indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
+
+The magic here is that KFSwiftImageLoader will automatically and intelligently manage the  Watch's device cache, and should the image data be larger than the cache's size (5 MB), it will 
 
 ### UIButton
 ``` swift
