@@ -1,14 +1,17 @@
 # KFSwiftImageLoader
 
-<-- Short introduction video coming soon -->
+KFSwiftImageLoader is an extremely high-performance, lightweight, and energy efficient pure Swift async web image loader with memory and disk caching for iOS and  Watch. This is the world's first  Watch-optimized async image loader with WKInterfaceImage extensions and automatic cache handling via WKInterfaceDevice.
+
+Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/KFWatchKitAnimations) for a great way to record beautiful 60 FPS animations for  Watch by recording animations from the iOS Simulator.
+
+--= Short introduction video coming soon =--
+
+## Features
+* UIImageView, UIButton, MKAnnotationView, WKInterfaceImage categories for aysnchronous web image loading.
 
 ## KFSwiftImageLoader Requirements
-* Xcode 6.3 or later
-* iOS 8.2 or later
-
-## SwiftImagerLoader Sample App Requirements
-* Xcode 6.3 or later
-* iOS 8.2 or later
+* Xcode 6.3+
+* iOS 8.2+
 
 ### CocoaPods
 To ensure you stay up-to-date with the latest version of KFSwiftImageLoader, it is recommended that you use CocoaPods.
