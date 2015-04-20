@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
+    </dependencies>
+    <scenes>
+        <!--Kiavash-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller title="Kiavash" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="SwiftImageLoader_WatchKit_Extension">
+                    <items>
+                        <imageView width="1" height="1" alignment="center" contentMode="scaleAspectFill" id="oTQ-Jo-tt9"/>
+                    </items>
+                    <connections>
+                        <outlet property="animationImage" destination="oTQ-Jo-tt9" id="zjn-1l-vF5"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="1074" y="591"/>
+        </scene>
+        <!--Kiavash-->
+        <scene sceneID="nA9-O2-qKo">
+            <objects>
+                <controller identifier="TableImageInterfaceController" title="Kiavash" id="AcA-qf-2jb" customClass="TableImageInterfaceController" customModule="SwiftImageLoader_WatchKit_Extension">
+                    <items>
+                        <table alignment="center" id="x23-rO-End">
+                            <items>
+                                <tableRow identifier="ImageRowType" selectable="NO" id="XSH-Cj-wYY" customClass="ImageRowType" customModule="SwiftImageLoader_WatchKit_Extension">
+                                    <group key="rootItem" width="1" height="1" alignment="left" id="NQr-BG-OG7">
+                                        <items>
+                                            <imageView width="1" height="1" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="sGb-hQ-xGt"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="image" destination="sGb-hQ-xGt" id="t7Q-mm-qhg"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="x23-rO-End" id="zGO-8M-9Ei"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="1285" y="591"/>
+        </scene>
+    </scenes>
+</document>
