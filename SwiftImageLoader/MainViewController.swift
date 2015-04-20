@@ -38,8 +38,6 @@ final class MainViewController: UIViewController, UITableViewDataSource {
                     var jsonError: NSError?
                     if let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as? [String: AnyObject] where jsonError == nil {
                         if let relatedTopics = jsonDict["RelatedTopics"] as? [[String: AnyObject]] {
-                            self.imageURLStringsArray.removeAll(keepCapacity: false)
-                            
                             for relatedTopic in relatedTopics {
                                 if let imageURLString = relatedTopic["Icon"]?["URL"] as? String {
                                     if imageURLString != "" {
