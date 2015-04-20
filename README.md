@@ -18,7 +18,7 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 * Xcode 6.3+
 * iOS 8.2+
 
-### CocoaPods
+## CocoaPods
 To ensure you stay up-to-date with the latest version of KFSwiftImageLoader, it is recommended that you use CocoaPods.
 
 Since CocoaPods 0.36+ brings Swift support, you will need to run the following command first:
@@ -39,10 +39,27 @@ import KFSwiftImageLoader
 ```
 
 ## Example Usage
+### UIImageView
 ``` swift
+imageView.loadImageFromURLString(urlString)
+```
+
+Yes, it really is that easy. It just works.
+In the above example, the placeholderImage: and completionHandler: inputs were ignored, so they default to nil.
+We can include them in the following way:
+```swift
+imageView.loadImageFromURLString(urlString, placeholderImage: UIImage(named: "KiavashFaisali")) {
+    (finished, error) in
+    
+    // finished is a Bool indicating success or failure.
+    // error is an implicitly unwrapped Optional NSError containing the error (if any) when finished is false.
+}
 ```
 
 ``` swift
+func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+
+
 ```
 
 ## Sample App
