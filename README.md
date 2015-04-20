@@ -13,7 +13,6 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 * Memory and disk cache to prevent dowloading images every time a request is made or when the app relaunches.
 * Energy efficiency by sending only one HTTP request for image downloads and ensuring subsequent requests with the same URL are registered as observers for when the request is finished downloading to directly load the image.
 * Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 1.2, NSURLSession, and GCD.
-* WKInterfaceImage loads images by 
 
 ## KFSwiftImageLoader Requirements
 * Xcode 6.3+
@@ -97,7 +96,27 @@ func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, fo
 "forState" takes a UIControlState value that is required when setting images for buttons.
 "isBackgroundImage" simply indicates whether or not the button should use "setBackgroundImage:forState:" or "setImage:forState:" for image loading.
 
+### MKAnnotationView
+``` swift
+annotationView.loadImageFromURLString(string)
+```
 
+The MKAnnotationView extension is pretty much exactly the same as UIImageView.
+
+### KFImageCacheManager
+``` swift
+// Disable the fade animation.
+KFImageCacheManager.sharedInstance.fadeAnimationDuration = 0.0
+        
+// Set a custom timeout interval for the image requests.
+KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
+        
+// Set a custom request cache policy for the image requests as well as the session's configuration.
+KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
+        
+// Disable file system caching.
+KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
+```
 
 ## Sample App
 Please download the sample app "SwiftImageLoader" in this repository for a clear idea of how to use KFSwiftImageLoader to load images for iOS and  Watch.
