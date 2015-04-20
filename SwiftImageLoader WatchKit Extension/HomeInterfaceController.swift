@@ -76,7 +76,7 @@ final class HomeInterfaceController: WKInterfaceController {
                             
                             if self.imageURLStringsArray.count > 0 {
                                 // Uncomment to randomize the image ordering.
-                                self.randomizeImages()
+//                                self.randomizeImages()
                                 
                                 WKInterfaceController.reloadRootControllersWithNames(["TableImageInterfaceController"], contexts: [self.imageURLStringsArray])
                             }
