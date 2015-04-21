@@ -106,15 +106,19 @@ The MKAnnotationView extension is pretty much exactly the same as UIImageView.
 ### KFImageCacheManager
 ``` swift
 // Disable the fade animation.
+// The default value is 0.1.
 KFImageCacheManager.sharedInstance.fadeAnimationDuration = 0.0
-        
+
 // Set a custom timeout interval for the image requests.
+// The default value is 60.0.
 KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
-        
+
 // Set a custom request cache policy for the image requests as well as the session's configuration.
+// The default value is .ReturnCacheDataElseLoad.
 KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
-        
+
 // Disable file system caching.
+// The default value is 60 * 60 * 24 * 7 = 604800 seconds (1 week).
 KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
 ```
 
