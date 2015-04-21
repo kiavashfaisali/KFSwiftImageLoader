@@ -1,16 +1,24 @@
 # KFSwiftImageLoader
 
-<-- Short introduction video coming soon -->
+KFSwiftImageLoader is an extremely high-performance, lightweight, and energy-efficient pure Swift async web image loader with memory and disk caching for iOS and  Watch.
+
+This is the world's first  Watch-optimized async image loader with WKInterfaceImage extensions and intelligent automatic cache handling via WKInterfaceDevice.
+
+Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/KFWatchKitAnimations) for a great way to record beautiful 60 FPS animations for  Watch by recording animations from the iOS Simulator.
+
+--= Short introduction video coming soon =--
+
+## Features
+* WKInterfaceImage, UIImageView, UIButton, and MKAnnotationView categories for asynchronous web image loading.
+* Memory and disk cache to prevent dowloading images every time a request is made or when the app relaunches.
+* Energy efficiency by sending only one HTTP/HTTPS request for image downloads and ensuring subsequent requests with the same URL string are registered as observers for when the request is finished downloading to directly load the image.
+* Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 1.2, NSURLSession, and GCD.
 
 ## KFSwiftImageLoader Requirements
-* Xcode 6.3 or later
-* iOS 8.2 or later
+* Xcode 6.3+
+* iOS 8.2+
 
-## SwiftImagerLoader Sample App Requirements
-* Xcode 6.3 or later
-* iOS 8.2 or later
-
-### CocoaPods
+## CocoaPods
 To ensure you stay up-to-date with the latest version of KFSwiftImageLoader, it is recommended that you use CocoaPods.
 
 Since CocoaPods 0.36+ brings Swift support, you will need to run the following command first:
@@ -31,10 +39,87 @@ import KFSwiftImageLoader
 ```
 
 ## Example Usage
+### UIImageView
 ``` swift
+imageView.loadImageFromURLString(urlString)
 ```
 
+Yes, it really is that easy. It just works.
+In the above example, the inputs "placeholderImage" and "completionHandler" were ignored, so they default to nil.
+We can include them in the following way:
 ``` swift
+imageView.loadImageFromURLString(urlString, placeholderImage: UIImage(named: "KiavashFaisali")) {
+    (finished, error) in
+    
+    // finished is a Bool indicating success or failure.
+    // error is an implicitly unwrapped Optional NSError containing the error (if any) when finished is false.
+}
+```
+
+For flexibility, there are several different methods for loading images.
+Below are the method signatures for all of them:
+``` swift
+func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+
+func loadImageFromURL(url: NSURL, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+
+func loadImageFromRequest(request: NSURLRequest, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+```
+
+### WKInterfaceImage
+``` swift
+interfaceImage.loadImageFromURLString(urlString, placeholderImageName: "KiavashFaisali", shouldUseDeviceCache: true) {
+    (finished, error) in
+    
+    // Completion handler called.
+}
+```
+
+The main difference with the UIImageView extension is the parameter "shouldUseDeviceCache", which defaults to false if it is not explicitly set to true in the method.
+
+"shouldUseDeviceCache" is a Bool indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
+
+The magic here is that KFSwiftImageLoader will automatically and intelligently manage the  Watch's device cache. Should the image data be larger than the cache's size (5 MB), KFSwiftImageLoader will fallback to transmitting the data from the iPhone app's cache or downloading the image and transmitting the downloaded data, depending on what's available.
+
+### UIButton
+``` swift
+button.loadImageFromURLString(urlString)
+```
+
+Again, KFSwiftImageLoader makes it very easy to load images.
+In this case, the button uses mostly the same method signature as UIImageView, but it includes two more optional parameters: "isBackgroundImage" and "forState":
+
+``` swift
+func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, forState controlState: UIControlState = .Normal, isBackgroundImage: Bool = false, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+```
+
+"forState" takes a UIControlState value that is required when setting images for buttons.
+"isBackgroundImage" simply indicates whether or not the button should use "setBackgroundImage:forState:" or "setImage:forState:" for image loading.
+
+### MKAnnotationView
+``` swift
+annotationView.loadImageFromURLString(string)
+```
+
+The methods in the MKAnnotationView extension are exactly the same as those in the UIImageView extension.
+
+### KFImageCacheManager
+``` swift
+// Disable the fade animation.
+// The default value is 0.1.
+KFImageCacheManager.sharedInstance.fadeAnimationDuration = 0.0
+
+// Set a custom timeout interval for the image requests.
+// The default value is 60.0.
+KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
+
+// Set a custom request cache policy for the image requests as well as the session's configuration.
+// The default value is .ReturnCacheDataElseLoad.
+KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
+
+// Disable file system caching.
+// The default value is 60 * 60 * 24 * 7 = 604800 seconds (1 week).
+KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
 ```
 
 ## Sample App
