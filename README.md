@@ -28,6 +28,7 @@ sudo gem install cocoapods
 
 Add the following to your Podfile
 ``` bash
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.2'
 pod 'KFSwiftImageLoader', '~> 1.0'
 use_frameworks!
