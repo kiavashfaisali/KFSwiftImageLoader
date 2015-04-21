@@ -30,7 +30,7 @@ Add the following to your Podfile
 ``` bash
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.2'
-pod 'KFSwiftImageLoader', '~> 1.0'
+pod 'KFSwiftImageLoader', '~> 1.1'
 use_frameworks!
 ```
 
