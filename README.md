@@ -79,7 +79,7 @@ The main difference with the UIImageView extension is the parameter "shouldUseDe
 
 "shouldUseDeviceCache" is a Bool indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
 
-The magic here is that KFSwiftImageLoader will automatically and intelligently manage the  Watch's device cache, and should the image data be larger than the cache's size (5 MB), it will 
+The magic here is that KFSwiftImageLoader will automatically and intelligently manage the  Watch's device cache. Should the image data be larger than the cache's size (5 MB), KFSwiftImageLoader will fallback to transmitting the data from the iPhone app's cache or downloading the image and transmitting the downloaded data, depending on what's available.
 
 ### UIButton
 ``` swift
@@ -101,7 +101,7 @@ func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, fo
 annotationView.loadImageFromURLString(string)
 ```
 
-The MKAnnotationView extension is pretty much exactly the same as UIImageView.
+The methods in the MKAnnotationView extension are exactly the same as those in the UIImageView extension.
 
 ### KFImageCacheManager
 ``` swift
