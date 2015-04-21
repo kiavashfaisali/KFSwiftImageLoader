@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		64055A861AC2351400BF3758 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64055A851AC2351400BF3758 /* ImageTableViewCell.swift */; };
 		6424343E1AE031A7000A524A /* ButtonImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424343D1AE031A7000A524A /* ButtonImageTableViewCell.swift */; };
-		642434411AE03D0B000A524A /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642434401AE03D0B000A524A /* UIButtonExtensions.swift */; };
-		642434431AE04F03000A524A /* WKInterfaceImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642434421AE04F03000A524A /* WKInterfaceImageExtensions.swift */; };
 		6424344D1AE05535000A524A /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424344C1AE05535000A524A /* HomeInterfaceController.swift */; };
 		6424344F1AE05535000A524A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6424344E1AE05535000A524A /* Images.xcassets */; };
 		642434531AE05535000A524A /* SwiftImageLoader WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 642434521AE05535000A524A /* SwiftImageLoader WatchKit App.app */; };
@@ -25,7 +23,11 @@
 		64C474AC1AB901B900361603 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C474AB1AB901B900361603 /* MainViewController.swift */; };
 		64C474AF1AB901B900361603 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64C474AD1AB901B900361603 /* Main.storyboard */; };
 		64C474B11AB901B900361603 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64C474B01AB901B900361603 /* Images.xcassets */; };
-		64D713C81AE30705007256C9 /* MKAnnotationViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D713C71AE30705007256C9 /* MKAnnotationViewExtensions.swift */; };
+		64D1DEC91AE5D0F100E247E5 /* MKAnnotationViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D1DEC51AE5D0F100E247E5 /* MKAnnotationViewExtensions.swift */; };
+		64D1DECA1AE5D0F100E247E5 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D1DEC61AE5D0F100E247E5 /* UIButtonExtensions.swift */; };
+		64D1DECB1AE5D0F100E247E5 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D1DEC71AE5D0F100E247E5 /* UIImageViewExtensions.swift */; };
+		64D1DECC1AE5D0F100E247E5 /* WKInterfaceImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D1DEC81AE5D0F100E247E5 /* WKInterfaceImageExtensions.swift */; };
+		64D1DECF1AE5D0FD00E247E5 /* KFImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D1DECE1AE5D0FD00E247E5 /* KFImageCacheManager.swift */; };
 		64D718411AE367C4007256C9 /* drawGreenCircle-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D716F21AE367C4007256C9 /* drawGreenCircle-0@2x.png */; };
 		64D718421AE367C4007256C9 /* drawGreenCircle-100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D716F31AE367C4007256C9 /* drawGreenCircle-100@2x.png */; };
 		64D718431AE367C4007256C9 /* drawGreenCircle-101@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D716F41AE367C4007256C9 /* drawGreenCircle-101@2x.png */; };
@@ -360,8 +362,6 @@
 		64D7198C1AE367C4007256C9 /* yellowCharacterJump-9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D718401AE367C4007256C9 /* yellowCharacterJump-9@2x.png */; };
 		64F84AFE1AE0157F003ECBEA /* KFSwiftImageLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F84AE71AE0157F003ECBEA /* KFSwiftImageLoader.framework */; };
 		64F84AFF1AE0157F003ECBEA /* KFSwiftImageLoader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 64F84AE71AE0157F003ECBEA /* KFSwiftImageLoader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		64F84B101AE015DB003ECBEA /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F84B0A1AE015DB003ECBEA /* UIImageViewExtensions.swift */; };
-		64F84B111AE015DB003ECBEA /* KFImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F84B0C1AE015DB003ECBEA /* KFImageCacheManager.swift */; };
 		64F84B131AE015DB003ECBEA /* KFSwiftImageLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 64F84B0F1AE015DB003ECBEA /* KFSwiftImageLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -435,8 +435,6 @@
 /* Begin PBXFileReference section */
 		64055A851AC2351400BF3758 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		6424343D1AE031A7000A524A /* ButtonImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonImageTableViewCell.swift; sourceTree = "<group>"; };
-		642434401AE03D0B000A524A /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
-		642434421AE04F03000A524A /* WKInterfaceImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceImageExtensions.swift; sourceTree = "<group>"; };
 		642434481AE05535000A524A /* SwiftImageLoader WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SwiftImageLoader WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6424344B1AE05535000A524A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6424344C1AE05535000A524A /* HomeInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
@@ -453,7 +451,11 @@
 		64C474AB1AB901B900361603 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		64C474AE1AB901B900361603 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64C474B01AB901B900361603 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		64D713C71AE30705007256C9 /* MKAnnotationViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtensions.swift; sourceTree = "<group>"; };
+		64D1DEC51AE5D0F100E247E5 /* MKAnnotationViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtensions.swift; sourceTree = "<group>"; };
+		64D1DEC61AE5D0F100E247E5 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		64D1DEC71AE5D0F100E247E5 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
+		64D1DEC81AE5D0F100E247E5 /* WKInterfaceImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceImageExtensions.swift; sourceTree = "<group>"; };
+		64D1DECE1AE5D0FD00E247E5 /* KFImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KFImageCacheManager.swift; sourceTree = "<group>"; };
 		64D716F21AE367C4007256C9 /* drawGreenCircle-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drawGreenCircle-0@2x.png"; sourceTree = "<group>"; };
 		64D716F31AE367C4007256C9 /* drawGreenCircle-100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drawGreenCircle-100@2x.png"; sourceTree = "<group>"; };
 		64D716F41AE367C4007256C9 /* drawGreenCircle-101@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drawGreenCircle-101@2x.png"; sourceTree = "<group>"; };
@@ -787,8 +789,6 @@
 		64D7183F1AE367C4007256C9 /* yellowCharacterJump-99@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellowCharacterJump-99@2x.png"; sourceTree = "<group>"; };
 		64D718401AE367C4007256C9 /* yellowCharacterJump-9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellowCharacterJump-9@2x.png"; sourceTree = "<group>"; };
 		64F84AE71AE0157F003ECBEA /* KFSwiftImageLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KFSwiftImageLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		64F84B0A1AE015DB003ECBEA /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
-		64F84B0C1AE015DB003ECBEA /* KFImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KFImageCacheManager.swift; sourceTree = "<group>"; };
 		64F84B0F1AE015DB003ECBEA /* KFSwiftImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KFSwiftImageLoader.h; sourceTree = "<group>"; };
 		64F84B141AE017AB003ECBEA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -952,6 +952,25 @@
 				64C474AD1AB901B900361603 /* Main.storyboard */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		64D1DEC41AE5D0D100E247E5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				64D1DEC51AE5D0F100E247E5 /* MKAnnotationViewExtensions.swift */,
+				64D1DEC61AE5D0F100E247E5 /* UIButtonExtensions.swift */,
+				64D1DEC71AE5D0F100E247E5 /* UIImageViewExtensions.swift */,
+				64D1DEC81AE5D0F100E247E5 /* WKInterfaceImageExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		64D1DECD1AE5D0F500E247E5 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				64D1DECE1AE5D0FD00E247E5 /* KFImageCacheManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		64D716F11AE367C4007256C9 /* drawGreenCircle */ = {
@@ -1317,30 +1336,11 @@
 		64F84AE81AE0157F003ECBEA /* KFSwiftImageLoader */ = {
 			isa = PBXGroup;
 			children = (
-				64F84B091AE015DB003ECBEA /* Extensions */,
-				64F84B0B1AE015DB003ECBEA /* Managers */,
+				64D1DEC41AE5D0D100E247E5 /* Extensions */,
+				64D1DECD1AE5D0F500E247E5 /* Managers */,
 				64F84B0D1AE015DB003ECBEA /* Supporting Files */,
 			);
 			path = KFSwiftImageLoader;
-			sourceTree = "<group>";
-		};
-		64F84B091AE015DB003ECBEA /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				64D713C71AE30705007256C9 /* MKAnnotationViewExtensions.swift */,
-				642434401AE03D0B000A524A /* UIButtonExtensions.swift */,
-				64F84B0A1AE015DB003ECBEA /* UIImageViewExtensions.swift */,
-				642434421AE04F03000A524A /* WKInterfaceImageExtensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		64F84B0B1AE015DB003ECBEA /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				64F84B0C1AE015DB003ECBEA /* KFImageCacheManager.swift */,
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		64F84B0D1AE015DB003ECBEA /* Supporting Files */ = {
@@ -1879,11 +1879,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				642434411AE03D0B000A524A /* UIButtonExtensions.swift in Sources */,
-				64D713C81AE30705007256C9 /* MKAnnotationViewExtensions.swift in Sources */,
-				64F84B101AE015DB003ECBEA /* UIImageViewExtensions.swift in Sources */,
-				642434431AE04F03000A524A /* WKInterfaceImageExtensions.swift in Sources */,
-				64F84B111AE015DB003ECBEA /* KFImageCacheManager.swift in Sources */,
+				64D1DEC91AE5D0F100E247E5 /* MKAnnotationViewExtensions.swift in Sources */,
+				64D1DECB1AE5D0F100E247E5 /* UIImageViewExtensions.swift in Sources */,
+				64D1DECC1AE5D0F100E247E5 /* WKInterfaceImageExtensions.swift in Sources */,
+				64D1DECA1AE5D0F100E247E5 /* UIButtonExtensions.swift in Sources */,
+				64D1DECF1AE5D0FD00E247E5 /* KFImageCacheManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
