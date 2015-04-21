@@ -28,7 +28,7 @@ final class MainViewController: UIViewController, UITableViewDataSource {
     func loadDuckDuckGoResults() {
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: "http://api.duckduckgo.com/?q=simpsons+characters&format=json")!
-        let request = NSMutableURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60.0)
+        let request = NSURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60.0)
 
         let dataTask = session.dataTaskWithRequest(request) {
             (data, response, error) in
@@ -84,7 +84,16 @@ final class MainViewController: UIViewController, UITableViewDataSource {
             let cellIdentifier = "ImageTableViewCell"
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ImageTableViewCell
             
-            cell.featuredImageView.loadImageFromURLString(self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali"), completion: nil)
+            cell.featuredImageView.loadImageFromURLString(self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
+                (finished, error) in
+                
+                if finished {
+                    // Do something in the completion block.
+                }
+                else if error != nil {
+                    println("error occurred with description: \(error.localizedDescription)")
+                }
+            }
             
             return cell
         }

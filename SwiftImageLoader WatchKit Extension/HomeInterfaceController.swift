@@ -56,6 +56,7 @@ final class HomeInterfaceController: WKInterfaceController {
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: "http://api.duckduckgo.com/?q=simpsons+characters&format=json")!
         let request = NSURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60.0)
+        
         let dataTask = session.dataTaskWithRequest(request) {
             (data, response, error) in
             
