@@ -73,7 +73,7 @@ public extension WKInterfaceImage {
     Asynchronously downloads an image and loads it into the interface using a URL string.
     
     :param: string The image URL in the form of a String.
-    :param: placeholderImage An optional UIImage representing a placeholder image that is loaded into the interface while the asynchronous download takes place. The default value is nil.
+    :param: placeholderImageName An optional String representing the name of a placeholder image that is loaded into the interface while the asynchronous download takes place. The default value is nil.
     :param: shouldUseDeviceCache A boolean indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
     :param: completion An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
     */
@@ -87,7 +87,7 @@ public extension WKInterfaceImage {
     Asynchronously downloads an image and loads it into the interface using an NSURL object.
     
     :param: url The image URL in the form of an NSURL object.
-    :param: placeholderImage An optional UIImage representing a placeholder image that is loaded into the interface while the asynchronous download takes place. The default value is nil.
+    :param: placeholderImageName An optional String representing the name of a placeholder image that is loaded into the interface while the asynchronous download takes place. The default value is nil.
     :param: shouldUseDeviceCache A boolean indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
     :param: completion An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
     */
@@ -102,7 +102,7 @@ public extension WKInterfaceImage {
     Asynchronously downloads an image and loads it into the interface using an NSURLRequest object.
     
     :param: request The image URL in the form of an NSURLRequest object.
-    :param: placeholderImage An optional UIImage representing a placeholder image that is loaded into the interface while the asynchronous download takes place. The default value is nil.
+    :param: placeholderImageName An optional String representing the name of a placeholder image that is loaded into the interface while the asynchronous download takes place. The default value is nil.
     :param: shouldUseDeviceCache A boolean indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
     :param: completion An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
     */
