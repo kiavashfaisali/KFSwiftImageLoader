@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = 'KFSwiftImageLoader'
-  s.version     = '1.1'
+  s.version     = '1.2'
   s.summary     = 'High-performance, lightweight, and energy-efficient pure Swift async web image loader with memory and disk caching for iOS and  Watch.'
   s.homepage    = 'https://github.com/kiavashfaisali/KFSwiftImageLoader'
   s.license     = { :type => 'MIT',
