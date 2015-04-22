@@ -11,7 +11,7 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 ## Features
 * WKInterfaceImage, UIImageView, UIButton, and MKAnnotationView categories for asynchronous web image loading.
 * Memory and disk cache to prevent downloading images every time a request is made or when the app relaunches, with automatic cache management to optimize resource use.
-* Energy efficiency by sending only one HTTP/HTTPS request for image downloads from multiple sources that reference the same URL string, instead registering them as observers for the request.
+* Energy efficiency by sending only one HTTP/HTTPS request for image downloads from multiple sources that reference the same URL string, registering them as observers for the request.
 * Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 1.2, NSURLSession, and GCD.
 
 ## KFSwiftImageLoader Requirements
@@ -30,7 +30,7 @@ Add the following to your Podfile
 ``` bash
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.2'
-pod 'KFSwiftImageLoader', '~> 1.1'
+pod 'KFSwiftImageLoader', '~> 1.2'
 use_frameworks!
 ```
 
