@@ -6,8 +6,6 @@ This is the world's first  Watch-optimized async image loader with WKInterfac
 
 Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/KFWatchKitAnimations) for a great way to record beautiful 60 FPS animations for  Watch by recording animations from the iOS Simulator.
 
---= Short introduction video coming soon =--
-
 ## Features
 * WKInterfaceImage, UIImageView, UIButton, and MKAnnotationView extensions for asynchronous web image loading.
 * Memory and disk cache to prevent downloading images every time a request is made or when the app relaunches, with automatic cache management to optimize resource use.
