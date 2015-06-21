@@ -30,7 +30,7 @@ public extension MKAnnotationView {
             return objc_getAssociatedObject(self, &completionHolderAssociationKey) as? CompletionHolder
         }
         set {
-            objc_setAssociatedObject(self, &completionHolderAssociationKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+            objc_setAssociatedObject(self, &completionHolderAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
         }
     }
     
@@ -79,7 +79,7 @@ public extension MKAnnotationView {
         
         let cacheManager = KFImageCacheManager.sharedInstance
         let fadeAnimationDuration = cacheManager.fadeAnimationDuration
-        let urlAbsoluteString = request.URL!.absoluteString!
+        let urlAbsoluteString = request.URL!.absoluteString
         
         func loadImage(image: UIImage) -> Void {
             UIView.transitionWithView(self, duration: fadeAnimationDuration, options: .TransitionCrossDissolve, animations: {
@@ -116,17 +116,18 @@ public extension MKAnnotationView {
                 cacheManager.setIsDownloadingFromURL(true, forURLString: urlAbsoluteString)
                 
                 let dataTask = cacheManager.session.dataTaskWithRequest(request) {
-                    (data: NSData!, response: NSURLResponse!, error: NSError!) in
+                    (data: NSData?, response: NSURLResponse?, error: NSError?) in
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         var finished = false
                         
                         // If there is no error, load the image into the image view and cache it.
-                        if error == nil {
+                        if error == nil && data != nil {
+                            let data: NSData! = data
                             if let image = UIImage(data: data) {
                                 UIView.transitionWithView(self, duration: fadeAnimationDuration, options: .TransitionCrossDissolve, animations: {
                                     self.image = image
-                                }, completion: nil)
+                                    }, completion: nil)
                                 
                                 cacheManager[urlAbsoluteString] = image
                                 
@@ -138,7 +139,7 @@ public extension MKAnnotationView {
                                         request.cachePolicy == .ReturnCacheDataDontLoad)
                                 
                                 if let httpResponse = response as? NSHTTPURLResponse, url = httpResponse.URL where responseDataIsCacheable {
-                                    var allHeaderFields = httpResponse.allHeaderFields
+                                    var allHeaderFields: [String:String] = httpResponse.allHeaderFields as! [String:String]
                                     allHeaderFields["Cache-Control"] = "max-age=\(cacheManager.diskCacheMaxAge)"
                                     if let cacheControlResponse = NSHTTPURLResponse(URL: url, statusCode: httpResponse.statusCode, HTTPVersion: "HTTP/1.1", headerFields: allHeaderFields) {
                                         let cachedResponse = NSCachedURLResponse(response: cacheControlResponse, data: data, userInfo: ["creationTimestamp": CACurrentMediaTime()], storagePolicy: .Allowed)
@@ -160,7 +161,7 @@ public extension MKAnnotationView {
                     }
                 }
                 
-                dataTask.resume()
+                dataTask?.resume()
             }
             // Since the image is already being downloaded and hasn't been cached, register the image view as a cache observer.
             else {
