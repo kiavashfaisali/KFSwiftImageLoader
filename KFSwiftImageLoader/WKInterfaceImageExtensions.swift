@@ -115,7 +115,6 @@ public extension WKInterfaceImage {
         }
         
         let cacheManager = KFImageCacheManager.sharedInstance
-        let fadeAnimationDuration = cacheManager.fadeAnimationDuration
         let urlAbsoluteString: String! = request.URL!.absoluteString
         let initialIndexIdentifier = -1
         let currentDevice = WKInterfaceDevice.currentDevice()
