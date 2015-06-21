@@ -29,7 +29,7 @@ public extension WKInterfaceImage {
             return objc_getAssociatedObject(self, &completionHolderAssociationKey) as? CompletionHolder
         }
         set {
-            objc_setAssociatedObject(self, &completionHolderAssociationKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+            objc_setAssociatedObject(self, &completionHolderAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
         }
     }
     
@@ -49,7 +49,7 @@ public extension WKInterfaceImage {
             loadImageFromData(imageData)
         }
         else {
-            for (urlString, cacheCostNumber) in currentDevice.cachedImages as! [String: NSNumber] {
+            for (urlString, cacheCostNumber) in currentDevice.cachedImages {
                 cacheTotalCost += cacheCostNumber.integerValue
                 
                 // Check if the total cost would exceed the max cache size of 5 MB.
@@ -115,8 +115,7 @@ public extension WKInterfaceImage {
         }
         
         let cacheManager = KFImageCacheManager.sharedInstance
-        let fadeAnimationDuration = cacheManager.fadeAnimationDuration
-        let urlAbsoluteString = request.URL!.absoluteString!
+        let urlAbsoluteString: String! = request.URL!.absoluteString
         let initialIndexIdentifier = -1
         let currentDevice = WKInterfaceDevice.currentDevice()
         
@@ -135,7 +134,7 @@ public extension WKInterfaceImage {
         
         // If there's already a cached image, load it into the interface.
         if let image = cacheManager[urlAbsoluteString] {
-            let imageData = UIImagePNGRepresentation(image)
+            let imageData: NSData! = UIImagePNGRepresentation(image)
             
             if shouldUseDeviceCache {
                 storeImageDataInDeviceCache(imageData, forURLAbsoluteString: urlAbsoluteString)
@@ -173,13 +172,14 @@ public extension WKInterfaceImage {
                 cacheManager.setIsDownloadingFromURL(true, forURLString: urlAbsoluteString)
                 
                 let dataTask = cacheManager.session.dataTaskWithRequest(request) {
-                    (data: NSData!, response: NSURLResponse!, error: NSError!) in
+                    (data: NSData?, response: NSURLResponse?, error: NSError?) in
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         var finished = false
                         
                         // If there is no error, load the image into the interface and cache it.
-                        if error == nil {
+                        if error == nil && data != nil {
+                            let data: NSData! = data
                             if let image = UIImage(data: data) {
                                 if shouldUseDeviceCache {
                                     self.storeImageDataInDeviceCache(data, forURLAbsoluteString: urlAbsoluteString)
@@ -198,7 +198,7 @@ public extension WKInterfaceImage {
                                         request.cachePolicy == .ReturnCacheDataDontLoad)
                                 
                                 if let httpResponse = response as? NSHTTPURLResponse, url = httpResponse.URL where responseDataIsCacheable {
-                                    var allHeaderFields = httpResponse.allHeaderFields
+                                    var allHeaderFields: [String: String] = httpResponse.allHeaderFields as! [String: String]
                                     allHeaderFields["Cache-Control"] = "max-age=\(cacheManager.diskCacheMaxAge)"
                                     if let cacheControlResponse = NSHTTPURLResponse(URL: url, statusCode: httpResponse.statusCode, HTTPVersion: "HTTP/1.1", headerFields: allHeaderFields) {
                                         let cachedResponse = NSCachedURLResponse(response: cacheControlResponse, data: data, userInfo: ["creationTimestamp": CACurrentMediaTime()], storagePolicy: .Allowed)
@@ -220,7 +220,7 @@ public extension WKInterfaceImage {
                     }
                 }
                 
-                dataTask.resume()
+                dataTask?.resume()
             }
             // Since the image is already being downloaded and hasn't been cached, register the interface as a cache observer.
             else {
