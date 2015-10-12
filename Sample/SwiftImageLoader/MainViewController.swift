@@ -27,16 +27,20 @@ final class MainViewController: UIViewController, UITableViewDataSource {
     // MARK: - Miscellaneous Methods
     func loadDuckDuckGoResults() {
         let session = NSURLSession.sharedSession()
-        let url = NSURL(string: "http://api.duckduckgo.com/?q=simpsons+characters&format=json")!
+        let url = NSURL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")!
         let request = NSURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60.0)
-
+        
         let dataTask = session.dataTaskWithRequest(request) {
-            (data, response, error) in
+            (taskData, taskResponse, taskError) in
+            
+            guard let data = taskData where taskError == nil else {
+                print("Error retrieving response from the DuckDuckGo API.")
+                return
+            }
             
             dispatch_async(dispatch_get_main_queue()) {
-                if error == nil {
-                    var jsonError: NSError?
-                    if let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as? [String: AnyObject] where jsonError == nil {
+                do {
+                    if let jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String: AnyObject] {
                         if let relatedTopics = jsonDict["RelatedTopics"] as? [[String: AnyObject]] {
                             for relatedTopic in relatedTopics {
                                 if let imageURLString = relatedTopic["Icon"]?["URL"] as? String {
@@ -57,6 +61,9 @@ final class MainViewController: UIViewController, UITableViewDataSource {
                         }
                     }
                 }
+                catch {
+                    print("Error when parsing the response JSON: \(error)")
+                }
             }
         }
         
@@ -66,9 +73,9 @@ final class MainViewController: UIViewController, UITableViewDataSource {
     func randomizeImages() {
         for (var i = 0; i < self.imageURLStringsArray.count; i++) {
             let randomIndex = Int(arc4random()) % self.imageURLStringsArray.count
-            let tempValue = self.imageURLStringsArray[randomIndex]
+            let randomImageURLString = self.imageURLStringsArray[randomIndex]
             self.imageURLStringsArray[randomIndex] = self.imageURLStringsArray[i]
-            self.imageURLStringsArray[i] = tempValue
+            self.imageURLStringsArray[i] = randomImageURLString
         }
     }
     
@@ -85,13 +92,13 @@ final class MainViewController: UIViewController, UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ImageTableViewCell
             
             cell.featuredImageView.loadImageFromURLString(self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
-                (finished, error) in
+                (finished, potentialError) in
                 
                 if finished {
                     // Do something in the completion block.
                 }
-                else if error != nil {
-                    println("error occurred with description: \(error.localizedDescription)")
+                else if let error = potentialError {
+                    print("error occurred with description: \(error.localizedDescription)")
                 }
             }
             

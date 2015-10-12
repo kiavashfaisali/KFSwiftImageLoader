@@ -20,11 +20,11 @@ import UIKit
 import MapKit
 import WatchKit
 
-// MARK: - Completion Holder Class
+// MARK: - CompletionHolder Class
 final internal class CompletionHolder {
-    var completion: ((finished: Bool, error: NSError!) -> Void)?
+    var completion: ((finished: Bool, error: NSError?) -> Void)?
     
-    init(completion: ((Bool, error: NSError!) -> Void)?) {
+    init(completion: ((finished: Bool, error: NSError?) -> Void)?) {
         self.completion = completion
     }
 }
@@ -51,19 +51,19 @@ final public class KFImageCacheManager {
     }()
     
     /**
-    Sets the fade duration time (in seconds) for images when they are being loaded into their views.
-    A value of 0 implies no fade animation.
-    The default value is 0.1 seconds.
-    
-    :returns: An NSTimeInterval value representing time in seconds.
+        Sets the fade duration time (in seconds) for images when they are being loaded into their views.
+        A value of 0 implies no fade animation.
+        The default value is 0.1 seconds.
+        
+        - returns: An NSTimeInterval value representing time in seconds.
     */
     public var fadeAnimationDuration: NSTimeInterval = 0.1
     
     /**
-    Sets the maximum time (in seconds) that the disk cache will use to maintain a cached response.
-    The default value is 604800 seconds (1 week).
-    
-    :returns: An unsigned integer value representing time in seconds.
+        Sets the maximum time (in seconds) that the disk cache will use to maintain a cached response.
+        The default value is 604800 seconds (1 week).
+        
+        - returns: An unsigned integer value representing time in seconds.
     */
     public var diskCacheMaxAge: UInt = 60 * 60 * 24 * 7 {
         willSet {
@@ -74,10 +74,10 @@ final public class KFImageCacheManager {
     }
     
     /**
-    Sets the maximum time (in seconds) that the request should take before timing out.
-    The default value is 60 seconds.
-    
-    :returns: An NSTimeInterval value representing time in seconds.
+        Sets the maximum time (in seconds) that the request should take before timing out.
+        The default value is 60 seconds.
+        
+        - returns: An NSTimeInterval value representing time in seconds.
     */
     public var timeoutIntervalForRequest: NSTimeInterval = 60.0 {
         willSet {
@@ -86,10 +86,10 @@ final public class KFImageCacheManager {
     }
     
     /**
-    Sets the cache policy which the default requests and underlying session configuration use to determine caching behaviour.
-    The default value is ReturnCacheDataElseLoad.
-    
-    :returns: An NSURLRequestCachePolicy value representing the cache policy.
+        Sets the cache policy which the default requests and underlying session configuration use to determine caching behaviour.
+        The default value is ReturnCacheDataElseLoad.
+        
+        - returns: An NSURLRequestCachePolicy value representing the cache policy.
     */
     public var requestCachePolicy: NSURLRequestCachePolicy = .ReturnCacheDataElseLoad {
         willSet {

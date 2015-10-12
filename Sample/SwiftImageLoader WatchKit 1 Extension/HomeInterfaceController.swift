@@ -4,7 +4,6 @@
 //
 
 import WatchKit
-import KFSwiftImageLoader
 
 final class HomeInterfaceController: WKInterfaceController {
     // MARK: - Properties
@@ -58,17 +57,21 @@ final class HomeInterfaceController: WKInterfaceController {
         let request = NSURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60.0)
         
         let dataTask = session.dataTaskWithRequest(request) {
-            (data, response, error) in
+            (taskData, taskResponse, taskError) in
+            
+            guard let data = taskData where taskError == nil else {
+                print("Error retrieving response from the DuckDuckGo API.")
+                return
+            }
             
             dispatch_async(dispatch_get_main_queue()) {
-                if error == nil {
-                    var jsonError: NSError?
-                    if let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as? [String: AnyObject] where jsonError == nil {
+                do {
+                    if let jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String: AnyObject] {
                         if let relatedTopics = jsonDict["RelatedTopics"] as? [[String: AnyObject]] {
                             for relatedTopic in relatedTopics {
                                 if let imageURLString = relatedTopic["Icon"]?["URL"] as? String {
                                     if imageURLString != "" {
-                                        for i in 1...2 {
+                                        for _ in 1...2 {
                                             self.imageURLStringsArray.append(imageURLString)
                                         }
                                     }
@@ -83,6 +86,9 @@ final class HomeInterfaceController: WKInterfaceController {
                             }
                         }
                     }
+                }
+                catch {
+                    print("Error when parsing the response JSON: \(error)")
                 }
             }
         }
