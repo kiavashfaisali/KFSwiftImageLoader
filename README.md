@@ -10,10 +10,10 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 * WKInterfaceImage, UIImageView, UIButton, and MKAnnotationView extensions for asynchronous web image loading.
 * Memory and disk cache to prevent downloading images every time a request is made or when the app relaunches, with automatic cache management to optimize resource use.
 * Energy efficiency by sending only one HTTP/HTTPS request for image downloads from multiple sources that reference the same URL string, registering them as observers for the request.
-* Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 1.2, NSURLSession, and GCD.
+* Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 2.0, NSURLSession, and GCD.
 
 ## KFSwiftImageLoader Requirements
-* Xcode 6.3+
+* Xcode 7.0+
 * iOS 8.2+
 
 ## CocoaPods
@@ -28,8 +28,8 @@ Add the following to your Podfile
 ``` bash
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.2'
-pod 'KFSwiftImageLoader', '~> 1.2'
 use_frameworks!
+pod 'KFSwiftImageLoader', '~> 2.0'
 ```
 
 You will need to import KFSwiftImageLoader everywhere you wish to use it:
@@ -58,11 +58,11 @@ imageView.loadImageFromURLString(urlString, placeholderImage: UIImage(named: "Ki
 For flexibility, there are several different methods for loading images.
 Below are the method signatures for all of them:
 ``` swift
-func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError?) -> Void)? = nil)
 
-func loadImageFromURL(url: NSURL, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+func loadImageFromURL(url: NSURL, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError?) -> Void)? = nil)
 
-func loadImageFromRequest(request: NSURLRequest, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+func loadImageFromRequest(request: NSURLRequest, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError?) -> Void)? = nil)
 ```
 
 ### WKInterfaceImage
@@ -89,7 +89,7 @@ Again, KFSwiftImageLoader makes it very easy to load images.
 In this case, the button uses mostly the same method signature as UIImageView, but it includes two more optional parameters: "isBackgroundImage" and "forState":
 
 ``` swift
-func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, forState controlState: UIControlState = .Normal, isBackgroundImage: Bool = false, completion: ((finished: Bool, error: NSError!) -> Void)? = nil)
+func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, forState controlState: UIControlState = .Normal, isBackgroundImage: Bool = false, completion: ((finished: Bool, error: NSError?) -> Void)? = nil)
 ```
 
 "forState" takes a UIControlState value that is required when setting images for buttons.
@@ -114,11 +114,12 @@ KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
 
 // Set a custom request cache policy for the image requests as well as the session's configuration.
 // The default value is .ReturnCacheDataElseLoad.
-KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
+KFImageCacheManager.sharedInstance.requestCachePolicy = .UseProtocolCachePolicy
 
-// Disable file system caching.
+// Disable file system caching by adjusting the max age of the disk cache and the request cache policy.
 // The default value is 60 * 60 * 24 * 7 = 604800 seconds (1 week).
 KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
+KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
 ```
 
 ## Sample App
