@@ -114,11 +114,12 @@ KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
 
 // Set a custom request cache policy for the image requests as well as the session's configuration.
 // The default value is .ReturnCacheDataElseLoad.
-KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
+KFImageCacheManager.sharedInstance.requestCachePolicy = .UseProtocolCachePolicy
 
-// Disable file system caching.
+// Disable file system caching by adjusting the max age of the disk cache and the request cache policy.
 // The default value is 60 * 60 * 24 * 7 = 604800 seconds (1 week).
 KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
+KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
 ```
 
 ## Sample App
