@@ -447,11 +447,11 @@
 		6412B9831BCB703500B057AC /* KFSwiftImageLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KFSwiftImageLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6412B99A1BCB709500B057AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6412B99B1BCB709500B057AC /* KFSwiftImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KFSwiftImageLoader.h; sourceTree = "<group>"; };
-		6412B9B51BCB767300B057AC /* KFImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KFImageCacheManager.swift; path = ../KFImageCacheManager.swift; sourceTree = "<group>"; };
-		6412B9B61BCB767300B057AC /* MKAnnotationViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MKAnnotationViewExtensions.swift; path = ../MKAnnotationViewExtensions.swift; sourceTree = "<group>"; };
-		6412B9B71BCB767300B057AC /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonExtensions.swift; path = ../UIButtonExtensions.swift; sourceTree = "<group>"; };
-		6412B9B81BCB767300B057AC /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = ../UIImageViewExtensions.swift; sourceTree = "<group>"; };
-		6412B9B91BCB767300B057AC /* WKInterfaceImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WKInterfaceImageExtensions.swift; path = ../WKInterfaceImageExtensions.swift; sourceTree = "<group>"; };
+		6412B9B51BCB767300B057AC /* KFImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KFImageCacheManager.swift; path = ../../KFSwiftImageLoader/KFImageCacheManager.swift; sourceTree = "<group>"; };
+		6412B9B61BCB767300B057AC /* MKAnnotationViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MKAnnotationViewExtensions.swift; path = ../../KFSwiftImageLoader/MKAnnotationViewExtensions.swift; sourceTree = "<group>"; };
+		6412B9B71BCB767300B057AC /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonExtensions.swift; path = ../../KFSwiftImageLoader/UIButtonExtensions.swift; sourceTree = "<group>"; };
+		6412B9B81BCB767300B057AC /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = ../../KFSwiftImageLoader/UIImageViewExtensions.swift; sourceTree = "<group>"; };
+		6412B9B91BCB767300B057AC /* WKInterfaceImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WKInterfaceImageExtensions.swift; path = ../../KFSwiftImageLoader/WKInterfaceImageExtensions.swift; sourceTree = "<group>"; };
 		6412B9D21BCB7BCC00B057AC /* SwiftImageLoader WatchKit 1 Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SwiftImageLoader WatchKit 1 Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6412B9D81BCB7BCC00B057AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6412B9DB1BCB7BCC00B057AC /* SwiftImageLoader WatchKit 1 App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftImageLoader WatchKit 1 App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -842,6 +842,11 @@
 		6412B9841BCB703500B057AC /* KFSwiftImageLoader */ = {
 			isa = PBXGroup;
 			children = (
+				6412B9B51BCB767300B057AC /* KFImageCacheManager.swift */,
+				6412B9B61BCB767300B057AC /* MKAnnotationViewExtensions.swift */,
+				6412B9B71BCB767300B057AC /* UIButtonExtensions.swift */,
+				6412B9B81BCB767300B057AC /* UIImageViewExtensions.swift */,
+				6412B9B91BCB767300B057AC /* WKInterfaceImageExtensions.swift */,
 				6412B9991BCB709500B057AC /* Supporting Files */,
 			);
 			path = KFSwiftImageLoader;
@@ -850,11 +855,6 @@
 		6412B9991BCB709500B057AC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6412B9B51BCB767300B057AC /* KFImageCacheManager.swift */,
-				6412B9B61BCB767300B057AC /* MKAnnotationViewExtensions.swift */,
-				6412B9B71BCB767300B057AC /* UIButtonExtensions.swift */,
-				6412B9B81BCB767300B057AC /* UIImageViewExtensions.swift */,
-				6412B9B91BCB767300B057AC /* WKInterfaceImageExtensions.swift */,
 				6412B99A1BCB709500B057AC /* Info.plist */,
 				6412B99B1BCB709500B057AC /* KFSwiftImageLoader.h */,
 			);
@@ -2155,6 +2155,7 @@
 				6412B98E1BCB703500B057AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6412B9E91BCB7BCC00B057AC /* Build configuration list for PBXNativeTarget "SwiftImageLoader WatchKit 1 App" */ = {
 			isa = XCConfigurationList;
@@ -2163,6 +2164,7 @@
 				6412B9EB1BCB7BCC00B057AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6412B9EC1BCB7BCC00B057AC /* Build configuration list for PBXNativeTarget "SwiftImageLoader WatchKit 1 Extension" */ = {
 			isa = XCConfigurationList;
@@ -2171,6 +2173,7 @@
 				6412B9EE1BCB7BCC00B057AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		64C4749F1AB901B900361603 /* Build configuration list for PBXProject "SwiftImageLoader" */ = {
 			isa = XCConfigurationList;

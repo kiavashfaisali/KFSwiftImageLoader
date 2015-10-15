@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KFSwiftImageLoader
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,10 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
         
         // Uncomment to set a custom request cache policy for the image requests as well as the session's configuration.
-//        KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
+//        KFImageCacheManager.sharedInstance.requestCachePolicy = .UseProtocolCachePolicy
         
         // Uncomment to disable file system caching.
 //        KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
+//        KFImageCacheManager.sharedInstance.requestCachePolicy = .ReloadIgnoringLocalCacheData
         
         return true
     }

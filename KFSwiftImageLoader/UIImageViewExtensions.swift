@@ -89,6 +89,7 @@ public extension UIImageView {
         
         let cacheManager = KFImageCacheManager.sharedInstance
         let fadeAnimationDuration = cacheManager.fadeAnimationDuration
+        let sharedURLCache = NSURLCache.sharedURLCache()
         
         func loadImage(image: UIImage) -> Void {
             UIView.transitionWithView(self, duration: fadeAnimationDuration, options: .TransitionCrossDissolve, animations: {
@@ -103,7 +104,7 @@ public extension UIImageView {
             loadImage(image)
         }
         // If there's already a cached response, load the image data into the image view.
-        else if let cachedResponse = NSURLCache.sharedURLCache().cachedResponseForRequest(request), image = UIImage(data: cachedResponse.data), creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval where (NSDate.timeIntervalSinceReferenceDate() - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
+        else if let cachedResponse = sharedURLCache.cachedResponseForRequest(request), image = UIImage(data: cachedResponse.data), creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval where (NSDate.timeIntervalSinceReferenceDate() - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
             loadImage(image)
             
             cacheManager[urlAbsoluteString] = image
@@ -111,7 +112,7 @@ public extension UIImageView {
         // Either begin downloading the image or become an observer for an existing request.
         else {
             // Remove the stale disk-cached response (if any).
-            NSURLCache.sharedURLCache().removeCachedResponseForRequest(request)
+            sharedURLCache.removeCachedResponseForRequest(request)
             
             // Set the placeholder image if it was provided.
             if let image = placeholderImage {
@@ -183,7 +184,7 @@ public extension UIImageView {
                         cacheManager[urlAbsoluteString] = image
                         
                         let responseDataIsCacheable = cacheManager.diskCacheMaxAge > 0 &&
-                            Double(data.length) <= 0.05 * Double(NSURLCache.sharedURLCache().diskCapacity) &&
+                            Double(data.length) <= 0.05 * Double(sharedURLCache.diskCapacity) &&
                             (cacheManager.session.configuration.requestCachePolicy == .ReturnCacheDataElseLoad ||
                                 cacheManager.session.configuration.requestCachePolicy == .ReturnCacheDataDontLoad) &&
                             (request.cachePolicy == .ReturnCacheDataElseLoad ||
@@ -194,7 +195,7 @@ public extension UIImageView {
                                 allHeaderFields["Cache-Control"] = "max-age=\(cacheManager.diskCacheMaxAge)"
                                 if let cacheControlResponse = NSHTTPURLResponse(URL: url, statusCode: httpResponse.statusCode, HTTPVersion: "HTTP/1.1", headerFields: allHeaderFields) {
                                     let cachedResponse = NSCachedURLResponse(response: cacheControlResponse, data: data, userInfo: ["creationTimestamp": NSDate.timeIntervalSinceReferenceDate()], storagePolicy: .Allowed)
-                                    NSURLCache.sharedURLCache().storeCachedResponse(cachedResponse, forRequest: request)
+                                    sharedURLCache.storeCachedResponse(cachedResponse, forRequest: request)
                                 }
                             }
                         }

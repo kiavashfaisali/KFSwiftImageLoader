@@ -43,7 +43,7 @@ final public class KFImageCacheManager {
     // {"url": {"img": UIImage, "isDownloading": Bool, "observerMapping": {Observer: Int}}}
     private var imageCache = [String: [String: AnyObject]]()
     
-    internal let session: NSURLSession = {
+    internal lazy var session: NSURLSession = {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.requestCachePolicy = .ReturnCacheDataElseLoad
         configuration.URLCache = .sharedURLCache()
@@ -81,7 +81,9 @@ final public class KFImageCacheManager {
     */
     public var timeoutIntervalForRequest: NSTimeInterval = 60.0 {
         willSet {
-            self.session.configuration.timeoutIntervalForRequest = newValue
+            let configuration = self.session.configuration
+            configuration.timeoutIntervalForRequest = newValue
+            self.session = NSURLSession(configuration: configuration)
         }
     }
     
@@ -93,7 +95,9 @@ final public class KFImageCacheManager {
     */
     public var requestCachePolicy: NSURLRequestCachePolicy = .ReturnCacheDataElseLoad {
         willSet {
-            self.session.configuration.requestCachePolicy = newValue
+            let configuration = self.session.configuration
+            configuration.requestCachePolicy = newValue
+            self.session = NSURLSession(configuration: configuration)
         }
     }
     
