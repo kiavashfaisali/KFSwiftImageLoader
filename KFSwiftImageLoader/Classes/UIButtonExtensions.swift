@@ -61,11 +61,11 @@ public extension UIButton {
     
     // MARK: - Image Loading Methods
     /**
-        Asynchronously downloads an image and loads it into the view using a URL string.
+        Asynchronously downloads an image and loads it into the `UIButton` using a URL `String`.
         
-        - parameter urlString: The image URL in the form of a String.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter controlState: The intended UIControlState to be used when loading the image. The default value is `normal`.
+        - parameter urlString: The image URL in the form of a `String`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
         - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
@@ -82,11 +82,11 @@ public extension UIButton {
     }
     
     /**
-        Asynchronously downloads an image and loads it into the view using an NSURL object.
+        Asynchronously downloads an image and loads it into the `UIButton` using a `URL`.
         
-        - parameter url: The image URL in the form of an NSURL object.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter controlState: The intended `UIControlState` to be used when loading the image. The default value is `normal`.
+        - parameter url: The image `URL`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
         - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
@@ -100,13 +100,13 @@ public extension UIButton {
     }
     
     /**
-        Asynchronously downloads an image and loads it into the view using an NSURLRequest object.
+        Asynchronously downloads an image and loads it into the `UIButton` using a `URLRequest`.
         
-        - parameter request: The image URL in the form of an NSURLRequest object.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter controlState: The intended UIControlState to be used when loading the image. The default value is Normal.
-        - parameter isBackgroundImage: A boolean indicating whether or not the image is intended for the button's background. The default value is false.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
+        - parameter request: The image URL in the form of a `URLRequest`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
+        - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request request: URLRequest, placeholderImage: UIImage? = nil, forState controlState: UIControlState = UIControlState(), isBackgroundImage: Bool = false, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
         self.completionHolder = CompletionHolder(completion: completion)
@@ -197,7 +197,7 @@ public extension UIButton {
                 parentView = parentView?.superview
             }
             
-            let initialIndexIdentifier = self.indexPathIdentifier
+            let initialIndexIdentifier = self.indexPathIdentifier as Int
             
             // If the image isn't already being downloaded, begin downloading the image.
             if cacheManager.isDownloadingFromURL(urlAbsoluteString) == false {
@@ -253,7 +253,7 @@ public extension UIButton {
                 
                 dataTask.resume()
             }
-                // Since the image is already being downloaded and hasn't been cached, register the image view as a cache observer.
+            // Since the image is already being downloaded and hasn't been cached, register the button as a cache observer.
             else {
                 weak var weakSelf = self
                 cacheManager.addImageCacheObserver(weakSelf!, withInitialIndexIdentifier: initialIndexIdentifier, forKey: urlAbsoluteString)

@@ -27,7 +27,7 @@ public extension MKAnnotationView {
         
         - parameter urlString: The image URL in the form of a String.
         - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. If a URL object cannot be created from the given urlString, then `completion` will be called with `finished` set to false, and `error` set to nil. The default value is nil.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString urlString: String, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
         guard let url = URL(string: urlString) else {
@@ -46,7 +46,7 @@ public extension MKAnnotationView {
         
         - parameter url: The image URL in the form of a URL object.
         - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(url url: URL, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
         let cacheManager = KFImageCacheManager.sharedInstance
@@ -62,7 +62,7 @@ public extension MKAnnotationView {
         
         - parameter request: The image URL in the form of an NSURLRequest object.
         - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request request: URLRequest, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
         self.completionHolder = CompletionHolder(completion: completion)

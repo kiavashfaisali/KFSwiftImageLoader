@@ -53,8 +53,8 @@ final class MainViewController: UIViewController, UITableViewDataSource {
                             }
                             
                             if self.imageURLStringsArray.count > 0 {
-                                // Uncomment to randomize the image ordering.
-//                                self.randomizeImages()
+                                // Comment to not randomize the image ordering.
+                                self.randomizeImages()
                                 
                                 self.imagesTableView.reloadData()
                             }
@@ -71,11 +71,9 @@ final class MainViewController: UIViewController, UITableViewDataSource {
     }
     
     func randomizeImages() {
-        for (i in 0 ..< self.imageURLStringsArray.count) {
+        for i in 0 ..< self.imageURLStringsArray.count {
             let randomIndex = Int(arc4random()) % self.imageURLStringsArray.count
-            let randomImageURLString = self.imageURLStringsArray[randomIndex]
-            self.imageURLStringsArray[randomIndex] = self.imageURLStringsArray[i]
-            self.imageURLStringsArray[i] = randomImageURLString
+            swap(&self.imageURLStringsArray[i], &self.imageURLStringsArray[randomIndex])
         }
     }
     
@@ -111,7 +109,7 @@ final class MainViewController: UIViewController, UITableViewDataSource {
             
             // Notice that the completion block can be ommitted, since it defaults to nil. The controlState and isBackgroundImage parameters can also be ommitted, as they default to .Normal and false, respectively.
             // Please read the documentation for more information.
-            cell.featuredButtonView.loadImageFromURLString(self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali"), forState: .Normal, isBackgroundImage: false)
+            cell.featuredButtonView.loadImage(urlString: self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali"), forState: .normal, isBackgroundImage: false)
             
             return cell
         }

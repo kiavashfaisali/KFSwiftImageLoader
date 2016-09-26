@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		648F318C1D98C4360087DB97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648F31801D98C4360087DB97 /* AppDelegate.swift */; };
 		648F318D1D98C4360087DB97 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 648F31821D98C4360087DB97 /* Images.xcassets */; };
-		648F318E1D98C4360087DB97 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 648F31831D98C4360087DB97 /* Info.plist */; };
-		648F318F1D98C4360087DB97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 648F31851D98C4360087DB97 /* Main.storyboard */; };
 		648F31901D98C4360087DB97 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648F31881D98C4360087DB97 /* MainViewController.swift */; };
 		648F31911D98C4360087DB97 /* ButtonImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648F318A1D98C4360087DB97 /* ButtonImageTableViewCell.swift */; };
 		648F31921D98C4360087DB97 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648F318B1D98C4360087DB97 /* ImageTableViewCell.swift */; };
+		64D7758D1D98E5CC00573D76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 648F31851D98C4360087DB97 /* Main.storyboard */; };
 		DA3194391114907FFF8DD761 /* Pods_KFSwiftImageLoader_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F7DF0BF406FEDAF875D620 /* Pods_KFSwiftImageLoader_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -209,8 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				648F318F1D98C4360087DB97 /* Main.storyboard in Resources */,
-				648F318E1D98C4360087DB97 /* Info.plist in Resources */,
+				64D7758D1D98E5CC00573D76 /* Main.storyboard in Resources */,
 				648F318D1D98C4360087DB97 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,7 +384,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = KFSwiftImageLoader/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/KFSwiftImageLoader/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -404,7 +402,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = KFSwiftImageLoader/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/KFSwiftImageLoader/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";

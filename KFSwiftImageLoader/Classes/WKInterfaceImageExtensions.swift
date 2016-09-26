@@ -55,15 +55,21 @@ public extension WKInterfaceImage {
     /**
         Asynchronously downloads an image and loads it into the interface using a URL string.
         
-        - parameter string: The image URL in the form of a String.
+        - parameter urlString: The image URL in the form of a String.
         - parameter placeholderImageName: An optional String representing the name of a placeholder image that is loaded into the interface while the asynchronous download takes place. The default value is nil.
         - parameter shouldUseDeviceCache: A boolean indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
     */
-    final public func loadImageFromURLString(_ string: String, placeholderImageName: String? = nil, shouldUseDeviceCache: Bool = false, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
-        if let url = URL(string: string) {
-            loadImageFromURL(url, placeholderImageName: placeholderImageName, shouldUseDeviceCache: shouldUseDeviceCache, completion: completion)
+    final public func loadImage(urlString urlString: String, placeholderImageName: String? = nil, shouldUseDeviceCache: Bool = false, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+        guard let url = URL(string: urlString) else {
+            DispatchQueue.main.async {
+                completion?(false, nil)
+            }
+            
+            return
         }
+        
+        loadImageFromURL(url, placeholderImageName: placeholderImageName, shouldUseDeviceCache: shouldUseDeviceCache, completion: completion)
     }
     
     /**
@@ -76,8 +82,10 @@ public extension WKInterfaceImage {
     */
     final public func loadImageFromURL(_ url: URL, placeholderImageName: String? = nil, shouldUseDeviceCache: Bool = false, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
         let cacheManager = KFImageCacheManager.sharedInstance
-        let request = NSMutableURLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
+        
+        var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
+        
         loadImageFromRequest(request, placeholderImageName: placeholderImageName, shouldUseDeviceCache: shouldUseDeviceCache, completion: completion)
     }
     
@@ -152,14 +160,14 @@ public extension WKInterfaceImage {
             if cacheManager.isDownloadingFromURL(urlAbsoluteString) == false {
                 cacheManager.setIsDownloadingFromURL(true, forURLString: urlAbsoluteString)
                 
-                let dataTask = cacheManager.session.dataTask(with: request, completionHandler: {
-                    (taskData: Data?, taskResponse: URLResponse?, taskError: NSError?) in
+                let dataTask = cacheManager.session.dataTask(with: request) {
+                    taskData, taskResponse, taskError in
                     
                     guard let data = taskData, let response = taskResponse, let image = UIImage(data: data) , taskError == nil else {
                         DispatchQueue.main.async {
                             cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
-                            self.completionHolder.completion?(finished: false, error: taskError)
+                            self.completionHolder.completion?(false, taskError as NSError?)
                         }
                         
                         return
@@ -192,9 +200,9 @@ public extension WKInterfaceImage {
                             }
                         }
                         
-                        self.completionHolder.completion?(finished: true, error: nil)
+                        self.completionHolder.completion?(true, nil)
                     }
-                }) 
+                }
                 
                 dataTask.resume()
             }
