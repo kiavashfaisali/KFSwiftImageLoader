@@ -26,21 +26,21 @@ final class MainViewController: UIViewController, UITableViewDataSource {
     
     // MARK: - Miscellaneous Methods
     func loadDuckDuckGoResults() {
-        let session = NSURLSession.sharedSession()
-        let url = NSURL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")!
-        let request = NSURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60.0)
+        let session = URLSession.shared
+        let url = URL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")!
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60.0)
         
-        let dataTask = session.dataTaskWithRequest(request) {
+        let dataTask = session.dataTask(with: request, completionHandler: {
             (taskData, taskResponse, taskError) in
             
-            guard let data = taskData where taskError == nil else {
+            guard let data = taskData , taskError == nil else {
                 print("Error retrieving response from the DuckDuckGo API.")
                 return
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 do {
-                    if let jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String: AnyObject] {
+                    if let jsonDict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject] {
                         if let relatedTopics = jsonDict["RelatedTopics"] as? [[String: AnyObject]] {
                             for relatedTopic in relatedTopics {
                                 if let imageURLString = relatedTopic["Icon"]?["URL"] as? String {
@@ -65,13 +65,13 @@ final class MainViewController: UIViewController, UITableViewDataSource {
                     print("Error when parsing the response JSON: \(error)")
                 }
             }
-        }
+        }) 
         
         dataTask.resume()
     }
     
     func randomizeImages() {
-        for (var i = 0; i < self.imageURLStringsArray.count; i++) {
+        for (i in 0 ..< self.imageURLStringsArray.count) {
             let randomIndex = Int(arc4random()) % self.imageURLStringsArray.count
             let randomImageURLString = self.imageURLStringsArray[randomIndex]
             self.imageURLStringsArray[randomIndex] = self.imageURLStringsArray[i]
@@ -81,15 +81,15 @@ final class MainViewController: UIViewController, UITableViewDataSource {
     
     // MARK: - Protocol Implementations
     // MARK: - UITableViewDataSource Protocol
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.imageURLStringsArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Even indices should contain imageview cells.
-        if indexPath.row % 2 == 0 {
+        if (indexPath as NSIndexPath).row % 2 == 0 {
             let cellIdentifier = "ImageTableViewCell"
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ImageTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ImageTableViewCell
             
             cell.featuredImageView.loadImageFromURLString(self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
                 (finished, potentialError) in
@@ -107,7 +107,7 @@ final class MainViewController: UIViewController, UITableViewDataSource {
         // Odd indices should contain button cells.
         else {
             let cellIdentifier = "ButtonImageTableViewCell"
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ButtonImageTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ButtonImageTableViewCell
             
             // Notice that the completion block can be ommitted, since it defaults to nil. The controlState and isBackgroundImage parameters can also be ommitted, as they default to .Normal and false, respectively.
             // Please read the documentation for more information.

@@ -11,8 +11,8 @@ final class ButtonImageTableViewCell: UITableViewCell {
     
     // MARK: - View Recycling
     override func prepareForReuse() {
-        self.featuredButtonView.setImage(nil, forState: .Normal)
-        self.featuredButtonView.setBackgroundImage(nil, forState: .Normal)
+        self.featuredButtonView.setImage(nil, for: UIControlState())
+        self.featuredButtonView.setBackgroundImage(nil, for: UIControlState())
         
         super.prepareForReuse()
     }
