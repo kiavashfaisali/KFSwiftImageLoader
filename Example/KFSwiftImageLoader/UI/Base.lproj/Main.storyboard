@@ -1,40 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Table View Images-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="SwiftImageLoader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="KFSwiftImageLoader_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="187" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6hH-sV-dGd">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageTableViewCell" id="x8l-1e-FRv" customClass="ImageTableViewCell" customModule="SwiftImageLoader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="187"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageTableViewCell" id="x8l-1e-FRv" customClass="ImageTableViewCell" customModule="KFSwiftImageLoader_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="22" width="375" height="187"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x8l-1e-FRv" id="Ubd-St-Kih">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="187"/>
+                                            <frame key="frameInset" width="375" height="187"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="60y-FW-Ju1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="187"/>
-                                                    <animations/>
-                                                </imageView>
+                                                <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="60y-FW-Ju1"/>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="60y-FW-Ju1" secondAttribute="bottom" id="4pE-UM-BNM"/>
                                                 <constraint firstItem="60y-FW-Ju1" firstAttribute="leading" secondItem="Ubd-St-Kih" secondAttribute="leading" id="jjV-Pd-By9"/>
@@ -42,24 +36,19 @@
                                                 <constraint firstAttribute="trailing" secondItem="60y-FW-Ju1" secondAttribute="trailing" id="uHB-vd-OEa"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                         <connections>
                                             <outlet property="featuredImageView" destination="60y-FW-Ju1" id="17y-sE-Vhl"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ButtonImageTableViewCell" id="BSu-fM-78T" customClass="ButtonImageTableViewCell" customModule="SwiftImageLoader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="209" width="600" height="187"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ButtonImageTableViewCell" id="BSu-fM-78T" customClass="ButtonImageTableViewCell" customModule="KFSwiftImageLoader_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="209" width="375" height="187"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BSu-fM-78T" id="I4b-80-dnB">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="187"/>
+                                            <frame key="frameInset" width="375" height="187"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7R-wX-Uvl" userLabel="Button Image">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="187"/>
-                                                    <animations/>
-                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7R-wX-Uvl" userLabel="Button Image"/>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="z7R-wX-Uvl" secondAttribute="bottom" id="2bt-O9-ZuO"/>
                                                 <constraint firstAttribute="trailing" secondItem="z7R-wX-Uvl" secondAttribute="trailing" id="KMN-Gr-vDc"/>
@@ -67,7 +56,6 @@
                                                 <constraint firstItem="z7R-wX-Uvl" firstAttribute="top" secondItem="I4b-80-dnB" secondAttribute="top" id="oe2-Yb-K2L"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                         <connections>
                                             <outlet property="featuredButtonView" destination="z7R-wX-Uvl" id="IV0-NZ-aT8"/>
                                         </connections>
@@ -78,8 +66,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="6hH-sV-dGd" secondAttribute="trailing" id="6zV-XL-OzP"/>
                             <constraint firstItem="6hH-sV-dGd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cjO-yd-hdt"/>
@@ -94,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="956" y="659"/>
+            <point key="canvasLocation" x="956" y="658.92053973013503"/>
         </scene>
     </scenes>
 </document>

@@ -1,7 +1,4 @@
 //
-//  AppDelegate.swift
-//  SwiftImageLoader
-//
 //  Created by Kiavash Faisali on 2015-03-17.
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
 //

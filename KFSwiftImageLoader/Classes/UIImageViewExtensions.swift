@@ -1,16 +1,3 @@
-/*
-    KFSwiftImageLoader is available under the MIT license.
-
-    Copyright (c) 2015 Kiavash Faisali
-    https://github.com/kiavashfaisali
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 //
 //  Created by Kiavash Faisali on 2015-03-17.
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
@@ -51,8 +38,8 @@ public extension UIImageView {
         - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
     */
-    final public func loadImageFromURLString(string: String, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError?) -> Void)? = nil) {
-        if let url = NSURL(string: string) {
+    final public func loadImageFromURLString(_ string: String, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+        if let url = URL(string: string) {
             loadImageFromURL(url, placeholderImage: placeholderImage, completion: completion)
         }
     }
@@ -64,9 +51,9 @@ public extension UIImageView {
         - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
     */
-    final public func loadImageFromURL(url: NSURL, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError?) -> Void)? = nil) {
+    final public func loadImageFromURL(_ url: URL, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
         let cacheManager = KFImageCacheManager.sharedInstance
-        let request = NSMutableURLRequest(URL: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
+        let request = NSMutableURLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
         loadImageFromRequest(request, placeholderImage: placeholderImage, completion: completion)
     }
@@ -78,25 +65,25 @@ public extension UIImageView {
         - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
     */
-    final public func loadImageFromRequest(request: NSURLRequest, placeholderImage: UIImage? = nil, completion: ((finished: Bool, error: NSError?) -> Void)? = nil) {
+    final public func loadImageFromRequest(_ request: URLRequest, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
         self.completionHolder = CompletionHolder(completion: completion)
         self.indexPathIdentifier = -1
         
-        guard let urlAbsoluteString = request.URL?.absoluteString else {
-            self.completionHolder.completion?(finished: false, error: nil)
+        guard let urlAbsoluteString = request.url?.absoluteString else {
+            self.completionHolder.completion?(false, nil)
             return
         }
         
         let cacheManager = KFImageCacheManager.sharedInstance
         let fadeAnimationDuration = cacheManager.fadeAnimationDuration
-        let sharedURLCache = NSURLCache.sharedURLCache()
+        let sharedURLCache = URLCache.shared
         
-        func loadImage(image: UIImage) -> Void {
-            UIView.transitionWithView(self, duration: fadeAnimationDuration, options: .TransitionCrossDissolve, animations: {
+        func loadImage(_ image: UIImage) -> Void {
+            UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
                 self.image = image
             }, completion: nil)
             
-            self.completionHolder.completion?(finished: true, error: nil)
+            self.completionHolder.completion?(true, nil)
         }
         
         // If there's already a cached image, load it into the image view.
@@ -104,7 +91,7 @@ public extension UIImageView {
             loadImage(image)
         }
         // If there's already a cached response, load the image data into the image view.
-        else if let cachedResponse = sharedURLCache.cachedResponseForRequest(request), image = UIImage(data: cachedResponse.data), creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval where (NSDate.timeIntervalSinceReferenceDate() - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
+        else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval , (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
             loadImage(image)
             
             cacheManager[urlAbsoluteString] = image
@@ -112,7 +99,7 @@ public extension UIImageView {
         // Either begin downloading the image or become an observer for an existing request.
         else {
             // Remove the stale disk-cached response (if any).
-            sharedURLCache.removeCachedResponseForRequest(request)
+            sharedURLCache.removeCachedResponse(for: request)
             
             // Set the placeholder image if it was provided.
             if let image = placeholderImage {
@@ -134,7 +121,7 @@ public extension UIImageView {
                     tableView = view
                     
                     if let cell = tableViewCell {
-                        let indexPath = tableView.indexPathForRowAtPoint(cell.center)
+                        let indexPath = tableView.indexPathForRow(at: cell.center)
                         self.indexPathIdentifier = indexPath?.hashValue ?? -1
                     }
                     break
@@ -146,7 +133,7 @@ public extension UIImageView {
                     collectionView = view
                     
                     if let cell = collectionViewCell {
-                        let indexPath = collectionView.indexPathForItemAtPoint(cell.center)
+                        let indexPath = collectionView.indexPathForItem(at: cell.center)
                         self.indexPathIdentifier = indexPath?.hashValue ?? -1
                     }
                     break
@@ -161,11 +148,11 @@ public extension UIImageView {
             if cacheManager.isDownloadingFromURL(urlAbsoluteString) == false {
                 cacheManager.setIsDownloadingFromURL(true, forURLString: urlAbsoluteString)
                 
-                let dataTask = cacheManager.session.dataTaskWithRequest(request) {
-                    (taskData: NSData?, taskResponse: NSURLResponse?, taskError: NSError?) in
+                let dataTask = cacheManager.session.dataTask(with: request, completionHandler: {
+                    (taskData: Data?, taskResponse: URLResponse?, taskError: NSError?) in
                     
-                    guard let data = taskData, response = taskResponse, image = UIImage(data: data) where taskError == nil else {
-                        dispatch_async(dispatch_get_main_queue()) {
+                    guard let data = taskData, let response = taskResponse, let image = UIImage(data: data) , taskError == nil else {
+                        DispatchQueue.main.async {
                             cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
                             self.completionHolder.completion?(finished: false, error: taskError)
@@ -174,9 +161,9 @@ public extension UIImageView {
                         return
                     }
                     
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         if initialIndexIdentifier == self.indexPathIdentifier {
-                            UIView.transitionWithView(self, duration: fadeAnimationDuration, options: .TransitionCrossDissolve, animations: {
+                            UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
                                 self.image = image
                             }, completion: nil)
                         }
@@ -184,25 +171,25 @@ public extension UIImageView {
                         cacheManager[urlAbsoluteString] = image
                         
                         let responseDataIsCacheable = cacheManager.diskCacheMaxAge > 0 &&
-                            Double(data.length) <= 0.05 * Double(sharedURLCache.diskCapacity) &&
-                            (cacheManager.session.configuration.requestCachePolicy == .ReturnCacheDataElseLoad ||
-                                cacheManager.session.configuration.requestCachePolicy == .ReturnCacheDataDontLoad) &&
-                            (request.cachePolicy == .ReturnCacheDataElseLoad ||
-                                request.cachePolicy == .ReturnCacheDataDontLoad)
+                            Double(data.count) <= 0.05 * Double(sharedURLCache.diskCapacity) &&
+                            (cacheManager.session.configuration.requestCachePolicy == .returnCacheDataElseLoad ||
+                                cacheManager.session.configuration.requestCachePolicy == .returnCacheDataDontLoad) &&
+                            (request.cachePolicy == .returnCacheDataElseLoad ||
+                                request.cachePolicy == .returnCacheDataDontLoad)
                         
-                        if let httpResponse = response as? NSHTTPURLResponse, url = httpResponse.URL where responseDataIsCacheable {
+                        if let httpResponse = response as? HTTPURLResponse, let url = httpResponse.url , responseDataIsCacheable {
                             if var allHeaderFields = httpResponse.allHeaderFields as? [String: String] {
                                 allHeaderFields["Cache-Control"] = "max-age=\(cacheManager.diskCacheMaxAge)"
-                                if let cacheControlResponse = NSHTTPURLResponse(URL: url, statusCode: httpResponse.statusCode, HTTPVersion: "HTTP/1.1", headerFields: allHeaderFields) {
-                                    let cachedResponse = NSCachedURLResponse(response: cacheControlResponse, data: data, userInfo: ["creationTimestamp": NSDate.timeIntervalSinceReferenceDate()], storagePolicy: .Allowed)
-                                    sharedURLCache.storeCachedResponse(cachedResponse, forRequest: request)
+                                if let cacheControlResponse = HTTPURLResponse(url: url, statusCode: httpResponse.statusCode, httpVersion: "HTTP/1.1", headerFields: allHeaderFields) {
+                                    let cachedResponse = CachedURLResponse(response: cacheControlResponse, data: data, userInfo: ["creationTimestamp": Date.timeIntervalSinceReferenceDate], storagePolicy: .allowed)
+                                    sharedURLCache.storeCachedResponse(cachedResponse, for: request)
                                 }
                             }
                         }
                         
                         self.completionHolder.completion?(finished: true, error: nil)
                     }
-                }
+                }) 
                 
                 dataTask.resume()
             }
