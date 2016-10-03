@@ -1,0 +1,5 @@
+use_frameworks!
+
+target 'KFSwiftImageLoader_Example' do
+  pod 'KFSwiftImageLoader', :path => '../'
+end

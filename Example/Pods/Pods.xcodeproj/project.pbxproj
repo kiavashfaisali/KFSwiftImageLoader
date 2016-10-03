@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		19B4572B14BF67C30C24DC90CDDCA82B /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD466983119EFC174049E8D9994E89B /* UIImageViewExtensions.swift */; };
+		4E18FC46FA127E3C2104F0D9062B0B07 /* WKInterfaceImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C7655FAD87386361D35FEC449090A /* WKInterfaceImageExtensions.swift */; };
+		63D821E41DE415582D9B7EC60A24F313 /* KFSwiftImageLoader-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 532B15F1AF18A89BC19DA5081E513ADE /* KFSwiftImageLoader-dummy.m */; };
+		6467AF591DA1DE6400F27360 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6467AF581DA1DE6400F27360 /* Constants.swift */; };
+		6A5126306036117BBD3550566880BFF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		95400E6C9F5DC99D591C35449440A7B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		98743688035AB2B7C85738EA1C41ABF6 /* Pods-KFSwiftImageLoader_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FC7FA186298B3BFCFBDCB99EBC453391 /* Pods-KFSwiftImageLoader_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A28097C4C18B2EA2E988953003B1E10D /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1719553ECBF7E8F9AE234828381A06 /* UIButtonExtensions.swift */; };
+		AE7B9ADDCBE1D4EEE316458565165CDF /* KFImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB230780AA278C8956BE00FDA2DBB37B /* KFImageCacheManager.swift */; };
+		BAA57C8E545FDBF20BFD4C5051AB5B67 /* Pods-KFSwiftImageLoader_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF3FB046E863416ADD3D2CA1F6A5266 /* Pods-KFSwiftImageLoader_Example-dummy.m */; };
+		DF6DCA5B5D2660DC64901116A407F368 /* MKAnnotationViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD4D29053B32883B971E8EA0673664 /* MKAnnotationViewExtensions.swift */; };
+		E9EB979120769BE93B541078F9D7E622 /* KFSwiftImageLoader-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 21245BC2C90799A4A58A06027236AD7F /* KFSwiftImageLoader-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		67F1A7B79047FDB344B2F2BD8DFB3F38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 935868B02D678B72AAD39DDD2E0FCF7D;
+			remoteInfo = KFSwiftImageLoader;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		21245BC2C90799A4A58A06027236AD7F /* KFSwiftImageLoader-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KFSwiftImageLoader-umbrella.h"; sourceTree = "<group>"; };
+		3631230CBF9AA45E63CBCC9768103FC1 /* Pods_KFSwiftImageLoader_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KFSwiftImageLoader_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D61C4CCAC78315D0625D03C9402F5BC /* Pods-KFSwiftImageLoader_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KFSwiftImageLoader_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		40AD4D29053B32883B971E8EA0673664 /* MKAnnotationViewExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtensions.swift; sourceTree = "<group>"; };
+		4B5BAB641B4A288DCA95814DC0E64187 /* KFSwiftImageLoader.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KFSwiftImageLoader.xcconfig; sourceTree = "<group>"; };
+		4E1719553ECBF7E8F9AE234828381A06 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		4EDFF027B6D5912FEF99855B4F06EDBB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		532B15F1AF18A89BC19DA5081E513ADE /* KFSwiftImageLoader-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KFSwiftImageLoader-dummy.m"; sourceTree = "<group>"; };
+		58C22F4E92693C7121ADD2DEBE76D8D3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		58C46FAF360B1F8D7DB0857A0CB53E2C /* Pods-KFSwiftImageLoader_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-KFSwiftImageLoader_Example.modulemap"; sourceTree = "<group>"; };
+		5F9F7F21517CFF954DD6266F5B37349A /* Pods-KFSwiftImageLoader_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KFSwiftImageLoader_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		6467AF581DA1DE6400F27360 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6AD466983119EFC174049E8D9994E89B /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
+		8CEF39F6A77816105FAE702E7A721899 /* Pods-KFSwiftImageLoader_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KFSwiftImageLoader_Example.release.xcconfig"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9DE541CAA5548762C859D88353F28BE8 /* KFSwiftImageLoader-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KFSwiftImageLoader-prefix.pch"; sourceTree = "<group>"; };
+		B5DCE11F9B6386E36899EA74C223879A /* Pods-KFSwiftImageLoader_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KFSwiftImageLoader_Example-resources.sh"; sourceTree = "<group>"; };
+		B7558615E510BB4AA8871D3D0BDD88D1 /* Pods-KFSwiftImageLoader_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KFSwiftImageLoader_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C85ED25D08D9075D53BFD62F69E12B1F /* KFSwiftImageLoader.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = KFSwiftImageLoader.modulemap; sourceTree = "<group>"; };
+		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CFF3FB046E863416ADD3D2CA1F6A5266 /* Pods-KFSwiftImageLoader_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KFSwiftImageLoader_Example-dummy.m"; sourceTree = "<group>"; };
+		D678E224609CC129CDE70350C6DE88BB /* KFSwiftImageLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KFSwiftImageLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E81C7655FAD87386361D35FEC449090A /* WKInterfaceImageExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WKInterfaceImageExtensions.swift; sourceTree = "<group>"; };
+		E99E377E33090570EEFA882770B0FFFF /* Pods-KFSwiftImageLoader_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KFSwiftImageLoader_Example-frameworks.sh"; sourceTree = "<group>"; };
+		EB230780AA278C8956BE00FDA2DBB37B /* KFImageCacheManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KFImageCacheManager.swift; sourceTree = "<group>"; };
+		FC7FA186298B3BFCFBDCB99EBC453391 /* Pods-KFSwiftImageLoader_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-KFSwiftImageLoader_Example-umbrella.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0011CB0D83B83981DD58A7590B9B8B28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95400E6C9F5DC99D591C35449440A7B2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FA7AC659F253A0D3B4C23CDFB4FE8BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A5126306036117BBD3550566880BFF4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0DEBDB50E247E63043B90F00F7EC2393 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				78BC4533121EAE6243258C4C01AD66B2 /* KFSwiftImageLoader */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		484C783654CDC545232964C689CF56DD /* KFSwiftImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				69C8F38BDBED7AF2492335FB8BAF1EEA /* Classes */,
+			);
+			path = KFSwiftImageLoader;
+			sourceTree = "<group>";
+		};
+		6467AF551DA1DE3500F27360 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EB230780AA278C8956BE00FDA2DBB37B /* KFImageCacheManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		6467AF561DA1DE4000F27360 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				40AD4D29053B32883B971E8EA0673664 /* MKAnnotationViewExtensions.swift */,
+				4E1719553ECBF7E8F9AE234828381A06 /* UIButtonExtensions.swift */,
+				6AD466983119EFC174049E8D9994E89B /* UIImageViewExtensions.swift */,
+				E81C7655FAD87386361D35FEC449090A /* WKInterfaceImageExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		6467AF571DA1DE4900F27360 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				6467AF581DA1DE6400F27360 /* Constants.swift */,
+			);
+			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		673FE0D364A4434A8222524228FB5F9A /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				84A40720FF1725571F516CF05FFE6B6E /* Pods-KFSwiftImageLoader_Example */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		69C8F38BDBED7AF2492335FB8BAF1EEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6467AF571DA1DE4900F27360 /* Miscellaneous */,
+				6467AF561DA1DE4000F27360 /* Extensions */,
+				6467AF551DA1DE3500F27360 /* Managers */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		78BC4533121EAE6243258C4C01AD66B2 /* KFSwiftImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				484C783654CDC545232964C689CF56DD /* KFSwiftImageLoader */,
+				9632CC34A7F9B7B9F40FC4AC16061CBD /* Support Files */,
+			);
+			name = KFSwiftImageLoader;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				0DEBDB50E247E63043B90F00F7EC2393 /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				C4824BBB5752A528308A652F423A22BD /* Products */,
+				673FE0D364A4434A8222524228FB5F9A /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		84A40720FF1725571F516CF05FFE6B6E /* Pods-KFSwiftImageLoader_Example */ = {
+			isa = PBXGroup;
+			children = (
+				58C22F4E92693C7121ADD2DEBE76D8D3 /* Info.plist */,
+				58C46FAF360B1F8D7DB0857A0CB53E2C /* Pods-KFSwiftImageLoader_Example.modulemap */,
+				B7558615E510BB4AA8871D3D0BDD88D1 /* Pods-KFSwiftImageLoader_Example-acknowledgements.markdown */,
+				5F9F7F21517CFF954DD6266F5B37349A /* Pods-KFSwiftImageLoader_Example-acknowledgements.plist */,
+				CFF3FB046E863416ADD3D2CA1F6A5266 /* Pods-KFSwiftImageLoader_Example-dummy.m */,
+				E99E377E33090570EEFA882770B0FFFF /* Pods-KFSwiftImageLoader_Example-frameworks.sh */,
+				B5DCE11F9B6386E36899EA74C223879A /* Pods-KFSwiftImageLoader_Example-resources.sh */,
+				FC7FA186298B3BFCFBDCB99EBC453391 /* Pods-KFSwiftImageLoader_Example-umbrella.h */,
+				3D61C4CCAC78315D0625D03C9402F5BC /* Pods-KFSwiftImageLoader_Example.debug.xcconfig */,
+				8CEF39F6A77816105FAE702E7A721899 /* Pods-KFSwiftImageLoader_Example.release.xcconfig */,
+			);
+			name = "Pods-KFSwiftImageLoader_Example";
+			path = "Target Support Files/Pods-KFSwiftImageLoader_Example";
+			sourceTree = "<group>";
+		};
+		9632CC34A7F9B7B9F40FC4AC16061CBD /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4EDFF027B6D5912FEF99855B4F06EDBB /* Info.plist */,
+				C85ED25D08D9075D53BFD62F69E12B1F /* KFSwiftImageLoader.modulemap */,
+				4B5BAB641B4A288DCA95814DC0E64187 /* KFSwiftImageLoader.xcconfig */,
+				532B15F1AF18A89BC19DA5081E513ADE /* KFSwiftImageLoader-dummy.m */,
+				9DE541CAA5548762C859D88353F28BE8 /* KFSwiftImageLoader-prefix.pch */,
+				21245BC2C90799A4A58A06027236AD7F /* KFSwiftImageLoader-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/KFSwiftImageLoader";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C4824BBB5752A528308A652F423A22BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D678E224609CC129CDE70350C6DE88BB /* KFSwiftImageLoader.framework */,
+				3631230CBF9AA45E63CBCC9768103FC1 /* Pods_KFSwiftImageLoader_Example.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		827940756FF5E70A2E99B284F22CEB8E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98743688035AB2B7C85738EA1C41ABF6 /* Pods-KFSwiftImageLoader_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB7AAFB3C1B2E07F5067AC21D51C877C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9EB979120769BE93B541078F9D7E622 /* KFSwiftImageLoader-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		5085BD0DE886A49AADC76FEF08068C3C /* Pods-KFSwiftImageLoader_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB9577F4081A44ACB586CB855F71430B /* Build configuration list for PBXNativeTarget "Pods-KFSwiftImageLoader_Example" */;
+			buildPhases = (
+				6AB8CFCEA4DD4ABCE969E26238092154 /* Sources */,
+				0011CB0D83B83981DD58A7590B9B8B28 /* Frameworks */,
+				827940756FF5E70A2E99B284F22CEB8E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				31FA858A44FB81627AF6146276B6719E /* PBXTargetDependency */,
+			);
+			name = "Pods-KFSwiftImageLoader_Example";
+			productName = "Pods-KFSwiftImageLoader_Example";
+			productReference = 3631230CBF9AA45E63CBCC9768103FC1 /* Pods_KFSwiftImageLoader_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		935868B02D678B72AAD39DDD2E0FCF7D /* KFSwiftImageLoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0B868FB3A40A656D456F58119F42534 /* Build configuration list for PBXNativeTarget "KFSwiftImageLoader" */;
+			buildPhases = (
+				16A2CA9F3731C4AD4216EDC080995248 /* Sources */,
+				7FA7AC659F253A0D3B4C23CDFB4FE8BF /* Frameworks */,
+				BB7AAFB3C1B2E07F5067AC21D51C877C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KFSwiftImageLoader;
+			productName = KFSwiftImageLoader;
+			productReference = D678E224609CC129CDE70350C6DE88BB /* KFSwiftImageLoader.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					5085BD0DE886A49AADC76FEF08068C3C = {
+						LastSwiftMigration = 0800;
+					};
+					935868B02D678B72AAD39DDD2E0FCF7D = {
+						LastSwiftMigration = 0800;
+					};
+				};
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = C4824BBB5752A528308A652F423A22BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				935868B02D678B72AAD39DDD2E0FCF7D /* KFSwiftImageLoader */,
+				5085BD0DE886A49AADC76FEF08068C3C /* Pods-KFSwiftImageLoader_Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		16A2CA9F3731C4AD4216EDC080995248 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE7B9ADDCBE1D4EEE316458565165CDF /* KFImageCacheManager.swift in Sources */,
+				63D821E41DE415582D9B7EC60A24F313 /* KFSwiftImageLoader-dummy.m in Sources */,
+				DF6DCA5B5D2660DC64901116A407F368 /* MKAnnotationViewExtensions.swift in Sources */,
+				A28097C4C18B2EA2E988953003B1E10D /* UIButtonExtensions.swift in Sources */,
+				6467AF591DA1DE6400F27360 /* Constants.swift in Sources */,
+				19B4572B14BF67C30C24DC90CDDCA82B /* UIImageViewExtensions.swift in Sources */,
+				4E18FC46FA127E3C2104F0D9062B0B07 /* WKInterfaceImageExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6AB8CFCEA4DD4ABCE969E26238092154 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAA57C8E545FDBF20BFD4C5051AB5B67 /* Pods-KFSwiftImageLoader_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		31FA858A44FB81627AF6146276B6719E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KFSwiftImageLoader;
+			target = 935868B02D678B72AAD39DDD2E0FCF7D /* KFSwiftImageLoader */;
+			targetProxy = 67F1A7B79047FDB344B2F2BD8DFB3F38 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		034014829C1E4434983CF3A690C12017 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		1D17A475400A5AEA23E765C2008FC3C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D61C4CCAC78315D0625D03C9402F5BC /* Pods-KFSwiftImageLoader_Example.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-KFSwiftImageLoader_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-KFSwiftImageLoader_Example/Pods-KFSwiftImageLoader_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_KFSwiftImageLoader_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2CD74B0F8E29508F68FEE42226D01F6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B5BAB641B4A288DCA95814DC0E64187 /* KFSwiftImageLoader.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KFSwiftImageLoader/KFSwiftImageLoader-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KFSwiftImageLoader/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KFSwiftImageLoader/KFSwiftImageLoader.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = KFSwiftImageLoader;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3B16043017F9FE716D389DAB5D336C2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B5BAB641B4A288DCA95814DC0E64187 /* KFSwiftImageLoader.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KFSwiftImageLoader/KFSwiftImageLoader-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KFSwiftImageLoader/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KFSwiftImageLoader/KFSwiftImageLoader.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = KFSwiftImageLoader;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C70516D1E4EC48A0E85B1CAC9488BF6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CEF39F6A77816105FAE702E7A721899 /* Pods-KFSwiftImageLoader_Example.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-KFSwiftImageLoader_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-KFSwiftImageLoader_Example/Pods-KFSwiftImageLoader_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_KFSwiftImageLoader_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C7E474A03CAE21F1CB6046E7344C59BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				034014829C1E4434983CF3A690C12017 /* Debug */,
+				C7E474A03CAE21F1CB6046E7344C59BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB9577F4081A44ACB586CB855F71430B /* Build configuration list for PBXNativeTarget "Pods-KFSwiftImageLoader_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D17A475400A5AEA23E765C2008FC3C8 /* Debug */,
+				C70516D1E4EC48A0E85B1CAC9488BF6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0B868FB3A40A656D456F58119F42534 /* Build configuration list for PBXNativeTarget "KFSwiftImageLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B16043017F9FE716D389DAB5D336C2A /* Debug */,
+				2CD74B0F8E29508F68FEE42226D01F6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

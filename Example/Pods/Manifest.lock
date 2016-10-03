@@ -1,0 +1,16 @@
+PODS:
+  - KFSwiftImageLoader (3.0.0)
+
+DEPENDENCIES:
+  - KFSwiftImageLoader (from `../`)
+
+EXTERNAL SOURCES:
+  KFSwiftImageLoader:
+    :path: ../
+
+SPEC CHECKSUMS:
+  KFSwiftImageLoader: c4656d614329480308b190c2b6f15015a4018ffc
+
+PODFILE CHECKSUM: 1b4481a7f8b1f141cc52f0d5e2eea4515ebfd961
+
+COCOAPODS: 1.0.1
