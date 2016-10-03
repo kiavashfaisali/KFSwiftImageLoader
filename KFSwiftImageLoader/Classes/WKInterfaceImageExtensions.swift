@@ -61,9 +61,9 @@ public extension WKInterfaceImage {
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
-                                placeholderImageName: String? = nil,
-                                shouldUseDeviceCache: Bool = false,
-                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                     placeholderImageName: String? = nil,
+                     shouldUseDeviceCache: Bool = false,
+                               completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
@@ -85,9 +85,9 @@ public extension WKInterfaceImage {
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(url: URL,
-                                placeholderImageName: String? = nil,
-                                shouldUseDeviceCache: Bool = false,
-                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+               placeholderImageName: String? = nil,
+               shouldUseDeviceCache: Bool = false,
+                         completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         let cacheManager = KFImageCacheManager.sharedInstance
         
@@ -106,9 +106,9 @@ public extension WKInterfaceImage {
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request: URLRequest,
-                                placeholderImageName: String? = nil,
-                                shouldUseDeviceCache: Bool = false,
-                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                   placeholderImageName: String? = nil,
+                   shouldUseDeviceCache: Bool = false,
+                             completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         self.completionHolder = CompletionHolder(completion: completion)
         

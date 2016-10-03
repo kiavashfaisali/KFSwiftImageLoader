@@ -61,10 +61,10 @@ public extension UIButton {
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
-                                placeholderImage: UIImage? = nil,
-                                forState controlState: UIControlState = .normal,
-                                isBackgroundImage: Bool = false,
-                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                         placeholderImage: UIImage? = nil,
+                             controlState: UIControlState = .normal,
+                        isBackgroundImage: Bool = false,
+                               completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
@@ -74,7 +74,7 @@ public extension UIButton {
             return
         }
         
-        loadImage(url: url, placeholderImage: placeholderImage, forState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
+        loadImage(url: url, placeholderImage: placeholderImage, controlState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
     }
     
     /**
@@ -87,17 +87,17 @@ public extension UIButton {
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(url: URL,
-                                placeholderImage: UIImage? = nil,
-                                forState controlState: UIControlState = .normal,
-                                isBackgroundImage: Bool = false,
-                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                   placeholderImage: UIImage? = nil,
+                       controlState: UIControlState = .normal,
+                  isBackgroundImage: Bool = false,
+                         completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         let cacheManager = KFImageCacheManager.sharedInstance
         
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
         
-        loadImage(request: request, placeholderImage: placeholderImage, forState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
+        loadImage(request: request, placeholderImage: placeholderImage, controlState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
     }
     
     /**
@@ -110,10 +110,10 @@ public extension UIButton {
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request: URLRequest,
-                                placeholderImage: UIImage? = nil,
-                                forState controlState: UIControlState = UIControlState(),
-                                isBackgroundImage: Bool = false,
-                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                       placeholderImage: UIImage? = nil,
+                           controlState: UIControlState = UIControlState(),
+                      isBackgroundImage: Bool = false,
+                             completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         self.completionHolder = CompletionHolder(completion: completion)
         self.indexPathIdentifier = -1

@@ -7,12 +7,12 @@ import UIKit
 
 final class ButtonImageTableViewCell: UITableViewCell {
     // MARK: - Properties
-    @IBOutlet weak var featuredButtonView: UIButton!
+    @IBOutlet weak var featuredButton: UIButton!
     
     // MARK: - View Recycling
     override func prepareForReuse() {
-        self.featuredButtonView.setImage(nil, for: UIControlState())
-        self.featuredButtonView.setBackgroundImage(nil, for: UIControlState())
+        self.featuredButton.setImage(nil, for: UIControlState())
+        self.featuredButton.setBackgroundImage(nil, for: UIControlState())
         
         super.prepareForReuse()
     }

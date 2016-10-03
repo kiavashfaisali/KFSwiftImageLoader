@@ -63,17 +63,17 @@ imageView.loadImage(urlString: urlString, placeholderImage: UIImage(named: "Kiav
 For flexibility, there are several different methods for loading images.
 Below are the method signatures for all of them:
 ``` swift
-func loadImage(urlString urlString: String,
-                  placeholderImage: UIImage? = nil,
-                        completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+func loadImage(urlString: String,
+        placeholderImage: UIImage? = nil,
+              completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
 
-func loadImage(url url: URL,
+func loadImage(url: URL,
+  placeholderImage: UIImage? = nil,
+        completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+
+func loadImage(request: URLRequest,
       placeholderImage: UIImage? = nil,
             completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
-
-func loadImage(request request: URLRequest,
-              placeholderImage: UIImage? = nil,
-                    completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
 ```
 
 ### WKInterfaceImage
@@ -100,14 +100,14 @@ Again, KFSwiftImageLoader makes it very easy to load images.
 In this case, the button uses mostly the same method signature as UIImageView, but it includes two more optional parameters: "isBackgroundImage" and "forState".
 
 ``` swift
-func loadImage(urlString urlString: String,
-                  placeholderImage: UIImage? = nil,
-             forState controlState: UIControlState = .normal,
-                 isBackgroundImage: Bool = false,
-                        completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+func loadImage(urlString: String,
+        placeholderImage: UIImage? = nil,
+            controlState: UIControlState = .normal,
+       isBackgroundImage: Bool = false,
+              completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
 ```
 
-"forState" takes a UIControlState value that is required when setting images for buttons.
+"controlState" takes a UIControlState value that is required when setting images for buttons.
 "isBackgroundImage" simply indicates whether or not the button should use "setBackgroundImage:for:" or "setImage:for:" for image loading.
 
 ### MKAnnotationView
