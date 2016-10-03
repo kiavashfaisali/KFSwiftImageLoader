@@ -32,26 +32,38 @@ public extension UIImageView {
     
     // MARK: - Image Loading Methods
     /**
-        Asynchronously downloads an image and loads it into the view using a URL string.
+        Asynchronously downloads an image and loads it into the `UIImageView` using a URL `String`.
         
-        - parameter string: The image URL in the form of a String.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
+        - parameter urlString: The image URL in the form of a `String`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImageFromURLString(_ string: String, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
-        if let url = URL(string: string) {
-            loadImage(url: url, placeholderImage: placeholderImage, completion: completion)
+    final public func loadImage(urlString urlString: String,
+                                placeholderImage: UIImage? = nil,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
+        guard let url = URL(string: urlString) else {
+            DispatchQueue.main.async {
+                completion?(false, nil)
+            }
+            
+            return
         }
+        
+        loadImage(url: url, placeholderImage: placeholderImage, completion: completion)
     }
     
     /**
-        Asynchronously downloads an image and loads it into the view using an NSURL object.
-        
-        - parameter url: The image URL in the form of an NSURL object.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
-    */
-    final public func loadImage(url url: URL, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+        Asynchronously downloads an image and loads it into the `UIImageView` using a `URL`.
+     
+        - parameter url: The image `URL`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+     */
+    final public func loadImage(url url: URL,
+                                placeholderImage: UIImage? = nil,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         let cacheManager = KFImageCacheManager.sharedInstance
         
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
@@ -61,13 +73,16 @@ public extension UIImageView {
     }
     
     /**
-        Asynchronously downloads an image and loads it into the view using an NSURLRequest object.
-        
-        - parameter request: The image URL in the form of an NSURLRequest object.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a Bool indicating whether everything was successful, and the second is an optional NSError which will be non-nil should an error occur. The default value is nil.
-    */
-    final public func loadImage(request request: URLRequest, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+        Asynchronously downloads an image and loads it into the `UIImageView` using a `URLRequest`.
+     
+        - parameter request: The image URL in the form of a `URLRequest`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+     */
+    final public func loadImage(request request: URLRequest,
+                                placeholderImage: UIImage? = nil,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         self.completionHolder = CompletionHolder(completion: completion)
         self.indexPathIdentifier = -1
         
@@ -83,7 +98,7 @@ public extension UIImageView {
         func loadImage(_ image: UIImage) -> Void {
             UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
                 self.image = image
-            }, completion: nil)
+            })
             
             self.completionHolder.completion?(true, nil)
         }
@@ -93,7 +108,7 @@ public extension UIImageView {
             loadImage(image)
         }
         // If there's already a cached response, load the image data into the image view.
-        else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval , (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
+        else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval, (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
             loadImage(image)
             
             cacheManager[urlAbsoluteString] = image
@@ -153,7 +168,7 @@ public extension UIImageView {
                 let dataTask = cacheManager.session.dataTask(with: request) {
                     taskData, taskResponse, taskError in
                     
-                    guard let data = taskData, let response = taskResponse, let image = UIImage(data: data) , taskError == nil else {
+                    guard let data = taskData, let response = taskResponse, let image = UIImage(data: data), taskError == nil else {
                         DispatchQueue.main.async {
                             cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
@@ -179,7 +194,7 @@ public extension UIImageView {
                             (request.cachePolicy == .returnCacheDataElseLoad ||
                                 request.cachePolicy == .returnCacheDataDontLoad)
                         
-                        if let httpResponse = response as? HTTPURLResponse, let url = httpResponse.url , responseDataIsCacheable {
+                        if let httpResponse = response as? HTTPURLResponse, let url = httpResponse.url, responseDataIsCacheable {
                             if var allHeaderFields = httpResponse.allHeaderFields as? [String: String] {
                                 allHeaderFields["Cache-Control"] = "max-age=\(cacheManager.diskCacheMaxAge)"
                                 if let cacheControlResponse = HTTPURLResponse(url: url, statusCode: httpResponse.statusCode, httpVersion: "HTTP/1.1", headerFields: allHeaderFields) {

@@ -11,15 +11,6 @@ private var completionHolderAssociationKey: UInt8 = 0
 private var controlStateHolderAssociationKey: UInt8 = 0
 private var isBackgroundImageAssociationKey: UInt8 = 0
 
-// MARK: - ControlStateHolder Class
-final internal class ControlStateHolder {
-    var controlState: UIControlState
-    
-    init(state: UIControlState) {
-        self.controlState = state
-    }
-}
-
 // MARK: - UIButton Extension
 public extension UIButton {
     // MARK: - Associated Objects
@@ -69,7 +60,12 @@ public extension UIButton {
         - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(urlString urlString: String, placeholderImage: UIImage? = nil, forState controlState: UIControlState = .normal, isBackgroundImage: Bool = false, completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil) {
+    final public func loadImage(urlString urlString: String,
+                                placeholderImage: UIImage? = nil,
+                                forState controlState: UIControlState = .normal,
+                                isBackgroundImage: Bool = false,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
                 completion?(false, nil)
@@ -90,7 +86,12 @@ public extension UIButton {
         - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(url url: URL, placeholderImage: UIImage? = nil, forState controlState: UIControlState = .normal, isBackgroundImage: Bool = false, completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil) {
+    final public func loadImage(url url: URL,
+                                placeholderImage: UIImage? = nil,
+                                forState controlState: UIControlState = .normal,
+                                isBackgroundImage: Bool = false,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         let cacheManager = KFImageCacheManager.sharedInstance
         
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
@@ -108,7 +109,12 @@ public extension UIButton {
         - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(request request: URLRequest, placeholderImage: UIImage? = nil, forState controlState: UIControlState = UIControlState(), isBackgroundImage: Bool = false, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+    final public func loadImage(request request: URLRequest,
+                                placeholderImage: UIImage? = nil,
+                                forState controlState: UIControlState = UIControlState(),
+                                isBackgroundImage: Bool = false,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         self.completionHolder = CompletionHolder(completion: completion)
         self.indexPathIdentifier = -1
         self.controlStateHolder = ControlStateHolder(state: controlState)
@@ -131,7 +137,7 @@ public extension UIButton {
                 else {
                     self.setImage(image, for: self.controlStateHolder.controlState)
                 }
-            }, completion: nil)
+            })
             
             self.completionHolder.completion?(true, nil)
         }
@@ -141,7 +147,7 @@ public extension UIButton {
             loadImage(image)
         }
         // If there's already a cached response, load the image data into the image view.
-        else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval , (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
+        else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval, (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
             loadImage(image)
             
             cacheManager[urlAbsoluteString] = image
@@ -206,7 +212,7 @@ public extension UIButton {
                 let dataTask = cacheManager.session.dataTask(with: request) {
                     taskData, taskResponse, taskError in
                     
-                    guard let data = taskData, let response = taskResponse, let image = UIImage(data: data) , taskError == nil else {
+                    guard let data = taskData, let response = taskResponse, let image = UIImage(data: data), taskError == nil else {
                         DispatchQueue.main.async {
                             cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
@@ -225,7 +231,7 @@ public extension UIButton {
                                 else {
                                     self.setImage(image, for: self.controlStateHolder.controlState)
                                 }
-                            }, completion: nil)
+                            })
                         }
                         
                         cacheManager[urlAbsoluteString] = image
@@ -237,7 +243,7 @@ public extension UIButton {
                             (request.cachePolicy == .returnCacheDataElseLoad ||
                                 request.cachePolicy == .returnCacheDataDontLoad)
                         
-                        if let httpResponse = response as? HTTPURLResponse, let url = httpResponse.url , responseDataIsCacheable {
+                        if let httpResponse = response as? HTTPURLResponse, let url = httpResponse.url, responseDataIsCacheable {
                             if var allHeaderFields = httpResponse.allHeaderFields as? [String: String] {
                                 allHeaderFields["Cache-Control"] = "max-age=\(cacheManager.diskCacheMaxAge)"
                                 if let cacheControlResponse = HTTPURLResponse(url: url, statusCode: httpResponse.statusCode, httpVersion: "HTTP/1.1", headerFields: allHeaderFields) {

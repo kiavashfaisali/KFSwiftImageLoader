@@ -10,6 +10,7 @@
 		19B4572B14BF67C30C24DC90CDDCA82B /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD466983119EFC174049E8D9994E89B /* UIImageViewExtensions.swift */; };
 		4E18FC46FA127E3C2104F0D9062B0B07 /* WKInterfaceImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C7655FAD87386361D35FEC449090A /* WKInterfaceImageExtensions.swift */; };
 		63D821E41DE415582D9B7EC60A24F313 /* KFSwiftImageLoader-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 532B15F1AF18A89BC19DA5081E513ADE /* KFSwiftImageLoader-dummy.m */; };
+		6467AF591DA1DE6400F27360 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6467AF581DA1DE6400F27360 /* Constants.swift */; };
 		6A5126306036117BBD3550566880BFF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		95400E6C9F5DC99D591C35449440A7B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		98743688035AB2B7C85738EA1C41ABF6 /* Pods-KFSwiftImageLoader_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FC7FA186298B3BFCFBDCB99EBC453391 /* Pods-KFSwiftImageLoader_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,6 +43,7 @@
 		58C22F4E92693C7121ADD2DEBE76D8D3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58C46FAF360B1F8D7DB0857A0CB53E2C /* Pods-KFSwiftImageLoader_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-KFSwiftImageLoader_Example.modulemap"; sourceTree = "<group>"; };
 		5F9F7F21517CFF954DD6266F5B37349A /* Pods-KFSwiftImageLoader_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KFSwiftImageLoader_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		6467AF581DA1DE6400F27360 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6AD466983119EFC174049E8D9994E89B /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		8CEF39F6A77816105FAE702E7A721899 /* Pods-KFSwiftImageLoader_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KFSwiftImageLoader_Example.release.xcconfig"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -102,6 +104,33 @@
 			path = KFSwiftImageLoader;
 			sourceTree = "<group>";
 		};
+		6467AF551DA1DE3500F27360 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EB230780AA278C8956BE00FDA2DBB37B /* KFImageCacheManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		6467AF561DA1DE4000F27360 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				40AD4D29053B32883B971E8EA0673664 /* MKAnnotationViewExtensions.swift */,
+				4E1719553ECBF7E8F9AE234828381A06 /* UIButtonExtensions.swift */,
+				6AD466983119EFC174049E8D9994E89B /* UIImageViewExtensions.swift */,
+				E81C7655FAD87386361D35FEC449090A /* WKInterfaceImageExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		6467AF571DA1DE4900F27360 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				6467AF581DA1DE6400F27360 /* Constants.swift */,
+			);
+			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
 		673FE0D364A4434A8222524228FB5F9A /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,11 +142,9 @@
 		69C8F38BDBED7AF2492335FB8BAF1EEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				EB230780AA278C8956BE00FDA2DBB37B /* KFImageCacheManager.swift */,
-				40AD4D29053B32883B971E8EA0673664 /* MKAnnotationViewExtensions.swift */,
-				4E1719553ECBF7E8F9AE234828381A06 /* UIButtonExtensions.swift */,
-				6AD466983119EFC174049E8D9994E89B /* UIImageViewExtensions.swift */,
-				E81C7655FAD87386361D35FEC449090A /* WKInterfaceImageExtensions.swift */,
+				6467AF571DA1DE4900F27360 /* Miscellaneous */,
+				6467AF561DA1DE4000F27360 /* Extensions */,
+				6467AF551DA1DE3500F27360 /* Managers */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -293,6 +320,7 @@
 				63D821E41DE415582D9B7EC60A24F313 /* KFSwiftImageLoader-dummy.m in Sources */,
 				DF6DCA5B5D2660DC64901116A407F368 /* MKAnnotationViewExtensions.swift in Sources */,
 				A28097C4C18B2EA2E988953003B1E10D /* UIButtonExtensions.swift in Sources */,
+				6467AF591DA1DE6400F27360 /* Constants.swift in Sources */,
 				19B4572B14BF67C30C24DC90CDDCA82B /* UIImageViewExtensions.swift in Sources */,
 				4E18FC46FA127E3C2104F0D9062B0B07 /* WKInterfaceImageExtensions.swift in Sources */,
 			);

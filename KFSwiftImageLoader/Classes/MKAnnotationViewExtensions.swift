@@ -23,13 +23,16 @@ public extension MKAnnotationView {
     
     // MARK: - Image Loading Methods
     /**
-        Asynchronously downloads an image and loads it into the view using a URL string.
+        Asynchronously downloads an image and loads it into the `MKAnnotationView` using a URL `String`.
         
-        - parameter urlString: The image URL in the form of a String.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
+        - parameter urlString: The image URL in the form of a `String`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(urlString urlString: String, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+    final public func loadImage(urlString urlString: String,
+                                placeholderImage: UIImage? = nil,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
                completion?(false, nil)
@@ -42,13 +45,16 @@ public extension MKAnnotationView {
     }
     
     /**
-        Asynchronously downloads an image and loads it into the view using an URL object.
+        Asynchronously downloads an image and loads it into the `MKAnnotationView` using a `URL`.
         
-        - parameter url: The image URL in the form of a URL object.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
+        - parameter url: The image `URL`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(url url: URL, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+    final public func loadImage(url url: URL,
+                                placeholderImage: UIImage? = nil,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         let cacheManager = KFImageCacheManager.sharedInstance
         
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
@@ -58,13 +64,16 @@ public extension MKAnnotationView {
     }
     
     /**
-        Asynchronously downloads an image and loads it into the view using an NSURLRequest object.
+        Asynchronously downloads an image and loads it into the `MKAnnotationView` using a `URLRequest`.
         
-        - parameter request: The image URL in the form of an NSURLRequest object.
-        - parameter placeholderImage: An optional UIImage representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is nil.
+        - parameter request: The image URL in the form of a `URLRequest`.
+        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(request request: URLRequest, placeholderImage: UIImage? = nil, completion: ((_ finished: Bool, _ error: NSError?) -> Void)? = nil) {
+    final public func loadImage(request request: URLRequest,
+                                placeholderImage: UIImage? = nil,
+                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+    {
         self.completionHolder = CompletionHolder(completion: completion)
         
         guard let urlAbsoluteString = request.url?.absoluteString else {
@@ -79,7 +88,7 @@ public extension MKAnnotationView {
         func loadImage(_ image: UIImage) -> Void {
             UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
                 self.image = image
-            }, completion: nil)
+            })
             
             self.completionHolder.completion?(true, nil)
         }
@@ -89,7 +98,7 @@ public extension MKAnnotationView {
             loadImage(image)
         }
         // If there's already a cached response, load the image data into the image view.
-        else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval , (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
+        else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval, (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
             loadImage(image)
             
             cacheManager[urlAbsoluteString] = image
@@ -124,7 +133,7 @@ public extension MKAnnotationView {
                     DispatchQueue.main.async {
                         UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
                             self.image = image
-                        }, completion: nil)
+                        })
                         
                         cacheManager[urlAbsoluteString] = image
                         
@@ -135,7 +144,7 @@ public extension MKAnnotationView {
                             (request.cachePolicy == .returnCacheDataElseLoad ||
                                 request.cachePolicy == .returnCacheDataDontLoad)
                         
-                        if let httpResponse = response as? HTTPURLResponse, let url = httpResponse.url , responseDataIsCacheable {
+                        if let httpResponse = response as? HTTPURLResponse, let url = httpResponse.url, responseDataIsCacheable {
                             if var allHeaderFields = httpResponse.allHeaderFields as? [String: String] {
                                 allHeaderFields["Cache-Control"] = "max-age=\(cacheManager.diskCacheMaxAge)"
                                 Date.timeIntervalSinceReferenceDate

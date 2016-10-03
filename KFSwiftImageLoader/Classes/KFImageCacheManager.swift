@@ -7,24 +7,16 @@ import UIKit
 import MapKit
 import WatchKit
 
-// MARK: - CompletionHolder Class
-final internal class CompletionHolder {
-    var completion: ((_ finished: Bool, _ error: NSError?) -> Void)?
-    
-    init(completion: ((_ finished: Bool, _ error: NSError?) -> Void)?) {
-        self.completion = completion
-    }
+// MARK: - ImageCacheKeys Struct
+fileprivate struct ImageCacheKeys {
+    static let image = "image"
+    static let isDownloading = "isDownloading"
+    static let observerMapping = "observerMapping"
 }
 
 // MARK: - KFImageCacheManager Class
 final public class KFImageCacheManager {
     // MARK: - Properties
-    fileprivate struct ImageCacheKeys {
-        static let image = "image"
-        static let isDownloading = "isDownloading"
-        static let observerMapping = "observerMapping"
-    }
-    
     public static let sharedInstance = KFImageCacheManager()
     
     // {"url": {"img": UIImage, "isDownloading": Bool, "observerMapping": {Observer: Int}}}
@@ -146,6 +138,7 @@ final public class KFImageCacheManager {
         else {
             let imageCacheEntry: [String: AnyObject] = [ImageCacheKeys.isDownloading: false as AnyObject, ImageCacheKeys.observerMapping: [NSObject: Int]() as AnyObject]
             self.imageCache[key] = imageCacheEntry
+            
             return imageCacheEntry
         }
     }
