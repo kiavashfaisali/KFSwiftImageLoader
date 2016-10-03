@@ -38,7 +38,7 @@ public extension UIImageView {
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(urlString urlString: String,
+    final public func loadImage(urlString: String,
                                 placeholderImage: UIImage? = nil,
                                 completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
@@ -60,7 +60,7 @@ public extension UIImageView {
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
      */
-    final public func loadImage(url url: URL,
+    final public func loadImage(url: URL,
                                 placeholderImage: UIImage? = nil,
                                 completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
@@ -79,7 +79,7 @@ public extension UIImageView {
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
      */
-    final public func loadImage(request request: URLRequest,
+    final public func loadImage(request: URLRequest,
                                 placeholderImage: UIImage? = nil,
                                 completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
