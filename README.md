@@ -8,7 +8,7 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 
 Note:
 -----
-watchOS 3.0+ updates and example app coming soon as a major version! (ETA: Mid-October).
+watchOS 3.0+ updates and example app coming soon as a minor version! (ETA: Mid-October).
 Please see the "watchos_3" branch for progress on the migration work being done.
 
 ## Features
