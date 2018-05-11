@@ -1,4 +1,4 @@
-framework module KFSwiftImageLoader {
+module KFSwiftImageLoader {
   umbrella header "KFSwiftImageLoader-umbrella.h"
 
   export *

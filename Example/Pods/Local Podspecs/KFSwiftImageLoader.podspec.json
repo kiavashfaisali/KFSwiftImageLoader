@@ -1,6 +1,6 @@
 {
   "name": "KFSwiftImageLoader",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "summary": "High-performance, lightweight, and energy-efficient pure Swift async web image loader with memory and disk caching for iOS and  Watch.",
   "homepage": "https://github.com/kiavashfaisali/KFSwiftImageLoader",
   "license": {
@@ -12,10 +12,12 @@
   },
   "source": {
     "git": "https://github.com/kiavashfaisali/KFSwiftImageLoader.git",
-    "tag": "3.0.0"
+    "tag": "4.0.0"
   },
   "platforms": {
-    "ios": "9.0"
+    "ios": "11.0",
+    "watchos": "4.0"
   },
+  "swift_version": "4.1",
   "source_files": "KFSwiftImageLoader/Classes/**/*"
 }
