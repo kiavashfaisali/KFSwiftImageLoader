@@ -49,7 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				607FACD21AFB9204008FA782 /* Example for KFSwiftImageLoader */,
+				607FACD21AFB9204008FA782 /* Example */,
 				607FACD11AFB9204008FA782 /* Products */,
 				A8DD2BAEF6ADE9B9BFDEEB51 /* Pods */,
 				FAC7BE640985BFEF24C45F03 /* Frameworks */,
@@ -64,7 +64,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACD21AFB9204008FA782 /* Example for KFSwiftImageLoader */ = {
+		607FACD21AFB9204008FA782 /* Example */ = {
 			isa = PBXGroup;
 			children = (
 				648F317F1D98C4360087DB97 /* App Delegate */,
@@ -73,7 +73,7 @@
 				648F31871D98C4360087DB97 /* View Controllers */,
 				648F31891D98C4360087DB97 /* Views */,
 			);
-			name = "Example for KFSwiftImageLoader";
+			name = Example;
 			path = KFSwiftImageLoader;
 			sourceTree = "<group>";
 		};

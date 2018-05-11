@@ -8,33 +8,29 @@ Please also check out [KFWatchKitAnimations](https://github.com/kiavashfaisali/K
 
 Note:
 -----
-watchOS 3.0+ updates and example app coming soon as a minor version! (ETA: Mid-October).
-Please see the "watchos_3" branch for progress on the migration work being done.
-
 ## Features
 * WKInterfaceImage, UIImageView, UIButton, and MKAnnotationView extensions for asynchronous web image loading.
 * Memory and disk cache to prevent downloading images every time a request is made or when the app relaunches, with automatic cache management to optimize resource use.
 * Energy efficiency by sending only one HTTP/HTTPS request for image downloads from multiple sources that reference the same URL string, registering them as observers for the request.
-* Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 3.0, URLSession, and GCD.
+* Maximum peformance by utilizing the latest and greatest of modern technologies such as Swift 4.1, URLSession, and GCD.
 
 ## KFSwiftImageLoader Requirements
-* Xcode 8.0+
-* iOS 9.0+
+* Xcode 9.3+
+* iOS 11.0+
 
 ## CocoaPods
 To ensure you stay up-to-date with the latest version of KFSwiftImageLoader, it is recommended that you use CocoaPods.
 
-Optimized for CocoaPods 1.0+, so you will need to run the following command first:
+Optimized for CocoaPods 1.5.0+, so you will need to run the following command first:
 ``` bash
 sudo gem install cocoapods
 ```
 
 Add the following to your Podfile
 ``` bash
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
-use_frameworks!
-pod 'KFSwiftImageLoader', '~> 3.0'
+platform :ios, '11.0'
+
+pod 'KFSwiftImageLoader', '~> 4.0'
 ```
 
 You will need to import KFSwiftImageLoader everywhere you wish to use it:
@@ -138,7 +134,7 @@ KFImageCacheManager.sharedInstance.requestCachePolicy = .reloadIgnoringLocalCach
 ```
 
 ## Sample App
-Please download the sample app "SwiftImageLoader" in this repository for a clear idea of how to use KFSwiftImageLoader to load images for iOS and  Watch.
+Please take a look at the sample app "KFSwiftImageLoader" in this repository under the Example folder for a clear idea of how to use KFSwiftImageLoader to load images for iOS and  Watch.
 
 ## Contact Information
 Kiavash Faisali
@@ -148,7 +144,7 @@ Kiavash Faisali
 ## License
 KFSwiftImageLoader is available under the MIT license.
 
-Copyright (c) 2016 Kiavash Faisali
+Copyright (c) 2018 Kiavash Faisali
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
