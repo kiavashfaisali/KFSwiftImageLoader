@@ -1,11 +1,6 @@
-#
-# Be sure to run `pod lib lint KFSwiftImageLoader.podspec' to ensure this is a
-# valid spec before submitting.
-#
-
 Pod::Spec.new do |s|
   s.name             = 'KFSwiftImageLoader'
-  s.version          = '3.0.0'
+  s.version          = '4.0.0'
   s.summary          = 'High-performance, lightweight, and energy-efficient pure Swift async web image loader with memory and disk caching for iOS and  Watch.'
   s.homepage         = 'https://github.com/kiavashfaisali/KFSwiftImageLoader'
 
@@ -15,7 +10,9 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/kiavashfaisali/KFSwiftImageLoader.git',
   						 :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '11.0'
+  s.watchos.deployment_target = '4.0'
+  s.swift_version = '4.1'
 
   s.source_files = 'KFSwiftImageLoader/Classes/**/*'
 end
