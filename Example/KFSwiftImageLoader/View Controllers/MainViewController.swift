@@ -73,7 +73,7 @@ final class MainViewController: UIViewController {
             let randomIndex = Int(arc4random()) % self.imageURLStringsArray.count
             
             if i != randomIndex {
-                swap(&self.imageURLStringsArray[i], &self.imageURLStringsArray[randomIndex])
+                self.imageURLStringsArray.swapAt(i, randomIndex)
             }
         }
     }
