@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import os
 import KFSwiftImageLoader
 
 final class MainViewController: UIViewController {
@@ -26,15 +27,14 @@ final class MainViewController: UIViewController {
     
     // MARK: - Miscellaneous Methods
     func loadDuckDuckGoResults() {
-        let session = URLSession.shared
         let url = URL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")!
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60.0)
         
-        let dataTask = session.dataTask(with: request) {
-            (taskData, taskResponse, taskError) in
+        let dataTask = URLSession.shared.dataTask(with: request) {
+            (data, _, error) in
             
-            guard let data = taskData, taskError == nil else {
-                print("Error retrieving response from the DuckDuckGo API.")
+            guard let data = data, error == nil else {
+                os_log("Error retrieving response from the DuckDuckGo API.", type: .error)
                 return
             }
             
@@ -60,7 +60,7 @@ final class MainViewController: UIViewController {
                     }
                 }
                 catch {
-                    print("Error when parsing the response JSON: \(error)")
+                    os_log("Error when parsing the response JSON: %{public}@", type: .error, error.localizedDescription)
                 }
             }
         }
@@ -72,9 +72,7 @@ final class MainViewController: UIViewController {
         for i in 0..<self.imageURLStringsArray.count {
             let randomIndex = Int(arc4random()) % self.imageURLStringsArray.count
             
-            if i != randomIndex {
-                self.imageURLStringsArray.swapAt(i, randomIndex)
-            }
+            self.imageURLStringsArray.swapAt(i, randomIndex)
         }
     }
 }
@@ -92,18 +90,15 @@ extension MainViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ImageTableViewCell
             
             cell.featuredImageView.loadImage(urlString: self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
-                (success, potentialError) in
+                (success, error) in
                 
-                guard potentialError == nil else {
-                    print("error occurred with description: \(potentialError!.localizedDescription)")
+                guard error == nil else {
+                    os_log("error occurred with description: %{public}@", type: .error, error!.localizedDescription)
                     return
                 }
                 
-                if success {
-                    // Do something in the completion block.
-                }
-                else {
-                    print("Image loader failed to finish because a URL object could not be formed from the provided URL String.")
+                if !success {
+                    os_log("Image loader failed to finish because a URL object could not be formed from the provided URL String.", type: .error)
                 }
             }
             

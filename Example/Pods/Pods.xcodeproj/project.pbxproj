@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,9 +14,7 @@
 		3E0E5AA7725F1BD941A1E73D457AE6F5 /* Pods-KFSwiftImageLoader_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DB8449C91CFA231FBCE5930F57C85C05 /* Pods-KFSwiftImageLoader_Example-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		44E45ED701797692438B0BB344707DFE /* KFSwiftImageLoader-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3903CF98A35F756EC961C2F7DBAD2AC /* KFSwiftImageLoader-dummy.m */; };
 		706AA4264A6AC3BE0193F233B289FCFA /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBE8EBB1E7C3756B35005F9A798A01B /* UIButtonExtensions.swift */; };
-		73ED265F72DFC355D99F20C7F89D28C9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		A85ED987F90C71CA12FE25F54917C6DB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A53BC070C3BC123B971D77442EEBC45 /* Constants.swift */; };
-		B3F5B45F6335B06CE95595491D818E09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		BC17ECCF63ACE410446E8C257CE56467 /* MKAnnotationViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7104034115BC2BAA7306C9FABDEFBE99 /* MKAnnotationViewExtensions.swift */; };
 		FD7D5F9B3943274C40CC1959DCF18A0B /* KFImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02A4DFAE4F6D1C35C058D54B6581C3 /* KFImageCacheManager.swift */; };
 /* End PBXBuildFile section */
@@ -36,7 +34,7 @@
 		3A3522AD8D13AF3A967358BCBBD1DC4F /* Pods-KFSwiftImageLoader_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KFSwiftImageLoader_Example-dummy.m"; sourceTree = "<group>"; };
 		425C968FCA10221DDE233DE805D9E119 /* WKInterfaceImageExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WKInterfaceImageExtensions.swift; path = KFSwiftImageLoader/Classes/WKInterfaceImageExtensions.swift; sourceTree = "<group>"; };
 		447817B2E8E179671A421C774857C9C5 /* KFSwiftImageLoader.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KFSwiftImageLoader.xcconfig; sourceTree = "<group>"; };
-		56B6B31FEAE8D7F7FAE9428C1572A173 /* KFSwiftImageLoader.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = KFSwiftImageLoader.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		56B6B31FEAE8D7F7FAE9428C1572A173 /* KFSwiftImageLoader.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = KFSwiftImageLoader.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5A53BC070C3BC123B971D77442EEBC45 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = KFSwiftImageLoader/Classes/Constants.swift; sourceTree = "<group>"; };
 		5C0707D7D21594FFD7BE0B5C67FF4A52 /* Pods-KFSwiftImageLoader_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KFSwiftImageLoader_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		5D73F43E51A0846616C9A348CAA724A8 /* KFSwiftImageLoader-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "KFSwiftImageLoader-umbrella.h"; path = "../../Headers/Public/KFSwiftImageLoader/KFSwiftImageLoader-umbrella.h"; sourceTree = "<group>"; };
@@ -45,15 +43,15 @@
 		75D2D28D4B7051123F417F4E16717521 /* Pods-KFSwiftImageLoader_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KFSwiftImageLoader_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		80217D0EB67E37FF2F04A0F5131B91C1 /* Pods-KFSwiftImageLoader_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-KFSwiftImageLoader_Example.modulemap"; sourceTree = "<group>"; };
 		8238E9265CD7414A49E2652DEC9E4C04 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = KFSwiftImageLoader/Classes/UIImageViewExtensions.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		AE5FCBDBDD7AAB3B857A6044EF298ACB /* Pods-KFSwiftImageLoader_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KFSwiftImageLoader_Example-resources.sh"; sourceTree = "<group>"; };
-		BB7FF4D4435026ED33187765A4EB848C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		BB7FF4D4435026ED33187765A4EB848C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BC02A4DFAE4F6D1C35C058D54B6581C3 /* KFImageCacheManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KFImageCacheManager.swift; path = KFSwiftImageLoader/Classes/KFImageCacheManager.swift; sourceTree = "<group>"; };
-		BFED230C864F2D475DBDE04ED9A5B545 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		C00E81759097ACFD9F81597888A14EDD /* libPods-KFSwiftImageLoader_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-KFSwiftImageLoader_Example.a"; path = "libPods-KFSwiftImageLoader_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFED230C864F2D475DBDE04ED9A5B545 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C00E81759097ACFD9F81597888A14EDD /* libPods-KFSwiftImageLoader_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KFSwiftImageLoader_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3903CF98A35F756EC961C2F7DBAD2AC /* KFSwiftImageLoader-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KFSwiftImageLoader-dummy.m"; sourceTree = "<group>"; };
 		C80E7C8239782F8C4EC9231D042B1E03 /* Pods-KFSwiftImageLoader_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KFSwiftImageLoader_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		D1760308C44902E26336DDB1923A2C8F /* libKFSwiftImageLoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libKFSwiftImageLoader.a; path = libKFSwiftImageLoader.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1760308C44902E26336DDB1923A2C8F /* libKFSwiftImageLoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKFSwiftImageLoader.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB8449C91CFA231FBCE5930F57C85C05 /* Pods-KFSwiftImageLoader_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-KFSwiftImageLoader_Example-umbrella.h"; sourceTree = "<group>"; };
 		EBB8CDCDA33901D24307F29494538345 /* Pods-KFSwiftImageLoader_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KFSwiftImageLoader_Example.release.xcconfig"; sourceTree = "<group>"; };
 		EE8EA4752F025559193BB696278B47F0 /* KFSwiftImageLoader.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = KFSwiftImageLoader.modulemap; path = ../../Headers/Public/KFSwiftImageLoader/KFSwiftImageLoader.modulemap; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3F5B45F6335B06CE95595491D818E09 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +71,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73ED265F72DFC355D99F20C7F89D28C9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +290,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/KFSwiftImageLoader/KFSwiftImageLoader.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/KFSwiftImageLoader/KFSwiftImageLoader-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
-			showEnvVarsInLog = 1;
 		};
 /* End PBXShellScriptBuildPhase section */
 
