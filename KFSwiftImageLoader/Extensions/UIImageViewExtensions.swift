@@ -5,13 +5,13 @@
 
 import UIKit
 
-// MARK: - UIImageView Associated Object Keys
+// MARK: - UIImageView Associated Value Keys
 private var indexPathIdentifierAssociationKey: UInt8 = 0
-private var completionHolderAssociationKey: UInt8 = 0
+private var completionAssociationKey: UInt8 = 0
 
 // MARK: - UIImageView Extension
 public extension UIImageView {
-    // MARK: - Associated Objects
+    // MARK: - Associated Values
     final internal var indexPathIdentifier: Int! {
         get {
             return objc_getAssociatedObject(self, &indexPathIdentifierAssociationKey) as? Int
@@ -21,12 +21,12 @@ public extension UIImageView {
         }
     }
     
-    final internal var completionHolder: CompletionHolder! {
+    final internal var completion: ((_ finished: Bool, _ error: Error?) -> Void)? {
         get {
-            return objc_getAssociatedObject(self, &completionHolderAssociationKey) as? CompletionHolder
+            return getAssociatedValue(key: &completionAssociationKey, defaultValue: nil)
         }
         set {
-            objc_setAssociatedObject(self, &completionHolderAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            setAssociatedValue(key: &completionAssociationKey, value: newValue)
         }
     }
     
@@ -36,11 +36,11 @@ public extension UIImageView {
         
         - parameter urlString: The image URL in the form of a `String`.
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
                          placeholderImage: UIImage? = nil,
-                               completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                               completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
@@ -58,11 +58,11 @@ public extension UIImageView {
      
         - parameter url: The image `URL`.
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
      */
     final public func loadImage(url: URL,
                    placeholderImage: UIImage? = nil,
-                         completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                         completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         let cacheManager = KFImageCacheManager.shared
         
@@ -77,17 +77,17 @@ public extension UIImageView {
      
         - parameter request: The image URL in the form of a `URLRequest`.
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
      */
     final public func loadImage(request: URLRequest,
                        placeholderImage: UIImage? = nil,
-                             completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                             completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
-        self.completionHolder = CompletionHolder(completion: completion)
+        self.completion = completion
         self.indexPathIdentifier = -1
         
         guard let urlAbsoluteString = request.url?.absoluteString else {
-            self.completionHolder.completion?(false, nil)
+            self.completion?(false, nil)
             return
         }
         
@@ -100,7 +100,7 @@ public extension UIImageView {
                 self.image = image
             })
             
-            self.completionHolder.completion?(true, nil)
+            self.completion?(true, nil)
         }
         
         // If there's already a cached image, load it into the image view.
@@ -172,7 +172,7 @@ public extension UIImageView {
                         DispatchQueue.main.async {
                             cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
-                            self.completionHolder.completion?(false, taskError as NSError?)
+                            self.completion?(false, taskError)
                         }
                         
                         return
@@ -204,7 +204,7 @@ public extension UIImageView {
                             }
                         }
                         
-                        self.completionHolder.completion?(true, nil)
+                        self.completion?(true, nil)
                     }
                 }
                 

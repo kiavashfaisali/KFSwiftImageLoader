@@ -111,7 +111,7 @@ extension MainViewController: UITableViewDataSource {
             
             // Notice that the completion closure can be ommitted, since it defaults to nil. The `controlState` and `isBackgroundImage` parameters can also be ommitted, as they default to `.normal` and `false`, respectively.
             // Please read the documentation for more information.
-            cell.featuredButton.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali"), controlState: .normal, isBackgroundImage: false)
+            cell.featuredButton.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholder: UIImage(named: "KiavashFaisali"), controlState: .normal, isBackground: false)
             
             return cell
         }

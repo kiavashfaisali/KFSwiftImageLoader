@@ -5,15 +5,15 @@
 
 import UIKit
 
-// MARK: - UIButton Associated Object Keys
+// MARK: - UIButton Associated Value Keys
 private var indexPathIdentifierAssociationKey: UInt8 = 0
-private var completionHolderAssociationKey: UInt8 = 0
-private var controlStateHolderAssociationKey: UInt8 = 0
-private var isBackgroundImageAssociationKey: UInt8 = 0
+private var completionAssociationKey: UInt8 = 0
+private var controlStateAssociationKey: UInt8 = 0
+private var isBackgroundAssociationKey: UInt8 = 0
 
 // MARK: - UIButton Extension
 public extension UIButton {
-    // MARK: - Associated Objects
+    // MARK: - Associated Values
     final internal var indexPathIdentifier: Int {
         get {
             return getAssociatedValue(key: &indexPathIdentifierAssociationKey, defaultValue: -1)
@@ -23,30 +23,30 @@ public extension UIButton {
         }
     }
     
-    final internal var completionHolder: CompletionHolder {
+    final internal var completion: ((_ finished: Bool, _ error: Error?) -> Void)? {
         get {
-            return getAssociatedValue(key: &completionHolderAssociationKey, defaultValue: CompletionHolder(completion: nil))
+            return getAssociatedValue(key: &completionAssociationKey, defaultValue: nil)
         }
         set {
-            setAssociatedValue(key: &completionHolderAssociationKey, value: newValue)
+            setAssociatedValue(key: &completionAssociationKey, value: newValue)
         }
     }
     
-    final internal var controlStateHolder: ControlStateHolder {
+    final internal var controlState: UIControlState {
         get {
-            return getAssociatedValue(key: &controlStateHolderAssociationKey, defaultValue: ControlStateHolder(controlState: .normal))
+            return getAssociatedValue(key: &controlStateAssociationKey, defaultValue: .normal)
         }
         set {
-            setAssociatedValue(key: &controlStateHolderAssociationKey, value: newValue)
+            setAssociatedValue(key: &controlStateAssociationKey, value: newValue)
         }
     }
     
-    final internal var isBackgroundImage: Bool {
+    final internal var isBackground: Bool {
         get {
-            return getAssociatedValue(key: &isBackgroundImageAssociationKey, defaultValue: false)
+            return getAssociatedValue(key: &isBackgroundAssociationKey, defaultValue: false)
         }
         set {
-            setAssociatedValue(key: &isBackgroundImageAssociationKey, value: newValue)
+            setAssociatedValue(key: &isBackgroundAssociationKey, value: newValue)
         }
     }
     
@@ -55,16 +55,16 @@ public extension UIButton {
         Asynchronously downloads an image and loads it into the `UIButton` using a URL `String`.
         
         - parameter urlString: The image URL in the form of a `String`.
-        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholder: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
-        - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter isBackground: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
-                         placeholderImage: UIImage? = nil,
+                              placeholder: UIImage? = nil,
                              controlState: UIControlState = .normal,
-                        isBackgroundImage: Bool = false,
-                               completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                             isBackground: Bool = false,
+                               completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
@@ -74,54 +74,54 @@ public extension UIButton {
             return
         }
         
-        loadImage(url: url, placeholderImage: placeholderImage, controlState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
+        loadImage(url: url, placeholder: placeholder, controlState: controlState, isBackground: isBackground, completion: completion)
     }
     
     /**
         Asynchronously downloads an image and loads it into the `UIButton` using a `URL`.
         
         - parameter url: The image `URL`.
-        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholder: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
-        - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter isBackground: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(url: URL,
-                   placeholderImage: UIImage? = nil,
+                        placeholder: UIImage? = nil,
                        controlState: UIControlState = .normal,
-                  isBackgroundImage: Bool = false,
-                         completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                       isBackground: Bool = false,
+                         completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         let cacheManager = KFImageCacheManager.shared
         
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
         
-        loadImage(request: request, placeholderImage: placeholderImage, controlState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
+        loadImage(request: request, placeholder: placeholder, controlState: controlState, isBackground: isBackground, completion: completion)
     }
     
     /**
         Asynchronously downloads an image and loads it into the `UIButton` using a `URLRequest`.
         
         - parameter request: The image URL in the form of a `URLRequest`.
-        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholder: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
-        - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter isBackground: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request: URLRequest,
-                       placeholderImage: UIImage? = nil,
-                           controlState: UIControlState = UIControlState(),
-                      isBackgroundImage: Bool = false,
-                             completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                            placeholder: UIImage? = nil,
+                           controlState: UIControlState = .normal,
+                           isBackground: Bool = false,
+                             completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
-        self.completionHolder = CompletionHolder(completion: completion)
+        self.completion = completion
         self.indexPathIdentifier = -1
-        self.controlStateHolder = ControlStateHolder(controlState: controlState)
-        self.isBackgroundImage = isBackgroundImage
+        self.controlState = controlState
+        self.isBackground = isBackground
         
         guard let urlAbsoluteString = request.url?.absoluteString else {
-            self.completionHolder.completion?(false, nil)
+            self.completion?(false, nil)
             return
         }
         
@@ -131,15 +131,15 @@ public extension UIButton {
         
         func loadImage(_ image: UIImage) -> Void {
             UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
-                if self.isBackgroundImage == true {
-                    self.setBackgroundImage(image, for: self.controlStateHolder.controlState)
+                if self.isBackground {
+                    self.setBackgroundImage(image, for: self.controlState)
                 }
                 else {
-                    self.setImage(image, for: self.controlStateHolder.controlState)
+                    self.setImage(image, for: self.controlState)
                 }
             })
             
-            self.completionHolder.completion?(true, nil)
+            self.completion?(true, nil)
         }
         
         // If there's already a cached image, load it into the image view.
@@ -158,12 +158,12 @@ public extension UIButton {
             sharedURLCache.removeCachedResponse(for: request)
             
             // Set the placeholder image if it was provided.
-            if let image = placeholderImage {
-                if self.isBackgroundImage == true {
-                    self.setBackgroundImage(image, for: self.controlStateHolder.controlState)
+            if let placeholder = placeholder {
+                if self.isBackground {
+                    self.setBackgroundImage(placeholder, for: self.controlState)
                 }
                 else {
-                    self.setImage(image, for: self.controlStateHolder.controlState)
+                    self.setImage(placeholder, for: self.controlState)
                 }
             }
             
@@ -203,7 +203,7 @@ public extension UIButton {
                 parentView = parentView?.superview
             }
             
-            let initialIndexIdentifier = self.indexPathIdentifier as Int
+            let initialIndexIdentifier = self.indexPathIdentifier
             
             // If the image isn't already being downloaded, begin downloading the image.
             if cacheManager.isDownloadingFromURL(urlAbsoluteString) == false {
@@ -216,7 +216,7 @@ public extension UIButton {
                         DispatchQueue.main.async {
                             cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
-                            self.completionHolder.completion?(false, taskError as NSError?)
+                            self.completion?(false, taskError)
                         }
                         
                         return
@@ -225,11 +225,11 @@ public extension UIButton {
                     DispatchQueue.main.async {
                         if initialIndexIdentifier == self.indexPathIdentifier {
                             UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
-                                if self.isBackgroundImage == true {
-                                    self.setBackgroundImage(image, for: self.controlStateHolder.controlState)
+                                if self.isBackground {
+                                    self.setBackgroundImage(image, for: self.controlState)
                                 }
                                 else {
-                                    self.setImage(image, for: self.controlStateHolder.controlState)
+                                    self.setImage(image, for: self.controlState)
                                 }
                             })
                         }
@@ -253,7 +253,7 @@ public extension UIButton {
                             }
                         }
                         
-                        self.completionHolder.completion?(true, nil)
+                        self.completion?(true, nil)
                     }
                 }
                 

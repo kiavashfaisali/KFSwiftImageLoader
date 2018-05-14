@@ -5,18 +5,18 @@
 
 import WatchKit
 
-// MARK: - WKInterfaceImage Associated Object Keys
-private var completionHolderAssociationKey: UInt8 = 0
+// MARK: - WKInterfaceImage Associated Value Keys
+private var completionAssociationKey: UInt8 = 0
 
 // MARK: - WKInterfaceImage Extension
 public extension WKInterfaceImage {
-    // MARK: - Associated Objects
-    final internal var completionHolder: CompletionHolder! {
+    // MARK: - Associated Values
+    final internal var completion: ((_ finished: Bool, _ error: Error?) -> Void)? {
         get {
-            return objc_getAssociatedObject(self, &completionHolderAssociationKey) as? CompletionHolder
+            return getAssociatedValue(key: &completionAssociationKey, defaultValue: nil)
         }
         set {
-            objc_setAssociatedObject(self, &completionHolderAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            setAssociatedValue(key: &completionAssociationKey, value: newValue)
         }
     }
     
@@ -58,12 +58,12 @@ public extension WKInterfaceImage {
         - parameter urlString: The image URL in the form of a `String`.
         - parameter placeholderImageName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter shouldUseDeviceCache: `Bool` indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app. The default value is `false`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
                      placeholderImageName: String? = nil,
                      shouldUseDeviceCache: Bool = false,
-                               completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                               completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
@@ -82,12 +82,12 @@ public extension WKInterfaceImage {
         - parameter url: The image `URL`.
         - parameter placeholderImageName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter shouldUseDeviceCache: `Bool` indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app. The default value is `false`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(url: URL,
                placeholderImageName: String? = nil,
                shouldUseDeviceCache: Bool = false,
-                         completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                         completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         let cacheManager = KFImageCacheManager.shared
         
@@ -103,17 +103,17 @@ public extension WKInterfaceImage {
         - parameter request: The image URL in the form of a `URLRequest`.
         - parameter placeholderImageName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter shouldUseDeviceCache: `Bool` indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app. The default value is `false`.
-        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
+        - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request: URLRequest,
                    placeholderImageName: String? = nil,
                    shouldUseDeviceCache: Bool = false,
-                             completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+                             completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
-        self.completionHolder = CompletionHolder(completion: completion)
+        self.completion = completion
         
         guard let urlAbsoluteString = request.url?.absoluteString else {
-            self.completionHolder.completion?(false, nil)
+            self.completion?(false, nil)
             return
         }
         
@@ -126,7 +126,7 @@ public extension WKInterfaceImage {
             // If there's already a cached image on the Apple Watch, simply set the image directly.
             if currentDevice.cachedImages[urlAbsoluteString] != nil {
                 self.setImageNamed(urlAbsoluteString)
-                self.completionHolder.completion?(true, nil)
+                self.completion?(true, nil)
                 return
             }
         }
@@ -144,7 +144,7 @@ public extension WKInterfaceImage {
                 self.setImageData(imageData)
             }
             
-            self.completionHolder.completion?(true, nil)
+            self.completion?(true, nil)
         }
         // If there's already a cached response, load the image data into the interface.
         else if let cachedResponse = sharedURLCache.cachedResponse(for: request), let image = UIImage(data: cachedResponse.data), let creationTimestamp = cachedResponse.userInfo?["creationTimestamp"] as? CFTimeInterval, (Date.timeIntervalSinceReferenceDate - creationTimestamp) < Double(cacheManager.diskCacheMaxAge) {
@@ -156,7 +156,7 @@ public extension WKInterfaceImage {
             }
             
             cacheManager[urlAbsoluteString] = image
-            self.completionHolder.completion?(true, nil)
+            self.completion?(true, nil)
         }
         // Either begin downloading the image or become an observer for an existing request.
         else {
@@ -179,7 +179,7 @@ public extension WKInterfaceImage {
                         DispatchQueue.main.async {
                             cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
-                            self.completionHolder.completion?(false, taskError as NSError?)
+                            self.completion?(false, taskError)
                         }
                         
                         return
@@ -212,7 +212,7 @@ public extension WKInterfaceImage {
                             }
                         }
                         
-                        self.completionHolder.completion?(true, nil)
+                        self.completion?(true, nil)
                     }
                 }
                 

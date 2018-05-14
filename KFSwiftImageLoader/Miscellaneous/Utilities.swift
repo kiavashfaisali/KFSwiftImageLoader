@@ -9,12 +9,21 @@ import WatchKit
 
 // MARK: - AssociatedValue Protocol
 internal protocol AssociatedValue {
+    func getAssociatedValue<T>(key: UnsafeRawPointer, defaultValue: T?) -> T?
     func getAssociatedValue<T>(key: UnsafeRawPointer, defaultValue: T) -> T
     func setAssociatedValue<T>(key: UnsafeRawPointer, value: T?, policy: objc_AssociationPolicy)
 }
 
 // MARK: - AssociatedValue Protocol Default Implementation
 internal extension AssociatedValue {
+    func getAssociatedValue<T>(key: UnsafeRawPointer, defaultValue: T?) -> T? {
+        guard let value = objc_getAssociatedObject(self, key) as? T else {
+            return defaultValue
+        }
+        
+        return value
+    }
+    
     func getAssociatedValue<T>(key: UnsafeRawPointer, defaultValue: T) -> T {
         guard let value = objc_getAssociatedObject(self, key) as? T else {
             return defaultValue
@@ -29,6 +38,7 @@ internal extension AssociatedValue {
 }
 
 // MARK: - AssociatedValue Protocol Default Conformance
+extension UIImageView: AssociatedValue {}
 extension UIButton: AssociatedValue {}
 extension MKAnnotationView: AssociatedValue {}
 extension WKInterfaceImage: AssociatedValue {}

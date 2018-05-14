@@ -188,11 +188,11 @@ final public class KFImageCacheManager {
                     imageView.image = image
                 })
                 
-                imageView.completionHolder.completion?(true, nil)
+                imageView.completion?(true, nil)
             }
         }
         else {
-            imageView.completionHolder.completion?(false, nil)
+            imageView.completion?(false, nil)
         }
     }
     
@@ -203,19 +203,19 @@ final public class KFImageCacheManager {
                               duration: self.fadeAnimationDuration,
                                options: .transitionCrossDissolve,
                             animations: {
-                    if button.isBackgroundImage == true {
-                        button.setBackgroundImage(image, for: button.controlStateHolder.controlState)
+                    if button.isBackground {
+                        button.setBackgroundImage(image, for: button.controlState)
                     }
                     else {
-                        button.setImage(image, for: button.controlStateHolder.controlState)
+                        button.setImage(image, for: button.controlState)
                     }
                 })
                 
-                button.completionHolder.completion?(true, nil)
+                button.completion?(true, nil)
             }
         }
         else {
-            button.completionHolder.completion?(false, nil)
+            button.completion?(false, nil)
         }
     }
     
@@ -228,7 +228,7 @@ final public class KFImageCacheManager {
                 annotationView.image = image
             })
             
-            annotationView.completionHolder.completion?(true, nil)
+            annotationView.completion?(true, nil)
         }
     }
     
@@ -242,7 +242,7 @@ final public class KFImageCacheManager {
                 interfaceImage.setImageData(UIImagePNGRepresentation(image))
             }
             
-            interfaceImage.completionHolder.completion?(true, nil)
+            interfaceImage.completion?(true, nil)
         }
     }
 }

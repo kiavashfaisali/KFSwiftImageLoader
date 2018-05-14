@@ -12,7 +12,6 @@
 		3E0E5AA7725F1BD941A1E73D457AE6F5 /* Pods-KFSwiftImageLoader_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DB8449C91CFA231FBCE5930F57C85C05 /* Pods-KFSwiftImageLoader_Example-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		44E45ED701797692438B0BB344707DFE /* KFSwiftImageLoader-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3903CF98A35F756EC961C2F7DBAD2AC /* KFSwiftImageLoader-dummy.m */; };
 		A5642C6020A9089B000AFBF4 /* KFImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5642C5720A9089B000AFBF4 /* KFImageCacheManager.swift */; };
-		A5642C6120A9089B000AFBF4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5642C5920A9089B000AFBF4 /* Constants.swift */; };
 		A5642C6220A9089B000AFBF4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5642C5A20A9089B000AFBF4 /* Utilities.swift */; };
 		A5642C6320A9089B000AFBF4 /* MKAnnotationViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5642C5C20A9089B000AFBF4 /* MKAnnotationViewExtensions.swift */; };
 		A5642C6420A9089B000AFBF4 /* WKInterfaceImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5642C5D20A9089B000AFBF4 /* WKInterfaceImageExtensions.swift */; };
@@ -42,7 +41,6 @@
 		80217D0EB67E37FF2F04A0F5131B91C1 /* Pods-KFSwiftImageLoader_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-KFSwiftImageLoader_Example.modulemap"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A5642C5720A9089B000AFBF4 /* KFImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KFImageCacheManager.swift; sourceTree = "<group>"; };
-		A5642C5920A9089B000AFBF4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5642C5A20A9089B000AFBF4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		A5642C5C20A9089B000AFBF4 /* MKAnnotationViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtensions.swift; sourceTree = "<group>"; };
 		A5642C5D20A9089B000AFBF4 /* WKInterfaceImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceImageExtensions.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 		A5642C5820A9089B000AFBF4 /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
-				A5642C5920A9089B000AFBF4 /* Constants.swift */,
 				A5642C5A20A9089B000AFBF4 /* Utilities.swift */,
 			);
 			name = Miscellaneous;
@@ -342,7 +339,6 @@
 				A5642C6320A9089B000AFBF4 /* MKAnnotationViewExtensions.swift in Sources */,
 				A5642C6020A9089B000AFBF4 /* KFImageCacheManager.swift in Sources */,
 				A5642C6220A9089B000AFBF4 /* Utilities.swift in Sources */,
-				A5642C6120A9089B000AFBF4 /* Constants.swift in Sources */,
 				A5642C6520A9089B000AFBF4 /* UIButtonExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
