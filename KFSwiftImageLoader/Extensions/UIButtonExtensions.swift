@@ -14,39 +14,39 @@ private var isBackgroundImageAssociationKey: UInt8 = 0
 // MARK: - UIButton Extension
 public extension UIButton {
     // MARK: - Associated Objects
-    final internal var indexPathIdentifier: Int! {
+    final internal var indexPathIdentifier: Int {
         get {
-            return objc_getAssociatedObject(self, &indexPathIdentifierAssociationKey) as? Int
+            return getAssociatedValue(key: &indexPathIdentifierAssociationKey, defaultValue: -1)
         }
         set {
-            objc_setAssociatedObject(self, &indexPathIdentifierAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            setAssociatedValue(key: &indexPathIdentifierAssociationKey, value: newValue)
         }
     }
     
-    final internal var completionHolder: CompletionHolder! {
+    final internal var completionHolder: CompletionHolder {
         get {
-            return objc_getAssociatedObject(self, &completionHolderAssociationKey) as? CompletionHolder
+            return getAssociatedValue(key: &completionHolderAssociationKey, defaultValue: CompletionHolder(completion: nil))
         }
         set {
-            objc_setAssociatedObject(self, &completionHolderAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            setAssociatedValue(key: &completionHolderAssociationKey, value: newValue)
         }
     }
     
-    final internal var controlStateHolder: ControlStateHolder! {
+    final internal var controlStateHolder: ControlStateHolder {
         get {
-            return objc_getAssociatedObject(self, &controlStateHolderAssociationKey) as? ControlStateHolder
+            return getAssociatedValue(key: &controlStateHolderAssociationKey, defaultValue: ControlStateHolder(controlState: .normal))
         }
         set {
-            objc_setAssociatedObject(self, &controlStateHolderAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            setAssociatedValue(key: &controlStateHolderAssociationKey, value: newValue)
         }
     }
     
-    final internal var isBackgroundImage: Bool! {
+    final internal var isBackgroundImage: Bool {
         get {
-            return objc_getAssociatedObject(self, &isBackgroundImageAssociationKey) as? Bool
+            return getAssociatedValue(key: &isBackgroundImageAssociationKey, defaultValue: false)
         }
         set {
-            objc_setAssociatedObject(self, &isBackgroundImageAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            setAssociatedValue(key: &isBackgroundImageAssociationKey, value: newValue)
         }
     }
     
@@ -117,7 +117,7 @@ public extension UIButton {
     {
         self.completionHolder = CompletionHolder(completion: completion)
         self.indexPathIdentifier = -1
-        self.controlStateHolder = ControlStateHolder(state: controlState)
+        self.controlStateHolder = ControlStateHolder(controlState: controlState)
         self.isBackgroundImage = isBackgroundImage
         
         guard let urlAbsoluteString = request.url?.absoluteString else {

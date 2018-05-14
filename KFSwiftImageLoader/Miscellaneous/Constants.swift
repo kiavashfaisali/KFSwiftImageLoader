@@ -4,20 +4,11 @@
 
 import Foundation
 
-// MARK: - CompletionHolder Class
-final internal class CompletionHolder {
+// MARK: - Holder Structs
+internal struct CompletionHolder {
     var completion: ((_ finished: Bool, _ error: NSError?) -> Void)?
-    
-    init(completion: ((_ finished: Bool, _ error: NSError?) -> Void)?) {
-        self.completion = completion
-    }
 }
 
-// MARK: - ControlStateHolder Class
-final internal class ControlStateHolder {
+internal struct ControlStateHolder {
     var controlState: UIControlState
-    
-    init(state: UIControlState) {
-        self.controlState = state
-    }
 }
