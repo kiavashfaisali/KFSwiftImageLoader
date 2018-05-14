@@ -14,6 +14,7 @@ DerivedData/
 xcuserdata/
 
 ## Other
+.DS_Store
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
@@ -28,10 +29,8 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
+# Swift Package Managerdependencies.
+Packages/
+Package.pins
+Package.resolved
 .build/

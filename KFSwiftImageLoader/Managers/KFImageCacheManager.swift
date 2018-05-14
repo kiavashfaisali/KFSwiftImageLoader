@@ -17,7 +17,7 @@ fileprivate struct ImageCacheKeys {
 // MARK: - KFImageCacheManager Class
 final public class KFImageCacheManager {
     // MARK: - Properties
-    public static let sharedInstance = KFImageCacheManager()
+    public static let shared = KFImageCacheManager()
     
     // {"url": {"img": UIImage, "isDownloading": Bool, "observerMapping": {Observer: Int}}}
     fileprivate var imageCache = [String: [String: AnyObject]]()

@@ -55,7 +55,7 @@ public extension MKAnnotationView {
                    placeholderImage: UIImage? = nil,
                          completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
-        let cacheManager = KFImageCacheManager.sharedInstance
+        let cacheManager = KFImageCacheManager.shared
         
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
@@ -81,7 +81,7 @@ public extension MKAnnotationView {
             return
         }
         
-        let cacheManager = KFImageCacheManager.sharedInstance
+        let cacheManager = KFImageCacheManager.shared
         let fadeAnimationDuration = cacheManager.fadeAnimationDuration
         let sharedURLCache = URLCache.shared
         

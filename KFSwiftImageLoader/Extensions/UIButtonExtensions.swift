@@ -1,16 +1,18 @@
 //
-//  Created by Kiavash Faisali on 2015-03-17.
+//  Created by Kiavash Faisali on 2015-04-16.
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
 //
 
 import UIKit
 
-// MARK: - UIImageView Associated Object Keys
+// MARK: - UIButton Associated Object Keys
 private var indexPathIdentifierAssociationKey: UInt8 = 0
 private var completionHolderAssociationKey: UInt8 = 0
+private var controlStateHolderAssociationKey: UInt8 = 0
+private var isBackgroundImageAssociationKey: UInt8 = 0
 
-// MARK: - UIImageView Extension
-public extension UIImageView {
+// MARK: - UIButton Extension
+public extension UIButton {
     // MARK: - Associated Objects
     final internal var indexPathIdentifier: Int! {
         get {
@@ -30,16 +32,38 @@ public extension UIImageView {
         }
     }
     
+    final internal var controlStateHolder: ControlStateHolder! {
+        get {
+            return objc_getAssociatedObject(self, &controlStateHolderAssociationKey) as? ControlStateHolder
+        }
+        set {
+            objc_setAssociatedObject(self, &controlStateHolderAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    final internal var isBackgroundImage: Bool! {
+        get {
+            return objc_getAssociatedObject(self, &isBackgroundImageAssociationKey) as? Bool
+        }
+        set {
+            objc_setAssociatedObject(self, &isBackgroundImageAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
     // MARK: - Image Loading Methods
     /**
-        Asynchronously downloads an image and loads it into the `UIImageView` using a URL `String`.
+        Asynchronously downloads an image and loads it into the `UIButton` using a URL `String`.
         
         - parameter urlString: The image URL in the form of a `String`.
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
+        - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
                          placeholderImage: UIImage? = nil,
+                             controlState: UIControlState = .normal,
+                        isBackgroundImage: Bool = false,
                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
@@ -50,54 +74,69 @@ public extension UIImageView {
             return
         }
         
-        loadImage(url: url, placeholderImage: placeholderImage, completion: completion)
+        loadImage(url: url, placeholderImage: placeholderImage, controlState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
     }
     
     /**
-        Asynchronously downloads an image and loads it into the `UIImageView` using a `URL`.
-     
+        Asynchronously downloads an image and loads it into the `UIButton` using a `URL`.
+        
         - parameter url: The image `URL`.
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
+        - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
-     */
+    */
     final public func loadImage(url: URL,
                    placeholderImage: UIImage? = nil,
+                       controlState: UIControlState = .normal,
+                  isBackgroundImage: Bool = false,
                          completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
-        let cacheManager = KFImageCacheManager.sharedInstance
+        let cacheManager = KFImageCacheManager.shared
         
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
         
-        loadImage(request: request, placeholderImage: placeholderImage, completion: completion)
+        loadImage(request: request, placeholderImage: placeholderImage, controlState: controlState, isBackgroundImage: isBackgroundImage, completion: completion)
     }
     
     /**
-        Asynchronously downloads an image and loads it into the `UIImageView` using a `URLRequest`.
-     
+        Asynchronously downloads an image and loads it into the `UIButton` using a `URLRequest`.
+        
         - parameter request: The image URL in the form of a `URLRequest`.
         - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter controlState: `UIControlState` to be used when loading the image. The default value is `normal`.
+        - parameter isBackgroundImage: `Bool` indicating whether or not the image is intended for the button's background. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
-     */
+    */
     final public func loadImage(request: URLRequest,
                        placeholderImage: UIImage? = nil,
+                           controlState: UIControlState = UIControlState(),
+                      isBackgroundImage: Bool = false,
                              completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
     {
         self.completionHolder = CompletionHolder(completion: completion)
         self.indexPathIdentifier = -1
+        self.controlStateHolder = ControlStateHolder(state: controlState)
+        self.isBackgroundImage = isBackgroundImage
         
         guard let urlAbsoluteString = request.url?.absoluteString else {
             self.completionHolder.completion?(false, nil)
             return
         }
         
-        let cacheManager = KFImageCacheManager.sharedInstance
+        let cacheManager = KFImageCacheManager.shared
         let fadeAnimationDuration = cacheManager.fadeAnimationDuration
         let sharedURLCache = URLCache.shared
         
         func loadImage(_ image: UIImage) -> Void {
             UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
-                self.image = image
+                if self.isBackgroundImage == true {
+                    self.setBackgroundImage(image, for: self.controlStateHolder.controlState)
+                }
+                else {
+                    self.setImage(image, for: self.controlStateHolder.controlState)
+                }
             })
             
             self.completionHolder.completion?(true, nil)
@@ -120,7 +159,12 @@ public extension UIImageView {
             
             // Set the placeholder image if it was provided.
             if let image = placeholderImage {
-                self.image = image
+                if self.isBackgroundImage == true {
+                    self.setBackgroundImage(image, for: self.controlStateHolder.controlState)
+                }
+                else {
+                    self.setImage(image, for: self.controlStateHolder.controlState)
+                }
             }
             
             // Should the image be shown in a cell, walk the view hierarchy to retrieve the index path from the tableview or collectionview.
@@ -181,7 +225,12 @@ public extension UIImageView {
                     DispatchQueue.main.async {
                         if initialIndexIdentifier == self.indexPathIdentifier {
                             UIView.transition(with: self, duration: fadeAnimationDuration, options: .transitionCrossDissolve, animations: {
-                                self.image = image
+                                if self.isBackgroundImage == true {
+                                    self.setBackgroundImage(image, for: self.controlStateHolder.controlState)
+                                }
+                                else {
+                                    self.setImage(image, for: self.controlStateHolder.controlState)
+                                }
                             })
                         }
                         
@@ -210,7 +259,7 @@ public extension UIImageView {
                 
                 dataTask.resume()
             }
-            // Since the image is already being downloaded and hasn't been cached, register the image view as a cache observer.
+            // Since the image is already being downloaded and hasn't been cached, register the button as a cache observer.
             else {
                 weak var weakSelf = self
                 cacheManager.addImageCacheObserver(weakSelf!, withInitialIndexIdentifier: initialIndexIdentifier, forKey: urlAbsoluteString)

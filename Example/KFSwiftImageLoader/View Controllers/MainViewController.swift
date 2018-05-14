@@ -11,7 +11,7 @@ final class MainViewController: UIViewController {
     // MARK: - Properties
     @IBOutlet weak var imagesTableView: UITableView!
     
-    var imageURLStringsArray = [String]()
+    var imageURLStrings = [String]()
     
     // MARK: - Memory Warning
     override func didReceiveMemoryWarning() {
@@ -46,12 +46,12 @@ final class MainViewController: UIViewController {
                         for relatedTopic in relatedTopics {
                             if let imageURLString = relatedTopic["Icon"]?["URL"] as? String, imageURLString != "" {
                                 for _ in 1...3 {
-                                    self.imageURLStringsArray.append(imageURLString)
+                                    self.imageURLStrings.append(imageURLString)
                                 }
                             }
                         }
                         
-                        if self.imageURLStringsArray.count > 0 {
+                        if self.imageURLStrings.count > 0 {
                             // Comment to not randomize the image ordering.
                             self.randomizeImages()
                             
@@ -69,10 +69,10 @@ final class MainViewController: UIViewController {
     }
     
     func randomizeImages() {
-        for i in 0..<self.imageURLStringsArray.count {
-            let randomIndex = Int(arc4random()) % self.imageURLStringsArray.count
+        for i in 0..<self.imageURLStrings.count {
+            let randomIndex = Int(arc4random()) % self.imageURLStrings.count
             
-            self.imageURLStringsArray.swapAt(i, randomIndex)
+            self.imageURLStrings.swapAt(i, randomIndex)
         }
     }
 }
@@ -80,16 +80,16 @@ final class MainViewController: UIViewController {
 // MARK: - UITableViewDataSource Protocol
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.imageURLStringsArray.count
+        return self.imageURLStrings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Even indices should contain imageview cells.
-        if (indexPath as NSIndexPath).row % 2 == 0 {
+        if (indexPath.row % 2) == 0 {
             let cellIdentifier = String(describing: ImageTableViewCell.self)
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ImageTableViewCell
             
-            cell.featuredImageView.loadImage(urlString: self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
+            cell.featuredImageView.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
                 (success, error) in
                 
                 guard error == nil else {
@@ -111,7 +111,7 @@ extension MainViewController: UITableViewDataSource {
             
             // Notice that the completion closure can be ommitted, since it defaults to nil. The `controlState` and `isBackgroundImage` parameters can also be ommitted, as they default to `.normal` and `false`, respectively.
             // Please read the documentation for more information.
-            cell.featuredButton.loadImage(urlString: self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali"), controlState: .normal, isBackgroundImage: false)
+            cell.featuredButton.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali"), controlState: .normal, isBackgroundImage: false)
             
             return cell
         }
