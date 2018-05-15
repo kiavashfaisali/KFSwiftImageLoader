@@ -167,36 +167,26 @@ public extension UIButton {
                 }
             }
             
-            // Should the image be shown in a cell, walk the view hierarchy to retrieve the index path from the tableview or collectionview.
-            let tableView: UITableView
-            let collectionView: UICollectionView
-            var tableViewCell: UITableViewCell?
-            var collectionViewCell: UICollectionViewCell?
             var parentView = self.superview
             
+            // Should the image be shown in a cell, walk the view hierarchy to retrieve the index path from the tableview or collectionview.
             while parentView != nil {
-                if let view = parentView as? UITableViewCell {
-                    tableViewCell = view
-                }
-                else if let view = parentView as? UITableView {
-                    tableView = view
-                    
-                    if let cell = tableViewCell {
-                        let indexPath = tableView.indexPathForRow(at: cell.center)
-                        self.indexPathIdentifier = indexPath?.hashValue ?? -1
+                switch parentView {
+                case let tableViewCell as UITableViewCell:
+                    // Every tableview cell must be directly embedded within a tableview.
+                    if let tableView = tableViewCell.superview as? UITableView,
+                        let indexPath = tableView.indexPathForRow(at: tableViewCell.center)
+                    {
+                        self.indexPathIdentifier = indexPath.hashValue
                     }
-                    break
-                }
-                else if let view = parentView as? UICollectionViewCell {
-                    collectionViewCell = view
-                }
-                else if let view = parentView as? UICollectionView {
-                    collectionView = view
-                    
-                    if let cell = collectionViewCell {
-                        let indexPath = collectionView.indexPathForItem(at: cell.center)
-                        self.indexPathIdentifier = indexPath?.hashValue ?? -1
+                case let collectionViewCell as UICollectionViewCell:
+                    // Every collectionview cell must be directly embedded within a collectionview.
+                    if let collectionView = collectionViewCell.superview as? UICollectionView,
+                        let indexPath = collectionView.indexPathForItem(at: collectionViewCell.center)
+                    {
+                        self.indexPathIdentifier = indexPath.hashValue
                     }
+                default:
                     break
                 }
                 

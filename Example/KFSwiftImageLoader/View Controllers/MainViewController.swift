@@ -89,7 +89,7 @@ extension MainViewController: UITableViewDataSource {
             let cellIdentifier = String(describing: ImageTableViewCell.self)
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ImageTableViewCell
             
-            cell.featuredImageView.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
+            cell.featuredImageView.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholder: UIImage(named: "KiavashFaisali")) {
                 (success, error) in
                 
                 guard error == nil else {
