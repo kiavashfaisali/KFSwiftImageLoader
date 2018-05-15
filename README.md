@@ -45,14 +45,14 @@ imageView.loadImage(urlString: urlString)
 ```
 
 Yes, it really is that easy. It just works.
-In the above example, the inputs "placeholderImage" and "completionHandler" were ignored, so they default to nil.
+In the above example, the inputs "placeholder" and "completionHandler" were ignored, so they default to nil.
 We can include them in the following way:
 ``` swift
-imageView.loadImage(urlString: urlString, placeholderImage: UIImage(named: "KiavashFaisali")) {
-    success, error in
+imageView.loadImage(urlString: urlString, placeholder: UIImage(named: "KiavashFaisali")) {
+    (success, error) in
     
     // 'success' is a 'Bool' indicating success or failure.
-    // 'error' is an 'NSError?' containing the error (if any) when 'success' is 'false'.
+    // 'error' is an 'Error?' containing the error (if any) when 'success' is 'false'.
 }
 ```
 
@@ -60,22 +60,22 @@ For flexibility, there are several different methods for loading images.
 Below are the method signatures for all of them:
 ``` swift
 func loadImage(urlString: String,
-        placeholderImage: UIImage? = nil,
-              completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+             placeholder: UIImage? = nil,
+              completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
 
 func loadImage(url: URL,
-  placeholderImage: UIImage? = nil,
-        completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+       placeholder: UIImage? = nil,
+        completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
 
 func loadImage(request: URLRequest,
-      placeholderImage: UIImage? = nil,
-            completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+           placeholder: UIImage? = nil,
+            completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
 ```
 
 ### WKInterfaceImage
 ``` swift
 interfaceImage.loadImage(urlString: urlString, placeholderImageName: "KiavashFaisali", shouldUseDeviceCache: true) {
-    finished, error in
+    (finished, error) in
     
     // Completion handler called.
 }
@@ -93,18 +93,18 @@ button.loadImage(urlString: urlString)
 ```
 
 Again, KFSwiftImageLoader makes it very easy to load images.
-In this case, the button uses mostly the same method signature as UIImageView, but it includes two more optional parameters: "isBackgroundImage" and "forState".
+In this case, the button uses mostly the same method signature as UIImageView, but it includes two more optional parameters: "isBackground" and "controlState".
 
 ``` swift
 func loadImage(urlString: String,
-        placeholderImage: UIImage? = nil,
+             placeholder: UIImage? = nil,
             controlState: UIControlState = .normal,
-       isBackgroundImage: Bool = false,
-              completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
+            isBackground: Bool = false,
+              completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
 ```
 
 "controlState" takes a UIControlState value that is required when setting images for buttons.
-"isBackgroundImage" simply indicates whether or not the button should use "setBackgroundImage:for:" or "setImage:for:" for image loading.
+"isBackground" simply indicates whether or not the button should use "setBackgroundImage:for:" or "setImage:for:" for image loading.
 
 ### MKAnnotationView
 ``` swift
@@ -117,24 +117,24 @@ The methods in the MKAnnotationView extension are exactly the same as those in t
 ``` swift
 // Disable the fade animation.
 // The default value is 0.1.
-KFImageCacheManager.sharedInstance.fadeAnimationDuration = 0.0
+KFImageCacheManager.shared.fadeAnimationDuration = 0.0
 
 // Set a custom timeout interval for the image requests.
 // The default value is 60.0.
-KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
+KFImageCacheManager.shared.timeoutIntervalForRequest = 15.0
 
 // Set a custom request cache policy for the image requests as well as the session's configuration.
 // The default value is .returnCacheDataElseLoad.
-KFImageCacheManager.sharedInstance.requestCachePolicy = .useProtocolCachePolicy
+KFImageCacheManager.shared.requestCachePolicy = .useProtocolCachePolicy
 
 // Disable file system caching by adjusting the max age of the disk cache and the request cache policy.
 // The default value is 60 * 60 * 24 * 7 = 604800 seconds (1 week).
-KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
-KFImageCacheManager.sharedInstance.requestCachePolicy = .reloadIgnoringLocalCacheData
+KFImageCacheManager.shared.diskCacheMaxAge = 0
+KFImageCacheManager.shared.requestCachePolicy = .reloadIgnoringLocalCacheData
 ```
 
 ## Sample App
-Please take a look at the sample app "KFSwiftImageLoader" in this repository under the Example folder for a clear idea of how to use KFSwiftImageLoader to load images for iOS and  Watch.
+Please take a look at the sample app under the Example folder for a clear idea of how to use KFSwiftImageLoader to load images in iOS and  Watch.
 
 ## Contact Information
 Kiavash Faisali

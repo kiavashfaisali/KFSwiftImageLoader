@@ -170,14 +170,14 @@ public extension WKInterfaceImage {
             
             // If the image isn't already being downloaded, begin downloading the image.
             if cacheManager.isDownloadingFromURL(urlAbsoluteString) == false {
-                cacheManager.setIsDownloadingFromURL(true, forURLString: urlAbsoluteString)
+                cacheManager.setIsDownloadingFromURL(true, urlString: urlAbsoluteString)
                 
                 let dataTask = cacheManager.session.dataTask(with: request) {
                     taskData, taskResponse, taskError in
                     
                     guard let data = taskData, let response = taskResponse, let image = UIImage(data: data), taskError == nil else {
                         DispatchQueue.main.async {
-                            cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
+                            cacheManager.setIsDownloadingFromURL(false, urlString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
                             self.completion?(false, taskError)
                         }
@@ -221,7 +221,7 @@ public extension WKInterfaceImage {
             // Since the image is already being downloaded and hasn't been cached, register the interface as a cache observer.
             else {
                 weak var weakSelf = self
-                cacheManager.addImageCacheObserver(weakSelf!, withInitialIndexIdentifier: initialIndexIdentifier, forKey: urlAbsoluteString)
+                cacheManager.addImageCacheObserver(weakSelf!, initialIndexIdentifier: initialIndexIdentifier, key: urlAbsoluteString)
             }
         }
     }

@@ -26,11 +26,11 @@ public extension MKAnnotationView {
         Asynchronously downloads an image and loads it into the `MKAnnotationView` using a URL `String`.
         
         - parameter urlString: The image URL in the form of a `String`.
-        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholder: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
-                         placeholderImage: UIImage? = nil,
+                              placeholder: UIImage? = nil,
                                completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
@@ -41,18 +41,18 @@ public extension MKAnnotationView {
             return
         }
         
-        loadImage(url: url, placeholderImage: placeholderImage, completion: completion)
+        loadImage(url: url, placeholder: placeholder, completion: completion)
     }
     
     /**
         Asynchronously downloads an image and loads it into the `MKAnnotationView` using a `URL`.
         
         - parameter url: The image `URL`.
-        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholder: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(url: URL,
-                   placeholderImage: UIImage? = nil,
+                        placeholder: UIImage? = nil,
                          completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         let cacheManager = KFImageCacheManager.shared
@@ -60,18 +60,18 @@ public extension MKAnnotationView {
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
         
-        loadImage(request: request, placeholderImage: placeholderImage, completion: completion)
+        loadImage(request: request, placeholder: placeholder, completion: completion)
     }
     
     /**
         Asynchronously downloads an image and loads it into the `MKAnnotationView` using a `URLRequest`.
         
         - parameter request: The image URL in the form of a `URLRequest`.
-        - parameter placeholderImage: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholder: `UIImage?` representing a placeholder image that is loaded into the view while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request: URLRequest,
-                       placeholderImage: UIImage? = nil,
+                            placeholder: UIImage? = nil,
                              completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         self.completion = completion
@@ -109,20 +109,20 @@ public extension MKAnnotationView {
             sharedURLCache.removeCachedResponse(for: request)
             
             // Set the placeholder image if it was provided.
-            if let image = placeholderImage {
-                self.image = image
+            if let placeholder = placeholder {
+                self.image = placeholder
             }
             
             // If the image isn't already being downloaded, begin downloading the image.
             if cacheManager.isDownloadingFromURL(urlAbsoluteString) == false {
-                cacheManager.setIsDownloadingFromURL(true, forURLString: urlAbsoluteString)
+                cacheManager.setIsDownloadingFromURL(true, urlString: urlAbsoluteString)
                 
                 let dataTask = cacheManager.session.dataTask(with: request) {
                     taskData, taskResponse, taskError in
                     
                     guard let data = taskData, let response = taskResponse, let image = UIImage(data: data), taskError == nil else {
                         DispatchQueue.main.async {
-                            cacheManager.setIsDownloadingFromURL(false, forURLString: urlAbsoluteString)
+                            cacheManager.setIsDownloadingFromURL(false, urlString: urlAbsoluteString)
                             cacheManager.removeImageCacheObserversForKey(urlAbsoluteString)
                             self.completion?(false, taskError)
                         }
@@ -163,7 +163,7 @@ public extension MKAnnotationView {
             // Since the image is already being downloaded and hasn't been cached, register the image view as a cache observer.
             else {
                 weak var weakSelf = self
-                cacheManager.addImageCacheObserver(weakSelf!, withInitialIndexIdentifier: -1, forKey: urlAbsoluteString)
+                cacheManager.addImageCacheObserver(weakSelf!, initialIndexIdentifier: -1, key: urlAbsoluteString)
             }
         }
     }

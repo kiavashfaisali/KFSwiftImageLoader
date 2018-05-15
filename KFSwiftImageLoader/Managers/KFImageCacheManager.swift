@@ -33,7 +33,7 @@ final public class KFImageCacheManager {
         A value of 0 implies no fade animation.
         The default value is 0.1 seconds.
         
-        - returns: An NSTimeInterval value representing time in seconds.
+        - returns: TimeInterval value representing time in seconds.
     */
     public var fadeAnimationDuration = 0.1 as TimeInterval
     
@@ -41,7 +41,7 @@ final public class KFImageCacheManager {
         Sets the maximum time (in seconds) that the disk cache will use to maintain a cached response.
         The default value is 604800 seconds (1 week).
         
-        - returns: An unsigned integer value representing time in seconds.
+        - returns: UInt value representing time in seconds.
     */
     public var diskCacheMaxAge = 60 * 60 * 24 * 7 as UInt {
         willSet {
@@ -55,7 +55,7 @@ final public class KFImageCacheManager {
         Sets the maximum time (in seconds) that the request should take before timing out.
         The default value is 60 seconds.
         
-        - returns: An NSTimeInterval value representing time in seconds.
+        - returns: TimeInterval value representing time in seconds.
     */
     public var timeoutIntervalForRequest = 60.0 as TimeInterval {
         willSet {
@@ -69,7 +69,7 @@ final public class KFImageCacheManager {
         Sets the cache policy which the default requests and underlying session configuration use to determine caching behaviour.
         The default value is `returnCacheDataElseLoad`.
         
-        - returns: An NSURLRequestCachePolicy value representing the cache policy.
+        - returns: An URLRequestCachePolicy value representing the cache policy.
     */
     public var requestCachePolicy = NSURLRequest.CachePolicy.returnCacheDataElseLoad {
         willSet {
@@ -104,7 +104,7 @@ final public class KFImageCacheManager {
             if let image = newValue {
                 var imageCacheEntry = imageCacheEntryForKey(key)
                 imageCacheEntry[.image] = image
-                setImageCacheEntry(imageCacheEntry, forKey: key)
+                setImageCacheEntry(imageCacheEntry, key: key)
                 
                 if let observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
                     for (observer, initialIndexIdentifier) in observerMapping {
@@ -141,7 +141,7 @@ final public class KFImageCacheManager {
         }
     }
     
-    fileprivate func setImageCacheEntry(_ imageCacheEntry: [ImageCacheKey: Any], forKey key: String) {
+    fileprivate func setImageCacheEntry(_ imageCacheEntry: [ImageCacheKey: Any], key: String) {
         self.imageCache[key] = imageCacheEntry
     }
     
@@ -151,18 +151,18 @@ final public class KFImageCacheManager {
         return isDownloading ?? false
     }
     
-    internal func setIsDownloadingFromURL(_ isDownloading: Bool, forURLString urlString: String) {
+    internal func setIsDownloadingFromURL(_ isDownloading: Bool, urlString: String) {
         var imageCacheEntry = imageCacheEntryForKey(urlString)
         imageCacheEntry[.isDownloading] = isDownloading
-        setImageCacheEntry(imageCacheEntry, forKey: urlString)
+        setImageCacheEntry(imageCacheEntry, key: urlString)
     }
     
-    internal func addImageCacheObserver(_ observer: NSObject, withInitialIndexIdentifier initialIndexIdentifier: Int, forKey key: String) {
+    internal func addImageCacheObserver(_ observer: NSObject, initialIndexIdentifier: Int, key: String) {
         var imageCacheEntry = imageCacheEntryForKey(key)
         if var observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
             observerMapping[observer] = initialIndexIdentifier
             imageCacheEntry[.observerMapping] = observerMapping
-            setImageCacheEntry(imageCacheEntry, forKey: key)
+            setImageCacheEntry(imageCacheEntry, key: key)
         }
     }
     
@@ -171,7 +171,7 @@ final public class KFImageCacheManager {
         if var observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
             observerMapping.removeAll(keepingCapacity: false)
             imageCacheEntry[.observerMapping] = observerMapping
-            setImageCacheEntry(imageCacheEntry, forKey: key)
+            setImageCacheEntry(imageCacheEntry, key: key)
         }
     }
     
