@@ -8,10 +8,8 @@ import MapKit
 import WatchKit
 
 // MARK: - ImageCacheKeys Struct
-fileprivate struct ImageCacheKeys {
-    static let image = "image"
-    static let isDownloading = "isDownloading"
-    static let observerMapping = "observerMapping"
+fileprivate enum ImageCacheKey {
+    case image, isDownloading, observerMapping
 }
 
 // MARK: - KFImageCacheManager Class
@@ -20,7 +18,7 @@ final public class KFImageCacheManager {
     public static let shared = KFImageCacheManager()
     
     // {"url": {"img": UIImage, "isDownloading": Bool, "observerMapping": {Observer: Int}}}
-    fileprivate var imageCache = [String: [String: AnyObject]]()
+    fileprivate var imageCache = [String: [ImageCacheKey: Any]]()
     
     internal lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
@@ -100,15 +98,15 @@ final public class KFImageCacheManager {
     // MARK: - Image Cache Subscripting
     internal subscript (key: String) -> UIImage? {
         get {
-            return imageCacheEntryForKey(key)[ImageCacheKeys.image] as? UIImage
+            return imageCacheEntryForKey(key)[.image] as? UIImage
         }
         set {
             if let image = newValue {
                 var imageCacheEntry = imageCacheEntryForKey(key)
-                imageCacheEntry[ImageCacheKeys.image] = image
+                imageCacheEntry[.image] = image
                 setImageCacheEntry(imageCacheEntry, forKey: key)
                 
-                if let observerMapping = imageCacheEntry[ImageCacheKeys.observerMapping] as? [NSObject: Int] {
+                if let observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
                     for (observer, initialIndexIdentifier) in observerMapping {
                         switch observer {
                         case let imageView as UIImageView:
@@ -131,48 +129,48 @@ final public class KFImageCacheManager {
     }
     
     // MARK: - Image Cache Methods
-    internal func imageCacheEntryForKey(_ key: String) -> [String: AnyObject] {
+    fileprivate func imageCacheEntryForKey(_ key: String) -> [ImageCacheKey: Any] {
         if let imageCacheEntry = self.imageCache[key] {
             return imageCacheEntry
         }
         else {
-            let imageCacheEntry: [String: AnyObject] = [ImageCacheKeys.isDownloading: false as AnyObject, ImageCacheKeys.observerMapping: [NSObject: Int]() as AnyObject]
+            let imageCacheEntry: [ImageCacheKey: Any] = [.isDownloading: false, .observerMapping: [NSObject: Int]()]
             self.imageCache[key] = imageCacheEntry
             
             return imageCacheEntry
         }
     }
     
-    internal func setImageCacheEntry(_ imageCacheEntry: [String: AnyObject], forKey key: String) {
+    fileprivate func setImageCacheEntry(_ imageCacheEntry: [ImageCacheKey: Any], forKey key: String) {
         self.imageCache[key] = imageCacheEntry
     }
     
     internal func isDownloadingFromURL(_ urlString: String) -> Bool {
-        let isDownloading = imageCacheEntryForKey(urlString)[ImageCacheKeys.isDownloading] as? Bool
+        let isDownloading = imageCacheEntryForKey(urlString)[.isDownloading] as? Bool
         
         return isDownloading ?? false
     }
     
     internal func setIsDownloadingFromURL(_ isDownloading: Bool, forURLString urlString: String) {
         var imageCacheEntry = imageCacheEntryForKey(urlString)
-        imageCacheEntry[ImageCacheKeys.isDownloading] = isDownloading as AnyObject?
+        imageCacheEntry[.isDownloading] = isDownloading
         setImageCacheEntry(imageCacheEntry, forKey: urlString)
     }
     
     internal func addImageCacheObserver(_ observer: NSObject, withInitialIndexIdentifier initialIndexIdentifier: Int, forKey key: String) {
         var imageCacheEntry = imageCacheEntryForKey(key)
-        if var observerMapping = imageCacheEntry[ImageCacheKeys.observerMapping] as? [NSObject: Int] {
+        if var observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
             observerMapping[observer] = initialIndexIdentifier
-            imageCacheEntry[ImageCacheKeys.observerMapping] = observerMapping as AnyObject?
+            imageCacheEntry[.observerMapping] = observerMapping
             setImageCacheEntry(imageCacheEntry, forKey: key)
         }
     }
     
     internal func removeImageCacheObserversForKey(_ key: String) {
         var imageCacheEntry = imageCacheEntryForKey(key)
-        if var observerMapping = imageCacheEntry[ImageCacheKeys.observerMapping] as? [NSObject: Int] {
+        if var observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
             observerMapping.removeAll(keepingCapacity: false)
-            imageCacheEntry[ImageCacheKeys.observerMapping] = observerMapping as AnyObject?
+            imageCacheEntry[.observerMapping] = observerMapping
             setImageCacheEntry(imageCacheEntry, forKey: key)
         }
     }
