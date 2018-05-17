@@ -157,9 +157,9 @@
 			isa = PBXGroup;
 			children = (
 				A5642C5C20A9089B000AFBF4 /* MKAnnotationViewExtensions.swift */,
-				A5642C5D20A9089B000AFBF4 /* WKInterfaceImageExtensions.swift */,
 				A5642C5E20A9089B000AFBF4 /* UIButtonExtensions.swift */,
 				A5642C5F20A9089B000AFBF4 /* UIImageViewExtensions.swift */,
+				A5642C5D20A9089B000AFBF4 /* WKInterfaceImageExtensions.swift */,
 			);
 			name = Extensions;
 			path = KFSwiftImageLoader/Extensions;

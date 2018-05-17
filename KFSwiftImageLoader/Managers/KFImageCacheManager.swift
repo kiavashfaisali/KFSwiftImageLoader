@@ -17,7 +17,7 @@ final public class KFImageCacheManager {
     // MARK: - Properties
     public static let shared = KFImageCacheManager()
     
-    // {"url": {"img": UIImage, "isDownloading": Bool, "observerMapping": {Observer: Int}}}
+    // {"url": {.image: UIImage, .isDownloading: Bool, .observerMapping: {Observer: Int}}}
     fileprivate var imageCache = [String: [ImageCacheKey: Any]]()
     
     internal lazy var session: URLSession = {
@@ -116,7 +116,7 @@ final public class KFImageCacheManager {
                         case let annotationView as MKAnnotationView:
                             loadObserver(annotationView, image: image)
                         case let interfaceImage as WKInterfaceImage:
-                            loadObserver(interfaceImage, image: image, key: key)
+                            loadObserver(interfaceImage, image: image)
                         default:
                             break
                         }
@@ -230,16 +230,9 @@ final public class KFImageCacheManager {
         }
     }
     
-    internal func loadObserver(_ interfaceImage: WKInterfaceImage, image: UIImage, key: String) {
+    internal func loadObserver(_ interfaceImage: WKInterfaceImage, image: UIImage) {
         DispatchQueue.main.async {
-            // If there's already a cached image on the Apple Watch, simply set the image directly.
-            if WKInterfaceDevice.current().cachedImages[key] != nil {
-                interfaceImage.setImageNamed(key)
-            }
-            else {
-                interfaceImage.setImageData(UIImagePNGRepresentation(image))
-            }
-            
+            interfaceImage.setImage(image)
             interfaceImage.completion?(true, nil)
         }
     }

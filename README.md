@@ -17,6 +17,7 @@ Note:
 ## KFSwiftImageLoader Requirements
 * Xcode 9.3+
 * iOS 11.0+
+* watchOS 2.0+
 
 ## CocoaPods
 To ensure you stay up-to-date with the latest version of KFSwiftImageLoader, it is recommended that you use CocoaPods.
@@ -74,18 +75,14 @@ func loadImage(request: URLRequest,
 
 ### WKInterfaceImage
 ``` swift
-interfaceImage.loadImage(urlString: urlString, placeholderImageName: "KiavashFaisali", shouldUseDeviceCache: true) {
+interfaceImage.loadImage(urlString: urlString, placeholderImageName: "KiavashFaisali") {
     (finished, error) in
     
     // Completion handler called.
 }
 ```
 
-The main difference with the UIImageView extension is the parameter "shouldUseDeviceCache", which defaults to false if it is not explicitly set to true in the method.
-
-"shouldUseDeviceCache" is a Bool indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app.
-
-The magic here is that KFSwiftImageLoader will automatically and intelligently manage the  Watch's device cache. Should the image data be larger than the cache's size (5 MB), KFSwiftImageLoader will fallback to transmitting the data from the iPhone app's cache, or downloading the image and transmitting the downloaded data, depending on what's available.
+The main difference with the UIImageView extension is the parameter "placeholderImageName", which requires the placeholder image to be bundled with the  Watch app for performance reasons.
 
 ### UIButton
 ``` swift
