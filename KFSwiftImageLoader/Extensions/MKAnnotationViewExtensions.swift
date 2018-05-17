@@ -7,7 +7,7 @@ import UIKit
 import MapKit
 
 // MARK: - MKAnnotationView Associated Value Keys
-private var completionAssociationKey: UInt8 = 0
+fileprivate var completionAssociationKey: UInt8 = 0
 
 // MARK: - MKAnnotationView Extension
 public extension MKAnnotationView {

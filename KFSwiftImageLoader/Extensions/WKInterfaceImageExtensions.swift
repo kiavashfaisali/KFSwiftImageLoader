@@ -6,7 +6,7 @@
 import WatchKit
 
 // MARK: - WKInterfaceImage Associated Value Keys
-private var completionAssociationKey: UInt8 = 0
+fileprivate var completionAssociationKey: UInt8 = 0
 
 // MARK: - WKInterfaceImage Extension
 public extension WKInterfaceImage {
@@ -25,11 +25,11 @@ public extension WKInterfaceImage {
         Asynchronously downloads an image and loads it into the `WKInterfaceImage` using a URL `String`.
         
         - parameter urlString: The image URL in the form of a `String`.
-        - parameter placeholderImageName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholderName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(urlString: String,
-                     placeholderImageName: String? = nil,
+                          placeholderName: String? = nil,
                                completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         guard let url = URL(string: urlString) else {
@@ -40,18 +40,18 @@ public extension WKInterfaceImage {
             return
         }
         
-        loadImage(url: url, placeholderImageName: placeholderImageName, completion: completion)
+        loadImage(url: url, placeholderName: placeholderName, completion: completion)
     }
     
     /**
         Asynchronously downloads an image and loads it into the `WKInterfaceImage` using a `URL`.
         
         - parameter url: The image `URL`.
-        - parameter placeholderImageName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholderName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(url: URL,
-               placeholderImageName: String? = nil,
+                    placeholderName: String? = nil,
                          completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         let cacheManager = KFImageCacheManager.shared
@@ -59,18 +59,18 @@ public extension WKInterfaceImage {
         var request = URLRequest(url: url, cachePolicy: cacheManager.session.configuration.requestCachePolicy, timeoutInterval: cacheManager.session.configuration.timeoutIntervalForRequest)
         request.addValue("image/*", forHTTPHeaderField: "Accept")
         
-        loadImage(request: request, placeholderImageName: placeholderImageName, completion: completion)
+        loadImage(request: request, placeholderName: placeholderName, completion: completion)
     }
     
     /**
         Asynchronously downloads an image and loads it into the `WKInterfaceImage` using a `URLRequest`.
         
         - parameter request: The image URL in the form of a `URLRequest`.
-        - parameter placeholderImageName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
+        - parameter placeholderName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
     final public func loadImage(request: URLRequest,
-                   placeholderImageName: String? = nil,
+                        placeholderName: String? = nil,
                              completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
         self.completion = completion
@@ -107,8 +107,8 @@ public extension WKInterfaceImage {
             sharedURLCache.removeCachedResponse(for: request)
             
             // Set the placeholder image if it was provided.
-            if let placeholderImageName = placeholderImageName {
-                self.setImageNamed(placeholderImageName)
+            if let placeholderName = placeholderName {
+                self.setImageNamed(placeholderName)
             }
             
             // If the image isn't already being downloaded, begin downloading the image.

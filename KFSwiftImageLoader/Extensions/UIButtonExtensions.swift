@@ -6,10 +6,10 @@
 import UIKit
 
 // MARK: - UIButton Associated Value Keys
-private var indexPathIdentifierAssociationKey: UInt8 = 0
-private var completionAssociationKey: UInt8 = 0
-private var controlStateAssociationKey: UInt8 = 0
-private var isBackgroundAssociationKey: UInt8 = 0
+fileprivate var indexPathIdentifierAssociationKey: UInt8 = 0
+fileprivate var completionAssociationKey: UInt8 = 0
+fileprivate var controlStateAssociationKey: UInt8 = 0
+fileprivate var isBackgroundAssociationKey: UInt8 = 0
 
 // MARK: - UIButton Extension
 public extension UIButton {

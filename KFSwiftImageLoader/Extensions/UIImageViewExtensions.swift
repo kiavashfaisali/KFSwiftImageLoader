@@ -6,8 +6,8 @@
 import UIKit
 
 // MARK: - UIImageView Associated Value Keys
-private var indexPathIdentifierAssociationKey: UInt8 = 0
-private var completionAssociationKey: UInt8 = 0
+fileprivate var indexPathIdentifierAssociationKey: UInt8 = 0
+fileprivate var completionAssociationKey: UInt8 = 0
 
 // MARK: - UIImageView Extension
 public extension UIImageView {

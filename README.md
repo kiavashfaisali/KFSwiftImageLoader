@@ -46,7 +46,7 @@ imageView.loadImage(urlString: urlString)
 ```
 
 Yes, it really is that easy. It just works.
-In the above example, the inputs "placeholder" and "completionHandler" were ignored, so they default to nil.
+In the above example, the inputs "placeholder" and "completion" were ignored, so they default to nil.
 We can include them in the following way:
 ``` swift
 imageView.loadImage(urlString: urlString, placeholder: UIImage(named: "KiavashFaisali")) {
@@ -60,44 +60,42 @@ imageView.loadImage(urlString: urlString, placeholder: UIImage(named: "KiavashFa
 For flexibility, there are several different methods for loading images.
 Below are the method signatures for all of them:
 ``` swift
-func loadImage(urlString: String,
+func loadImage(_ urlString: String,
+               placeholder: UIImage? = nil,
+                completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
+
+func loadImage(_ url: URL,
+         placeholder: UIImage? = nil,
+          completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
+
+func loadImage(_ request: URLRequest,
              placeholder: UIImage? = nil,
               completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
-
-func loadImage(url: URL,
-       placeholder: UIImage? = nil,
-        completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
-
-func loadImage(request: URLRequest,
-           placeholder: UIImage? = nil,
-            completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
 ```
 
 ### WKInterfaceImage
 ``` swift
-interfaceImage.loadImage(urlString: urlString, placeholderImageName: "KiavashFaisali") {
-    (finished, error) in
-    
-    // Completion handler called.
-}
+func loadImage(_ urlString: urlString,
+           placeholderName: String? = nil,
+                completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
 ```
 
-The main difference with the UIImageView extension is the parameter "placeholderImageName", which requires the placeholder image to be bundled with the  Watch app for performance reasons.
+The main difference with the UIImageView extension is the parameter "placeholderName", which requires the placeholder image to be bundled with the  Watch app for performance reasons.
 
 ### UIButton
 ``` swift
-button.loadImage(urlString: urlString)
+button.loadImage(urlString)
 ```
 
 Again, KFSwiftImageLoader makes it very easy to load images.
 In this case, the button uses mostly the same method signature as UIImageView, but it includes two more optional parameters: "isBackground" and "controlState".
 
 ``` swift
-func loadImage(urlString: String,
-             placeholder: UIImage? = nil,
-            controlState: UIControlState = .normal,
-            isBackground: Bool = false,
-              completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
+func loadImage(_ urlString: String,
+               placeholder: UIImage? = nil,
+              controlState: UIControlState = .normal,
+              isBackground: Bool = false,
+                completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
 ```
 
 "controlState" takes a UIControlState value that is required when setting images for buttons.
@@ -105,7 +103,7 @@ func loadImage(urlString: String,
 
 ### MKAnnotationView
 ``` swift
-annotationView.loadImage(urlString: string)
+annotationView.loadImage(urlString)
 ```
 
 The methods in the MKAnnotationView extension are exactly the same as those in the UIImageView extension.
