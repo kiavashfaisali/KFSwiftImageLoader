@@ -34,7 +34,7 @@ final class MainViewController: UIViewController {
             (data, _, error) in
             
             guard let data = data, error == nil else {
-                os_log("Error retrieving response from the DuckDuckGo API.", type: .error)
+                os_log("Error retrieving a response from the DuckDuckGo API: %{public}@", type: .error, error!.localizedDescription)
                 return
             }
             
@@ -86,19 +86,19 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Even indices should contain imageview cells.
         if (indexPath.row % 2) == 0 {
-            let cellIdentifier = String(describing: ImageTableViewCell.self)
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ImageTableViewCell
+            let identifier = String(describing: ImageTableViewCell.self)
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ImageTableViewCell
             
             cell.featuredImageView.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholder: UIImage(named: "KiavashFaisali")) {
                 (success, error) in
                 
                 guard error == nil else {
-                    os_log("error occurred with description: %{public}@", type: .error, error!.localizedDescription)
+                    os_log("Error occurred when loading the image: %{public}@", type: .error, error!.localizedDescription)
                     return
                 }
                 
                 if !success {
-                    os_log("Image loader failed to finish because a URL object could not be formed from the provided URL String.", type: .error)
+                    os_log("Image could not be loaded from the provided URL, or the index paths didn't match due to fast scrolling, which would've placed the image in an incorrect cell.", type: .info)
                 }
             }
             
@@ -106,8 +106,8 @@ extension MainViewController: UITableViewDataSource {
         }
         // Odd indices should contain button cells.
         else {
-            let cellIdentifier = String(describing: ButtonImageTableViewCell.self)
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ButtonImageTableViewCell
+            let identifier = String(describing: ButtonImageTableViewCell.self)
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ButtonImageTableViewCell
             
             // Notice that the completion closure can be ommitted, since it defaults to nil. The `controlState` and `isBackground` parameters can also be ommitted, as they default to `.normal` and `false`, respectively.
             // Please read the documentation for more information.

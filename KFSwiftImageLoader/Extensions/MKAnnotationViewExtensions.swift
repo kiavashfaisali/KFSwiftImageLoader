@@ -9,7 +9,9 @@ import MapKit
 // MARK: - MKAnnotationView Associated Value Keys
 fileprivate var completionAssociationKey: UInt8 = 0
 
-// MARK: - MKAnnotationView Extension
+// MARK: - MKAnnotationView Extensions
+extension MKAnnotationView: AssociatedValue {}
+
 public extension MKAnnotationView {
     // MARK: - Associated Values
     final internal var completion: ((_ finished: Bool, _ error: Error?) -> Void)? {

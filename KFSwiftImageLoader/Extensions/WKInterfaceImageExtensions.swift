@@ -8,7 +8,9 @@ import WatchKit
 // MARK: - WKInterfaceImage Associated Value Keys
 fileprivate var completionAssociationKey: UInt8 = 0
 
-// MARK: - WKInterfaceImage Extension
+// MARK: - WKInterfaceImage Extensions
+extension WKInterfaceImage: AssociatedValue {}
+
 public extension WKInterfaceImage {
     // MARK: - Associated Values
     final internal var completion: ((_ finished: Bool, _ error: Error?) -> Void)? {

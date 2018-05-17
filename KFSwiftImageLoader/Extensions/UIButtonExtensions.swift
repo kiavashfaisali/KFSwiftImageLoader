@@ -11,7 +11,9 @@ fileprivate var completionAssociationKey: UInt8 = 0
 fileprivate var controlStateAssociationKey: UInt8 = 0
 fileprivate var isBackgroundAssociationKey: UInt8 = 0
 
-// MARK: - UIButton Extension
+// MARK: - UIButton Extensions
+extension UIButton: AssociatedValue {}
+
 public extension UIButton {
     // MARK: - Associated Values
     final internal var indexPathIdentifier: Int {

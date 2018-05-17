@@ -69,9 +69,9 @@ final public class KFImageCacheManager {
         Sets the cache policy which the default requests and underlying session configuration use to determine caching behaviour.
         The default value is `returnCacheDataElseLoad`.
         
-        - returns: An URLRequestCachePolicy value representing the cache policy.
+        - returns: URLRequest.CachePolicy value representing the cache policy.
     */
-    public var requestCachePolicy = NSURLRequest.CachePolicy.returnCacheDataElseLoad {
+    public var requestCachePolicy = URLRequest.CachePolicy.returnCacheDataElseLoad {
         willSet {
             let configuration = self.session.configuration
             configuration.requestCachePolicy = newValue
@@ -177,7 +177,9 @@ final public class KFImageCacheManager {
     
     // MARK: - Observer Methods
     internal func loadObserver(_ imageView: UIImageView, image: UIImage, initialIndexIdentifier: Int) {
-        if initialIndexIdentifier == imageView.indexPathIdentifier {
+        let success = initialIndexIdentifier == imageView.indexPathIdentifier
+        
+        if success {
             DispatchQueue.main.async {
                 UIView.transition(with: imageView,
                               duration: self.fadeAnimationDuration,
@@ -185,17 +187,16 @@ final public class KFImageCacheManager {
                             animations: {
                     imageView.image = image
                 })
-                
-                imageView.completion?(true, nil)
             }
         }
-        else {
-            imageView.completion?(false, nil)
-        }
+        
+        imageView.completion?(success, nil)
     }
     
     internal func loadObserver(_ button: UIButton, image: UIImage, initialIndexIdentifier: Int) {
-        if initialIndexIdentifier == button.indexPathIdentifier {
+        let success = initialIndexIdentifier == button.indexPathIdentifier
+        
+        if success {
             DispatchQueue.main.async {
                 UIView.transition(with: button,
                               duration: self.fadeAnimationDuration,
@@ -208,13 +209,10 @@ final public class KFImageCacheManager {
                         button.setImage(image, for: button.controlState)
                     }
                 })
-                
-                button.completion?(true, nil)
             }
         }
-        else {
-            button.completion?(false, nil)
-        }
+        
+        button.completion?(success, nil)
     }
     
     internal func loadObserver(_ annotationView: MKAnnotationView, image: UIImage) {

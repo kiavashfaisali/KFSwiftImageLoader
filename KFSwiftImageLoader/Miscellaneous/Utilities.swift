@@ -36,9 +36,3 @@ internal extension AssociatedValue {
         objc_setAssociatedObject(self, key, value, policy)
     }
 }
-
-// MARK: - AssociatedValue Protocol Default Conformance
-extension UIImageView: AssociatedValue {}
-extension UIButton: AssociatedValue {}
-extension MKAnnotationView: AssociatedValue {}
-extension WKInterfaceImage: AssociatedValue {}

@@ -9,7 +9,9 @@ import UIKit
 fileprivate var indexPathIdentifierAssociationKey: UInt8 = 0
 fileprivate var completionAssociationKey: UInt8 = 0
 
-// MARK: - UIImageView Extension
+// MARK: - UIImageView Extensions
+extension UIImageView: AssociatedValue {}
+
 public extension UIImageView {
     // MARK: - Associated Values
     final internal var indexPathIdentifier: Int {
