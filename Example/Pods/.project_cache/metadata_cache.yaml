@@ -1,0 +1,8 @@
+KFSwiftImageLoader:
+  LABEL: KFSwiftImageLoader
+  PROJECT_PATH: KFSwiftImageLoader.xcodeproj
+  UUID: BC11212986B641825354C50483D5A970
+Pods-KFSwiftImageLoader_Example:
+  LABEL: Pods-KFSwiftImageLoader_Example
+  PROJECT_PATH: Pods.xcodeproj
+  UUID: AC6891B3D0B97C6CEAB25FF2BC1F0978

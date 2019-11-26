@@ -1,0 +1,19 @@
+BUILD_CONFIGURATIONS:
+  Debug: :debug
+  Release: :release
+CACHE_KEYS:
+  KFSwiftImageLoader:
+    BUILD_SETTINGS_CHECKSUM:
+      KFSwiftImageLoader: 510c1e993fd04705c9cb7fb34a060eb0
+    CHECKSUM: 0e5b263d35e01a8aa5f837df188dcbe1f57110fa
+    FILES:
+      - "../../LICENSE"
+      - "../../README.md"
+    PROJECT_NAME: KFSwiftImageLoader
+    SPECS:
+      - KFSwiftImageLoader (4.0.0)
+  Pods-KFSwiftImageLoader_Example:
+    BUILD_SETTINGS_CHECKSUM:
+      Debug: a799bf617e73096cdc9f25971e5b3653
+      Release: a799bf617e73096cdc9f25971e5b3653
+OBJECT_VERSION: 50

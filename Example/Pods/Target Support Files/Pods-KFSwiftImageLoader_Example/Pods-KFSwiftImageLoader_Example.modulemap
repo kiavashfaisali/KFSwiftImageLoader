@@ -1,6 +1,0 @@
-module Pods_KFSwiftImageLoader_Example {
-  umbrella header "Pods-KFSwiftImageLoader_Example-umbrella.h"
-
-  export *
-  module * { export * }
-}
