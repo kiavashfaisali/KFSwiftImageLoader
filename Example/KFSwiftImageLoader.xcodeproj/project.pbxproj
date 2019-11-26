@@ -14,6 +14,7 @@
 		648F31921D98C4360087DB97 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648F318B1D98C4360087DB97 /* ImageTableViewCell.swift */; };
 		64D7758D1D98E5CC00573D76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 648F31851D98C4360087DB97 /* Main.storyboard */; };
 		7A2846B67A5D7D3286E6A5F5 /* libPods-KFSwiftImageLoader_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C383942F552779A93D2A7091 /* libPods-KFSwiftImageLoader_Example.a */; };
+		A5D905B4238DDB2500284B19 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5D905B3238DDB2500284B19 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		648F318A1D98C4360087DB97 /* ButtonImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonImageTableViewCell.swift; sourceTree = "<group>"; };
 		648F318B1D98C4360087DB97 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		73F5B665CE710E38934A825A /* Pods-KFSwiftImageLoader_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KFSwiftImageLoader_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-KFSwiftImageLoader_Example/Pods-KFSwiftImageLoader_Example.release.xcconfig"; sourceTree = "<group>"; };
+		A5D905B3238DDB2500284B19 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C383942F552779A93D2A7091 /* libPods-KFSwiftImageLoader_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KFSwiftImageLoader_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B7ACB48C553A0802E16B62 /* KFSwiftImageLoader.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = KFSwiftImageLoader.podspec; path = ../KFSwiftImageLoader.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E2253725E90CE1E945779A98 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		648F31811D98C4360087DB97 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A5D905B3238DDB2500284B19 /* Launch Screen.storyboard */,
 				648F31821D98C4360087DB97 /* Images.xcassets */,
 				648F31831D98C4360087DB97 /* Info.plist */,
 			);
@@ -206,6 +209,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5D905B4238DDB2500284B19 /* Launch Screen.storyboard in Resources */,
 				64D7758D1D98E5CC00573D76 /* Main.storyboard in Resources */,
 				648F318D1D98C4360087DB97 /* Images.xcassets in Resources */,
 			);
@@ -373,7 +377,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/KFSwiftImageLoader/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -384,7 +387,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -397,7 +400,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = "";
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = "$(SRCROOT)/KFSwiftImageLoader/Supporting Files/Info.plist";
@@ -409,6 +411,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
