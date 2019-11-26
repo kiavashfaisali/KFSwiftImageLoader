@@ -12,17 +12,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Uncomment to disable the fade animation.
-//        KFImageCacheManager.sharedInstance.fadeAnimationDuration = 0.0
+//        KFImageCacheManager.shared.fadeAnimationDuration = 0.0
         
         // Uncomment to set a custom timeout interval for the image requests.
-//        KFImageCacheManager.sharedInstance.timeoutIntervalForRequest = 15.0
+//        KFImageCacheManager.shared.timeoutIntervalForRequest = 15.0
         
         // Uncomment to set a custom request cache policy for the image requests as well as the session's configuration.
-//        KFImageCacheManager.sharedInstance.requestCachePolicy = .useProtocolCachePolicy
+//        KFImageCacheManager.shared.requestCachePolicy = .useProtocolCachePolicy
         
         // Uncomment to disable file system caching.
-//        KFImageCacheManager.sharedInstance.diskCacheMaxAge = 0
-//        KFImageCacheManager.sharedInstance.requestCachePolicy = .reloadIgnoringLocalCacheData
+//        KFImageCacheManager.shared.diskCacheMaxAge = 0
+//        KFImageCacheManager.shared.requestCachePolicy = .reloadIgnoringLocalCacheData
         
         return true
     }

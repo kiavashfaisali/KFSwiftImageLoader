@@ -14,8 +14,10 @@ DerivedData/
 xcuserdata/
 
 ## Other
+.DS_Store
 *.moved-aside
-*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
 
 ## Obj-C/Swift specific
 *.hmap
@@ -27,8 +29,8 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
+# Swift Package Managerdependencies.
+Packages/
+Package.pins
+Package.resolved
 .build/

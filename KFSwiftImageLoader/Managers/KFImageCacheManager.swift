@@ -8,19 +8,17 @@ import MapKit
 import WatchKit
 
 // MARK: - ImageCacheKeys Struct
-fileprivate struct ImageCacheKeys {
-    static let image = "image"
-    static let isDownloading = "isDownloading"
-    static let observerMapping = "observerMapping"
+fileprivate enum ImageCacheKey {
+    case image, isDownloading, observerMapping
 }
 
 // MARK: - KFImageCacheManager Class
 final public class KFImageCacheManager {
     // MARK: - Properties
-    public static let sharedInstance = KFImageCacheManager()
+    public static let shared = KFImageCacheManager()
     
-    // {"url": {"img": UIImage, "isDownloading": Bool, "observerMapping": {Observer: Int}}}
-    fileprivate var imageCache = [String: [String: AnyObject]]()
+    // {"url": {.image: UIImage, .isDownloading: Bool, .observerMapping: {Observer: Int}}}
+    fileprivate var imageCache = [String: [ImageCacheKey: Any]]()
     
     internal lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
@@ -35,7 +33,7 @@ final public class KFImageCacheManager {
         A value of 0 implies no fade animation.
         The default value is 0.1 seconds.
         
-        - returns: An NSTimeInterval value representing time in seconds.
+        - returns: TimeInterval value representing time in seconds.
     */
     public var fadeAnimationDuration = 0.1 as TimeInterval
     
@@ -43,7 +41,7 @@ final public class KFImageCacheManager {
         Sets the maximum time (in seconds) that the disk cache will use to maintain a cached response.
         The default value is 604800 seconds (1 week).
         
-        - returns: An unsigned integer value representing time in seconds.
+        - returns: UInt value representing time in seconds.
     */
     public var diskCacheMaxAge = 60 * 60 * 24 * 7 as UInt {
         willSet {
@@ -57,7 +55,7 @@ final public class KFImageCacheManager {
         Sets the maximum time (in seconds) that the request should take before timing out.
         The default value is 60 seconds.
         
-        - returns: An NSTimeInterval value representing time in seconds.
+        - returns: TimeInterval value representing time in seconds.
     */
     public var timeoutIntervalForRequest = 60.0 as TimeInterval {
         willSet {
@@ -71,9 +69,9 @@ final public class KFImageCacheManager {
         Sets the cache policy which the default requests and underlying session configuration use to determine caching behaviour.
         The default value is `returnCacheDataElseLoad`.
         
-        - returns: An NSURLRequestCachePolicy value representing the cache policy.
+        - returns: URLRequest.CachePolicy value representing the cache policy.
     */
-    public var requestCachePolicy = NSURLRequest.CachePolicy.returnCacheDataElseLoad {
+    public var requestCachePolicy = URLRequest.CachePolicy.returnCacheDataElseLoad {
         willSet {
             let configuration = self.session.configuration
             configuration.requestCachePolicy = newValue
@@ -100,15 +98,15 @@ final public class KFImageCacheManager {
     // MARK: - Image Cache Subscripting
     internal subscript (key: String) -> UIImage? {
         get {
-            return imageCacheEntryForKey(key)[ImageCacheKeys.image] as? UIImage
+            return imageCacheEntryForKey(key)[.image] as? UIImage
         }
         set {
             if let image = newValue {
                 var imageCacheEntry = imageCacheEntryForKey(key)
-                imageCacheEntry[ImageCacheKeys.image] = image
-                setImageCacheEntry(imageCacheEntry, forKey: key)
+                imageCacheEntry[.image] = image
+                setImageCacheEntry(imageCacheEntry, key: key)
                 
-                if let observerMapping = imageCacheEntry[ImageCacheKeys.observerMapping] as? [NSObject: Int] {
+                if let observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
                     for (observer, initialIndexIdentifier) in observerMapping {
                         switch observer {
                         case let imageView as UIImageView:
@@ -118,7 +116,7 @@ final public class KFImageCacheManager {
                         case let annotationView as MKAnnotationView:
                             loadObserver(annotationView, image: image)
                         case let interfaceImage as WKInterfaceImage:
-                            loadObserver(interfaceImage, image: image, key: key)
+                            loadObserver(interfaceImage, image: image)
                         default:
                             break
                         }
@@ -131,55 +129,57 @@ final public class KFImageCacheManager {
     }
     
     // MARK: - Image Cache Methods
-    internal func imageCacheEntryForKey(_ key: String) -> [String: AnyObject] {
+    fileprivate func imageCacheEntryForKey(_ key: String) -> [ImageCacheKey: Any] {
         if let imageCacheEntry = self.imageCache[key] {
             return imageCacheEntry
         }
         else {
-            let imageCacheEntry: [String: AnyObject] = [ImageCacheKeys.isDownloading: false as AnyObject, ImageCacheKeys.observerMapping: [NSObject: Int]() as AnyObject]
+            let imageCacheEntry: [ImageCacheKey: Any] = [.isDownloading: false, .observerMapping: [NSObject: Int]()]
             self.imageCache[key] = imageCacheEntry
             
             return imageCacheEntry
         }
     }
     
-    internal func setImageCacheEntry(_ imageCacheEntry: [String: AnyObject], forKey key: String) {
+    fileprivate func setImageCacheEntry(_ imageCacheEntry: [ImageCacheKey: Any], key: String) {
         self.imageCache[key] = imageCacheEntry
     }
     
     internal func isDownloadingFromURL(_ urlString: String) -> Bool {
-        let isDownloading = imageCacheEntryForKey(urlString)[ImageCacheKeys.isDownloading] as? Bool
+        let isDownloading = imageCacheEntryForKey(urlString)[.isDownloading] as? Bool
         
         return isDownloading ?? false
     }
     
-    internal func setIsDownloadingFromURL(_ isDownloading: Bool, forURLString urlString: String) {
+    internal func setIsDownloadingFromURL(_ isDownloading: Bool, urlString: String) {
         var imageCacheEntry = imageCacheEntryForKey(urlString)
-        imageCacheEntry[ImageCacheKeys.isDownloading] = isDownloading as AnyObject?
-        setImageCacheEntry(imageCacheEntry, forKey: urlString)
+        imageCacheEntry[.isDownloading] = isDownloading
+        setImageCacheEntry(imageCacheEntry, key: urlString)
     }
     
-    internal func addImageCacheObserver(_ observer: NSObject, withInitialIndexIdentifier initialIndexIdentifier: Int, forKey key: String) {
+    internal func addImageCacheObserver(_ observer: NSObject, initialIndexIdentifier: Int, key: String) {
         var imageCacheEntry = imageCacheEntryForKey(key)
-        if var observerMapping = imageCacheEntry[ImageCacheKeys.observerMapping] as? [NSObject: Int] {
+        if var observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
             observerMapping[observer] = initialIndexIdentifier
-            imageCacheEntry[ImageCacheKeys.observerMapping] = observerMapping as AnyObject?
-            setImageCacheEntry(imageCacheEntry, forKey: key)
+            imageCacheEntry[.observerMapping] = observerMapping
+            setImageCacheEntry(imageCacheEntry, key: key)
         }
     }
     
     internal func removeImageCacheObserversForKey(_ key: String) {
         var imageCacheEntry = imageCacheEntryForKey(key)
-        if var observerMapping = imageCacheEntry[ImageCacheKeys.observerMapping] as? [NSObject: Int] {
+        if var observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
             observerMapping.removeAll(keepingCapacity: false)
-            imageCacheEntry[ImageCacheKeys.observerMapping] = observerMapping as AnyObject?
-            setImageCacheEntry(imageCacheEntry, forKey: key)
+            imageCacheEntry[.observerMapping] = observerMapping
+            setImageCacheEntry(imageCacheEntry, key: key)
         }
     }
     
     // MARK: - Observer Methods
     internal func loadObserver(_ imageView: UIImageView, image: UIImage, initialIndexIdentifier: Int) {
-        if initialIndexIdentifier == imageView.indexPathIdentifier {
+        let success = initialIndexIdentifier == imageView.indexPathIdentifier
+        
+        if success {
             DispatchQueue.main.async {
                 UIView.transition(with: imageView,
                               duration: self.fadeAnimationDuration,
@@ -187,36 +187,32 @@ final public class KFImageCacheManager {
                             animations: {
                     imageView.image = image
                 })
-                
-                imageView.completionHolder.completion?(true, nil)
             }
         }
-        else {
-            imageView.completionHolder.completion?(false, nil)
-        }
+        
+        imageView.completion?(success, nil)
     }
     
     internal func loadObserver(_ button: UIButton, image: UIImage, initialIndexIdentifier: Int) {
-        if initialIndexIdentifier == button.indexPathIdentifier {
+        let success = initialIndexIdentifier == button.indexPathIdentifier
+        
+        if success {
             DispatchQueue.main.async {
                 UIView.transition(with: button,
                               duration: self.fadeAnimationDuration,
                                options: .transitionCrossDissolve,
                             animations: {
-                    if button.isBackgroundImage == true {
-                        button.setBackgroundImage(image, for: button.controlStateHolder.controlState)
+                    if button.isBackground {
+                        button.setBackgroundImage(image, for: button.controlState)
                     }
                     else {
-                        button.setImage(image, for: button.controlStateHolder.controlState)
+                        button.setImage(image, for: button.controlState)
                     }
                 })
-                
-                button.completionHolder.completion?(true, nil)
             }
         }
-        else {
-            button.completionHolder.completion?(false, nil)
-        }
+        
+        button.completion?(success, nil)
     }
     
     internal func loadObserver(_ annotationView: MKAnnotationView, image: UIImage) {
@@ -228,21 +224,14 @@ final public class KFImageCacheManager {
                 annotationView.image = image
             })
             
-            annotationView.completionHolder.completion?(true, nil)
+            annotationView.completion?(true, nil)
         }
     }
     
-    internal func loadObserver(_ interfaceImage: WKInterfaceImage, image: UIImage, key: String) {
+    internal func loadObserver(_ interfaceImage: WKInterfaceImage, image: UIImage) {
         DispatchQueue.main.async {
-            // If there's already a cached image on the Apple Watch, simply set the image directly.
-            if WKInterfaceDevice.current().cachedImages[key] != nil {
-                interfaceImage.setImageNamed(key)
-            }
-            else {
-                interfaceImage.setImageData(UIImagePNGRepresentation(image))
-            }
-            
-            interfaceImage.completionHolder.completion?(true, nil)
+            interfaceImage.setImage(image)
+            interfaceImage.completion?(true, nil)
         }
     }
 }

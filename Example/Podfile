@@ -1,4 +1,4 @@
-use_frameworks!
+platform :ios, '11.0'
 
 target 'KFSwiftImageLoader_Example' do
   pod 'KFSwiftImageLoader', :path => '../'

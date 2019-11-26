@@ -4,13 +4,14 @@
 //
 
 import UIKit
+import os
 import KFSwiftImageLoader
 
 final class MainViewController: UIViewController {
     // MARK: - Properties
     @IBOutlet weak var imagesTableView: UITableView!
     
-    var imageURLStringsArray = [String]()
+    var imageURLStrings = [String]()
     
     // MARK: - Memory Warning
     override func didReceiveMemoryWarning() {
@@ -26,15 +27,14 @@ final class MainViewController: UIViewController {
     
     // MARK: - Miscellaneous Methods
     func loadDuckDuckGoResults() {
-        let session = URLSession.shared
         let url = URL(string: "https://api.duckduckgo.com/?q=simpsons+characters&format=json")!
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60.0)
         
-        let dataTask = session.dataTask(with: request) {
-            (taskData, taskResponse, taskError) in
+        let dataTask = URLSession.shared.dataTask(with: request) {
+            (data, _, error) in
             
-            guard let data = taskData, taskError == nil else {
-                print("Error retrieving response from the DuckDuckGo API.")
+            guard let data = data, error == nil else {
+                os_log("Error retrieving a response from the DuckDuckGo API: %{public}@", type: .error, error!.localizedDescription)
                 return
             }
             
@@ -46,12 +46,12 @@ final class MainViewController: UIViewController {
                         for relatedTopic in relatedTopics {
                             if let imageURLString = relatedTopic["Icon"]?["URL"] as? String, imageURLString != "" {
                                 for _ in 1...3 {
-                                    self.imageURLStringsArray.append(imageURLString)
+                                    self.imageURLStrings.append(imageURLString)
                                 }
                             }
                         }
                         
-                        if self.imageURLStringsArray.count > 0 {
+                        if self.imageURLStrings.count > 0 {
                             // Comment to not randomize the image ordering.
                             self.randomizeImages()
                             
@@ -60,7 +60,7 @@ final class MainViewController: UIViewController {
                     }
                 }
                 catch {
-                    print("Error when parsing the response JSON: \(error)")
+                    os_log("Error when parsing the response JSON: %{public}@", type: .error, error.localizedDescription)
                 }
             }
         }
@@ -69,12 +69,10 @@ final class MainViewController: UIViewController {
     }
     
     func randomizeImages() {
-        for i in 0..<self.imageURLStringsArray.count {
-            let randomIndex = Int(arc4random()) % self.imageURLStringsArray.count
+        for i in 0..<self.imageURLStrings.count {
+            let randomIndex = Int(arc4random()) % self.imageURLStrings.count
             
-            if i != randomIndex {
-                swap(&self.imageURLStringsArray[i], &self.imageURLStringsArray[randomIndex])
-            }
+            self.imageURLStrings.swapAt(i, randomIndex)
         }
     }
 }
@@ -82,28 +80,25 @@ final class MainViewController: UIViewController {
 // MARK: - UITableViewDataSource Protocol
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.imageURLStringsArray.count
+        return self.imageURLStrings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Even indices should contain imageview cells.
-        if (indexPath as NSIndexPath).row % 2 == 0 {
-            let cellIdentifier = String(describing: ImageTableViewCell.self)
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ImageTableViewCell
+        if (indexPath.row % 2) == 0 {
+            let identifier = String(describing: ImageTableViewCell.self)
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ImageTableViewCell
             
-            cell.featuredImageView.loadImage(urlString: self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali")) {
-                (success, potentialError) in
+            cell.featuredImageView.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholder: UIImage(named: "KiavashFaisali")) {
+                (success, error) in
                 
-                guard potentialError == nil else {
-                    print("error occurred with description: \(potentialError!.localizedDescription)")
+                guard error == nil else {
+                    os_log("Error occurred when loading the image: %{public}@", type: .error, error!.localizedDescription)
                     return
                 }
                 
-                if success {
-                    // Do something in the completion block.
-                }
-                else {
-                    print("Image loader failed to finish because a URL object could not be formed from the provided URL String.")
+                if !success {
+                    os_log("Image could not be loaded from the provided URL, or the index paths didn't match due to fast scrolling, which would've placed the image in an incorrect cell.", type: .info)
                 }
             }
             
@@ -111,12 +106,12 @@ extension MainViewController: UITableViewDataSource {
         }
         // Odd indices should contain button cells.
         else {
-            let cellIdentifier = String(describing: ButtonImageTableViewCell.self)
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ButtonImageTableViewCell
+            let identifier = String(describing: ButtonImageTableViewCell.self)
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ButtonImageTableViewCell
             
-            // Notice that the completion closure can be ommitted, since it defaults to nil. The `controlState` and `isBackgroundImage` parameters can also be ommitted, as they default to `.normal` and `false`, respectively.
+            // Notice that the completion closure can be ommitted, since it defaults to nil. The `controlState` and `isBackground` parameters can also be ommitted, as they default to `.normal` and `false`, respectively.
             // Please read the documentation for more information.
-            cell.featuredButton.loadImage(urlString: self.imageURLStringsArray[indexPath.row], placeholderImage: UIImage(named: "KiavashFaisali"), controlState: .normal, isBackgroundImage: false)
+            cell.featuredButton.loadImage(urlString: self.imageURLStrings[indexPath.row], placeholder: UIImage(named: "KiavashFaisali"), controlState: .normal, isBackground: false)
             
             return cell
         }
