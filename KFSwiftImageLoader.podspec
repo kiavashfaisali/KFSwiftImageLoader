@@ -10,9 +10,9 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/kiavashfaisali/KFSwiftImageLoader.git',
   						 :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
-  s.watchos.deployment_target = '4.0'
-  s.swift_version = '4.1'
+  s.ios.deployment_target = '12.0'
+  s.watchos.deployment_target = '6.0'
+  s.swift_version = '5.1'
 
   s.source_files = 'KFSwiftImageLoader/Classes/**/*'
 end
