@@ -5,7 +5,10 @@
 import Foundation
 import UIKit
 import MapKit
-import WatchKit
+
+#if os(watchOS)
+    import WatchKit
+#endif
 
 // MARK: - AssociatedValue Protocol
 internal protocol AssociatedValue {

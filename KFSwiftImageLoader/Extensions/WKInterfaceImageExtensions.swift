@@ -3,7 +3,9 @@
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
 //
 
+#if os(watchOS)
 import WatchKit
+
 
 // MARK: - WKInterfaceImage Associated Value Keys
 fileprivate var completionAssociationKey: UInt8 = 0
@@ -166,3 +168,5 @@ public extension WKInterfaceImage {
         }
     }
 }
+
+#endif

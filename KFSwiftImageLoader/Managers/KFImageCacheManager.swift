@@ -5,7 +5,10 @@
 
 import UIKit
 import MapKit
-import WatchKit
+
+#if os(watchOS)
+    import WatchKit
+#endif
 
 // MARK: - ImageCacheKeys Struct
 fileprivate enum ImageCacheKey {
@@ -84,7 +87,7 @@ final public class KFImageCacheManager {
         let diskURLCache = URLCache(memoryCapacity: 0, diskCapacity: 50 * 1024 * 1024, diskPath: nil)
         URLCache.shared = diskURLCache
         
-        NotificationCenter.default.addObserver(forName: .UIApplicationDidReceiveMemoryWarning, object: nil, queue: .main) {
+        NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: nil, queue: .main) {
             _ in
             
             self.imageCache.removeAll(keepingCapacity: false)
@@ -115,8 +118,10 @@ final public class KFImageCacheManager {
                             loadObserver(button, image: image, initialIndexIdentifier: initialIndexIdentifier)
                         case let annotationView as MKAnnotationView:
                             loadObserver(annotationView, image: image)
+                        #if os(watchOS)
                         case let interfaceImage as WKInterfaceImage:
                             loadObserver(interfaceImage, image: image)
+                        #endif
                         default:
                             break
                         }
@@ -227,11 +232,13 @@ final public class KFImageCacheManager {
             annotationView.completion?(true, nil)
         }
     }
-    
+
+    #if os(watchOS)
     internal func loadObserver(_ interfaceImage: WKInterfaceImage, image: UIImage) {
         DispatchQueue.main.async {
             interfaceImage.setImage(image)
             interfaceImage.completion?(true, nil)
         }
     }
+    #endif
 }
