@@ -3,12 +3,6 @@
 //
 
 import Foundation
-import UIKit
-import MapKit
-
-#if os(watchOS)
-    import WatchKit
-#endif
 
 // MARK: - AssociatedValue Protocol
 internal protocol AssociatedValue {

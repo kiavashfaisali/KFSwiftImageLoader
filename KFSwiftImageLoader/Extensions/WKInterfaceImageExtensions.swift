@@ -6,7 +6,6 @@
 #if os(watchOS)
 import WatchKit
 
-
 // MARK: - WKInterfaceImage Associated Value Keys
 fileprivate var completionAssociationKey: UInt8 = 0
 
@@ -32,7 +31,7 @@ public extension WKInterfaceImage {
         - parameter placeholderName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(urlString: String,
+    final func loadImage(urlString: String,
                           placeholderName: String? = nil,
                                completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
@@ -54,7 +53,7 @@ public extension WKInterfaceImage {
         - parameter placeholderName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(url: URL,
+    final func loadImage(url: URL,
                     placeholderName: String? = nil,
                          completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
@@ -73,7 +72,7 @@ public extension WKInterfaceImage {
         - parameter placeholderName: `String?` representing the name of a placeholder image that is loaded into the `WKInterfaceImage` while the asynchronous download takes place. The default value is `nil`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `Error?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(request: URLRequest,
+    final func loadImage(request: URLRequest,
                         placeholderName: String? = nil,
                              completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil)
     {
@@ -89,7 +88,7 @@ public extension WKInterfaceImage {
         let sharedURLCache = URLCache.shared
         
         // If there's already a cached image, load it into the interface.
-        if let image = cacheManager[urlAbsoluteString], let imageData = UIImagePNGRepresentation(image) {
+        if let image = cacheManager[urlAbsoluteString], let imageData = image.pngData() {
             self.setImageData(imageData)
             
             self.completion?(true, nil)
@@ -168,5 +167,4 @@ public extension WKInterfaceImage {
         }
     }
 }
-
 #endif
