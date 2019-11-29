@@ -3,6 +3,7 @@
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 // MARK: - UIImageView Associated Value Keys
@@ -210,3 +211,4 @@ public extension UIImageView {
         }
     }
 }
+#endif

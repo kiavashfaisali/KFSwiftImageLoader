@@ -3,6 +3,7 @@
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 // MARK: - UIButton Associated Value Keys
@@ -259,3 +260,4 @@ public extension UIButton {
         }
     }
 }
+#endif

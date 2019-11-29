@@ -3,6 +3,7 @@
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 import MapKit
 
@@ -170,3 +171,4 @@ public extension MKAnnotationView {
         }
     }
 }
+#endif

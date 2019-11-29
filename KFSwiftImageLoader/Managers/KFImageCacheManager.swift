@@ -3,11 +3,13 @@
 //  Copyright (c) 2015 Kiavash Faisali. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 import MapKit
+#endif
 
 #if os(watchOS)
-    import WatchKit
+import WatchKit
 #endif
 
 // MARK: - ImageCacheKeys Struct
@@ -86,12 +88,14 @@ final public class KFImageCacheManager {
         // Initialize the disk cache capacity to 50 MB.
         let diskURLCache = URLCache(memoryCapacity: 0, diskCapacity: 50 * 1024 * 1024, diskPath: nil)
         URLCache.shared = diskURLCache
-        
+
+        #if os(iOS)
         NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: nil, queue: .main) {
             _ in
             
             self.imageCache.removeAll(keepingCapacity: false)
         }
+        #endif
     }
     
     deinit {
@@ -112,12 +116,14 @@ final public class KFImageCacheManager {
                 if let observerMapping = imageCacheEntry[.observerMapping] as? [NSObject: Int] {
                     for (observer, initialIndexIdentifier) in observerMapping {
                         switch observer {
+                        #if os(iOS)
                         case let imageView as UIImageView:
                             loadObserver(imageView, image: image, initialIndexIdentifier: initialIndexIdentifier)
                         case let button as UIButton:
                             loadObserver(button, image: image, initialIndexIdentifier: initialIndexIdentifier)
                         case let annotationView as MKAnnotationView:
                             loadObserver(annotationView, image: image)
+                        #endif
                         #if os(watchOS)
                         case let interfaceImage as WKInterfaceImage:
                             loadObserver(interfaceImage, image: image)
@@ -181,6 +187,7 @@ final public class KFImageCacheManager {
     }
     
     // MARK: - Observer Methods
+    #if os(iOS)
     internal func loadObserver(_ imageView: UIImageView, image: UIImage, initialIndexIdentifier: Int) {
         let success = initialIndexIdentifier == imageView.indexPathIdentifier
         
@@ -232,6 +239,7 @@ final public class KFImageCacheManager {
             annotationView.completion?(true, nil)
         }
     }
+    #endif
 
     #if os(watchOS)
     internal func loadObserver(_ interfaceImage: WKInterfaceImage, image: UIImage) {
