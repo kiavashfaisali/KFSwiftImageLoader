@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  KFSwiftImageLoader: 0e5b263d35e01a8aa5f837df188dcbe1f57110fa
+  KFSwiftImageLoader: f6edb1af1c9ed23906509d4db7e00edc1086228b
 
-PODFILE CHECKSUM: d76ef9326cc1dd1feeabddac8ee2ff8c9d816ec2
+PODFILE CHECKSUM: dba003fcdf5cbb5c92d8db34ea880e05770178b0
 
 COCOAPODS: 1.8.4

@@ -1,9 +1,3 @@
-source 'https://cdn.cocoapods.org/'
-
-install! 'cocoapods',
-         :generate_multiple_pod_projects => true,
-         :incremental_installation => true
-
 platform :ios, '12.0'
 
 target 'KFSwiftImageLoader_Example' do

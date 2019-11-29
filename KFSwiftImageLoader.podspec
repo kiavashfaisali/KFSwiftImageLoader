@@ -14,5 +14,5 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '6.0'
   s.swift_version = '5.1'
 
-  s.source_files = 'KFSwiftImageLoader/Classes/**/*'
+  s.source_files = 'KFSwiftImageLoader/**/*'
 end

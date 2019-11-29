@@ -19,6 +19,6 @@
     "watchos": "6.0"
   },
   "swift_versions": "5.1",
-  "source_files": "KFSwiftImageLoader/Classes/**/*",
+  "source_files": "KFSwiftImageLoader/**/*",
   "swift_version": "5.1"
 }
